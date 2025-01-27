@@ -92,6 +92,7 @@ Resource Sharing:
 │   └── Debug Race Conditions, Deadlocks
 └── No Shared State: Encapsulate Resources
 ```
+
 # Tactical Decisions
 
 ## 1 - Task Type
