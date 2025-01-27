@@ -13,37 +13,7 @@ My high-level decision tree that incorporates the key points into stages for any
 | Thread Safety      | Shared resource?             | Use locks for thread safety.                   | `threading.Lock`.           |
 | Message Queues     | Asynchronous communication? | Decouple tasks with message queues.            | `multiprocessing.Queue`.    |
 
-## Task Type
-### Is the task I/O-bound or CPU-bound?
-- **I/O-bound**: Tasks that involve waiting for **external operations** like file reads/writes, database queries, API calls, etc.
-    - Lean towards **asynchronous programming** with **coroutines**, **tasks**, and an **event loop** using libraries like <mark>asyncio</mark>.
-    - Consider **threading** if the task benefits from **concurrency** but **doesn’t support** <mark>async</mark> natively.
-
-- **CPU-bound**: Tasks that require heavy computation (e.g., image processing, machine learning models, cryptographic algorithms).
-    - Lean towards **multi-processing** to **parallelize CPU-intensive work**.
- 
-- **Improvement**: Use profiling tools like **cProfile** to measure where the app spends time.
-
-## Scaling CPU Operations (for *CPU-bound operations*)
-### Can CPU-intensive tasks benefit from parallelism across multiple cores?
-- **Parallelism** divides **tasks** across **multiple cores** to perform work **simultaneously**.
-- Python’s Global Interpreter Lock **(GIL)** **limits threads for CPU work, so **multi-processing** is often a better choice.
-- Use **concurrent.futures.ProcessPoolExecutor** for parallelism.
-
-**Parallelism with Multiprocessing**
-```python 
-from concurrent.futures import ProcessPoolExecutor
-import math
-
-def cpu_task(n):
-    return math.sqrt(n)
-
-if __name__ == "__main__":
-    with ProcessPoolExecutor() as executor:
-        results = list(executor.map(cpu_task, range(1_000_000)))
-```
-
-https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
+# My tactical Tree Decisions
 
 ```mermaid
 graph TD
@@ -99,3 +69,60 @@ graph TD
     ObjectLifecycle --> GC[Garbage Collection<br/>Strategy]
     end
 ```
+# Summary of Tree Decisions
+
+```mermaid
+Problem Type:
+├── I/O Bound
+│   ├── Single User: Synchronous or asyncio (non-blocking)
+│   └── Multi-user:
+│       ├── Asyncio (concurrency)
+│       └── Multi-threading (if sync APIs are unavoidable)
+├── CPU Bound
+│   ├── Multi-core: Multi-processing
+│   └── Single-core: Optimize algorithms
+Concurrency Needs:
+├── Concurrency (e.g., async I/O or threading)
+├── Parallelism (e.g., multi-processing)
+│   └── Distributed Task Queue for horizontal scaling
+Resource Sharing:
+├── Shared Mutable State:
+│   ├── Locks or Atomic Ops
+│   ├── Minimize Locks (prefer immutability)
+│   └── Debug Race Conditions, Deadlocks
+└── No Shared State: Encapsulate Resources
+```
+# Tactical Decisions
+
+## 1 - Task Type
+### Is the task I/O-bound or CPU-bound?
+- **I/O-bound**: Tasks that involve waiting for **external operations** like file reads/writes, database queries, API calls, etc.
+    - Lean towards **asynchronous programming** with **coroutines**, **tasks**, and an **event loop** using libraries like <mark>asyncio</mark>.
+    - Consider **threading** if the task benefits from **concurrency** but **doesn’t support** <mark>async</mark> natively.
+
+- **CPU-bound**: Tasks that require heavy computation (e.g., image processing, machine learning models, cryptographic algorithms).
+    - Lean towards **multi-processing** to **parallelize CPU-intensive work**.
+ 
+- **Improvement**: Use profiling tools like **cProfile** to measure where the app spends time.
+
+## 2 - Scaling CPU Operations (for *CPU-bound operations*)
+### Can CPU-intensive tasks benefit from parallelism across multiple cores?
+- **Parallelism** divides **tasks** across **multiple cores** to perform work **simultaneously**.
+- Python’s Global Interpreter Lock **(GIL)** **limits threads for CPU work, so **multi-processing** is often a better choice.
+- Use **concurrent.futures.ProcessPoolExecutor** for parallelism.
+
+**Parallelism with Multiprocessing**
+```python 
+from concurrent.futures import ProcessPoolExecutor
+import math
+
+def cpu_task(n):
+    return math.sqrt(n)
+
+if __name__ == "__main__":
+    with ProcessPoolExecutor() as executor:
+        results = list(executor.map(cpu_task, range(1_000_000)))
+```
+
+https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
+
