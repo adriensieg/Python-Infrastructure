@@ -71,7 +71,7 @@ graph TD
 ```
 # Summary of Tree Decisions
 
-```mermaid
+```
 Problem Type:
 ├── I/O Bound
 │   ├── Single User: Synchronous or asyncio (non-blocking)
