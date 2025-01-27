@@ -1,14 +1,35 @@
 # Python-Infrastructure
 Python Performance
 
-# 1. Define the Nature of the Problem
-## Is the task I/O-bound or CPU-bound?
+## Task Type
+### Is the task I/O-bound or CPU-bound?
 - **I/O-bound**: Tasks that involve waiting for external operations like file reads/writes, database queries, API calls, etc.
     - Lean towards asynchronous programming with coroutines, tasks, and an event loop using libraries like asyncio.
     - Consider threading if the task benefits from concurrency but doesn’t support async natively.
 
 - **CPU-bound**: Tasks that require heavy computation (e.g., image processing, machine learning models, cryptographic algorithms).
-Lean towards multi-processing to parallelize CPU-intensive work.
+    - Lean towards multi-processing to parallelize CPU-intensive work.
+ 
+- **Improvement**: Use profiling tools like **cProfile** to measure where the app spends time.
+
+## Scaling CPU Operations (for *CPU-bound operations*)
+### Can CPU-intensive tasks benefit from parallelism across multiple cores?
+- **Parallelism** divides **tasks** across **multiple cores** to perform work **simultaneously**.
+- Python’s Global Interpreter Lock **(GIL)** **limits threads for CPU work, so **multi-processing** is often a better choice.
+- Use **concurrent.futures.ProcessPoolExecutor** for parallelism.
+
+**Parallelism with Multiprocessing**
+```python 
+from concurrent.futures import ProcessPoolExecutor
+import math
+
+def cpu_task(n):
+    return math.sqrt(n)
+
+if __name__ == "__main__":
+    with ProcessPoolExecutor() as executor:
+        results = list(executor.map(cpu_task, range(1_000_000)))
+```
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
 
