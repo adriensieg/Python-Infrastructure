@@ -1,14 +1,26 @@
-# Python-Infrastructure
-Python Performance
+# Python Performance
+
+My high-level decision tree that incorporates the key points into stages for any of my Python implementation. 
+
+# Summary Table for Tactical Decisions
+
+| Node               | Key Question                 | Purpose                                         | Code Example                |
+|--------------------|------------------------------|------------------------------------------------|-----------------------------|
+| Task Type          | CPU-bound or I/O-bound?      | Directs whether to focus on concurrency or parallelism. | Profiling with `cProfile`.  |
+| Scaling CPU Ops    | Multi-core available?        | Leverage multi-processing for parallelism.     | `ProcessPoolExecutor`.      |
+| Data Sharing       | Shared mutable data?         | Synchronize to prevent race conditions.        | `multiprocessing.Manager`.  |
+| I/O Scaling        | Many I/O tasks?             | Use async for non-blocking concurrency.        | `asyncio` and `aiohttp`.    |
+| Thread Safety      | Shared resource?             | Use locks for thread safety.                   | `threading.Lock`.           |
+| Message Queues     | Asynchronous communication? | Decouple tasks with message queues.            | `multiprocessing.Queue`.    |
 
 ## Task Type
 ### Is the task I/O-bound or CPU-bound?
-- **I/O-bound**: Tasks that involve waiting for external operations like file reads/writes, database queries, API calls, etc.
-    - Lean towards asynchronous programming with coroutines, tasks, and an event loop using libraries like asyncio.
-    - Consider threading if the task benefits from concurrency but doesn’t support async natively.
+- **I/O-bound**: Tasks that involve waiting for **external operations** like file reads/writes, database queries, API calls, etc.
+    - Lean towards **asynchronous programming** with **coroutines**, **tasks**, and an **event loop** using libraries like <mark>asyncio</mark>.
+    - Consider **threading** if the task benefits from **concurrency** but **doesn’t support** <mark>async</mark> natively.
 
 - **CPU-bound**: Tasks that require heavy computation (e.g., image processing, machine learning models, cryptographic algorithms).
-    - Lean towards multi-processing to parallelize CPU-intensive work.
+    - Lean towards **multi-processing** to **parallelize CPU-intensive work**.
  
 - **Improvement**: Use profiling tools like **cProfile** to measure where the app spends time.
 
