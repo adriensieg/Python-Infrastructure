@@ -1,6 +1,15 @@
 # Python-Infrastructure
 Python Performance
 
+# 1. Define the Nature of the Problem
+## Is the task I/O-bound or CPU-bound?
+- **I/O-bound**: Tasks that involve waiting for external operations like file reads/writes, database queries, API calls, etc.
+    - Lean towards asynchronous programming with coroutines, tasks, and an event loop using libraries like asyncio.
+    - Consider threading if the task benefits from concurrency but doesn’t support async natively.
+
+- **CPU-bound**: Tasks that require heavy computation (e.g., image processing, machine learning models, cryptographic algorithms).
+Lean towards multi-processing to parallelize CPU-intensive work.
+
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
 
 ```mermaid
