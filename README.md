@@ -186,17 +186,52 @@ import threading
 lock = threading.Lock()
 counter = 0
 
+# with lock: is a context manager that automatically acquires and releases the lock. Inside the locked section, we increment the counter
 def increment():
     global counter
     with lock:
         counter += 1
 
+# Here we create and run 100 threads:
 threads = [threading.Thread(target=increment) for _ in range(100)]
 for t in threads: t.start()
+
+# Finally, we wait for all threads to complete and print the result
 for t in threads: t.join()
 print(counter)
 ```
+
+The important concept here is **race condition prevention**. Without the lock, if **multiple threads tried to increment the counter at the same time**, some increments might be lost because the operation counter += 1 **isn't atomic**. 
+The **lock ensures only one thread can increment the counter at a time**.
+When you run this code, it will reliably print 100, because each of the 100 threads successfully increments the counter exactly once. Without the lock, you might get unpredictable results less than 100.
+
 ## 6 - Message Queues
+### Do tasks need to communicate asynchronously?
+
+- Message queues allow tasks to exchange data without shared memory.
+- Decouples producers and consumers, enabling better scalability and reliability.
+- Use <mark>queue.Queue</mark> for **threading** or <mark>multiprocessing.Queue<mark> for **processes**.
+
+```python 
+from multiprocessing import Process, Queue
+
+def producer(queue):
+    for i in range(5):
+        queue.put(i)
+
+def consumer(queue):
+    while not queue.empty():
+        print(queue.get())
+
+if __name__ == "__main__":
+    queue = Queue()
+    p1 = Process(target=producer, args=(queue,))
+    p2 = Process(target=consumer, args=(queue,))
+    p1.start()
+    p1.join()
+    p2.start()
+    p2.join()
+```
 
 # My Engineering core Rules
 
@@ -217,6 +252,10 @@ print(counter)
 3. **Multiprocessing**: Go-to for **CPU-bound tasks** requiring heavy computation or true parallelism.
 4. **Concurrency**: General umbrella term for tasks running **independently**, either asynchronously (e.g., `asyncio`) or multithreaded.
 5. **Parallelism**: A subset of concurrency where tasks run **simultaneously** (e.g., via multiprocessing or multithreading).
+
+# Dictionary of concepts
+
+
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
 
