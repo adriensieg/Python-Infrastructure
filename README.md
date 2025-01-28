@@ -153,7 +153,7 @@ if __name__ == "__main__":
 - Scaling I/O operations **improves throughput** and **minimizes idle time**.
 - Use <mark>asyncio.gather</mark> for **concurrent I/O tasks**.
 
-Asyncio for Concurrent HTTP Requests: 
+**Asyncio for Concurrent HTTP Requests**: 
 ```python 
 import asyncio
 import aiohttp
@@ -172,12 +172,51 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+- Here is an example (DeepSeek): https://github.com/richardhe-fundamenta/practical-gcp-examples/blob/main/ollama-cloud-run/send_requests.py
+
 ## 5 - Thread Safety
 ### Are shared resources thread-safe?
 - Thread-safety ensures that threads **do not corrupt shared data**.
 - Avoids unpredictable bugs like **race conditions** or **deadlocks**.
-- 
+- Use locks (<mark>threading.Lock</mark>) or thread-safe data structures like <mark>queue.Queue</mark>.
+
+```python 
+import threading
+
+lock = threading.Lock()
+counter = 0
+
+def increment():
+    global counter
+    with lock:
+        counter += 1
+
+threads = [threading.Thread(target=increment) for _ in range(100)]
+for t in threads: t.start()
+for t in threads: t.join()
+print(counter)
+```
 ## 6 - Message Queues
+
+# My Engineering core Rules
+
+## Comparison: Asyncio, Multithreading, Multiprocessing, Concurrency, and Parallelism
+
+| **Concept**          | **Pragmatic Definition**                                                                 | **Real-Life Applications**                                                                                       | **Python Concepts/Tools**                                     |
+|-----------------------|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| **Asyncio**           | Running tasks **one at a time**, but switching between them while waiting (e.g., I/O).   | - Web scraping where you wait for responses from many websites.<br>- Chat applications handling many users.<br>- Writing non-blocking code for APIs. | - `asyncio` library<br>- `async/await` keywords<br>- `aiohttp` (for HTTP requests)<br>- `asyncio.run()`, `await`, `gather()` |
+| **Multithreading**    | Running multiple **threads** in the same process; best for tasks that spend time waiting. | - Real-time UI (updating progress bars while processing).<br>- Downloading multiple files concurrently.<br>- Chatbots processing inputs while listening. | - `threading` module<br>- `Thread` class<br>- `concurrent.futures.ThreadPoolExecutor` |
+| **Multiprocessing**   | Running multiple **processes**; ideal for CPU-heavy tasks that need full cores.          | - Data processing (image/video processing).<br>- Machine learning model training.<br>- Simulations like Monte Carlo. | - `multiprocessing` module<br>- `Process` class<br>- `concurrent.futures.ProcessPoolExecutor` |
+| **Concurrency**       | Managing tasks that can run **independently** (may not be simultaneous).                 | - Handling simultaneous requests in web servers.<br>- Messaging queues or event-driven architectures.<br>- Downloading/uploading files asynchronously. | - `asyncio` (for non-blocking tasks)<br>- `threading` (for I/O-bound concurrency) |
+| **Parallelism**       | Running tasks **at the same time** on multiple processors/cores for maximum speed.       | - Large-scale data processing (e.g., splitting data to process on multiple CPUs).<br>- Parallel image processing on datasets.<br>- Scientific computations like matrix multiplications. | - `multiprocessing` module<br>- `joblib` for parallel loops<br>- `Dask` for parallel dataframes |
+
+---
+## Key Takeaways
+1. **Asyncio**: Best for **I/O-bound tasks** where you're waiting a lot (e.g., network calls, file I/O). It **doesn't leverage multiple cores**.
+2. **Multithreading**: Ideal for **I/O-bound tasks** where tasks wait often but also require background execution.
+3. **Multiprocessing**: Go-to for **CPU-bound tasks** requiring heavy computation or true parallelism.
+4. **Concurrency**: General umbrella term for tasks running **independently**, either asynchronously (e.g., `asyncio`) or multithreaded.
+5. **Parallelism**: A subset of concurrency where tasks run **simultaneously** (e.g., via multiprocessing or multithreading).
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
 
