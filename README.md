@@ -124,6 +124,30 @@ if __name__ == "__main__":
     with ProcessPoolExecutor() as executor:
         results = list(executor.map(cpu_task, range(1_000_000)))
 ```
+
+Multiple processes to fully utilize multi-core CPU
+```python 
+import multiprocessing
+
+def process_large_dataset(data_chunk):
+    # Complex data processing logic
+    return processed_data
+
+def main():
+    # Utilize multiple CPU cores
+    with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+        results = pool.map(process_large_dataset, large_dataset)
+```
+
+- <mark>multiprocessing.Pool</mark>:
+    - Creates a **pool of worker processes**, utilizing **all available CPU cores** (<mark>multiprocessing.cpu_count()</mark>).
+    - Allows **parallel execution** of process_large_dataset on different parts of large_dataset.
+      
+- </mark>pool.map(process_large_dataset, large_dataset)</mark>:
+    - Distributes the dataset across **multiple processes**.
+    - Each **process** executes process_large_dataset on a chunk of data.
+    - Returns a list of processed results.
+  
 ## 3 - Data Sharing in Multiprocessing
 ### Do tasks require shared data?
 - Shared data needs synchronization to ensure consistency.
@@ -172,7 +196,25 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-- Here is an example (DeepSeek): https://github.com/richardhe-fundamenta/practical-gcp-examples/blob/main/ollama-cloud-run/send_requests.py
+**Make concurrent HTTP requests**
+```python 
+import asyncio
+
+async def fetch_url(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.text()
+
+async def main():
+    urls = ['http://example1.com', 'http://example2.com']
+    tasks = [fetch_url(url) for url in urls]
+    results = await asyncio.gather(*tasks)
+
+asyncio.run(main())
+```
+- <mark>asyncio</mark> is a Python library that provides support for writing asynchronous code using <mark>async</mark> and <mark>await</mark>
+
+Here is an example (DeepSeek): https://github.com/richardhe-fundamenta/practical-gcp-examples/blob/main/ollama-cloud-run/send_requests.py
 
 ## 5 - Thread Safety
 ### Are shared resources thread-safe?
