@@ -322,11 +322,13 @@ Best for **CPU-bound** tasks (e.g., heavy computations) since each process runs 
   
 ![image](https://github.com/user-attachments/assets/36ff5a28-9c75-4379-a36c-12b3e73992d2)
 
+![image](https://github.com/user-attachments/assets/1cc04eef-92c8-485c-bf2f-c62ac15e4b9e)
+
 - **Event Loop** is a system that allows Python to **handle multiple tasks "at once"** without actually running them in parallel. Instead of **blocking execution** while waiting (e.g., for a network response), it **pauses tasks** that are **waiting** and **switches to another task**. You can think of it as the central manager of all asynchronous tasks in your program.
 
 **Asynchronous I/O** is a technique that allows **tasks** to run **concurrently without creating multiple threads** or **processes**. Instead, it uses **a single event loop** that **coordinates the execution of multiple tasks**.
 
-![image](https://github.com/user-attachments/assets/1cc04eef-92c8-485c-bf2f-c62ac15e4b9e)
+![image](https://github.com/user-attachments/assets/478cf846-d92b-400a-8266-a8add88b5a1e)
 
 If a **task needs to wait** (e.g., waiting for I/O, sleep, API response), it **pauses** and **moves to another task**. Once the **waiting is over**, it **resumes the paused task**. Repeats until all tasks are done.
 
@@ -336,8 +338,6 @@ Used in asynchronous programming (e.g., asyncio).
 - Runner
 - Coworker
 - Coroutines
-
-![image](https://github.com/user-attachments/assets/478cf846-d92b-400a-8266-a8add88b5a1e)
 
 - **GIL** is a **locking mechanism** that ensures that only **one thread** can execute Python code **at a time**, **even on multi-core processors**
 - ![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
@@ -358,7 +358,9 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+```
 
+```
 ### Output
 # Hello, Bob!
 # Hello, Alice!
