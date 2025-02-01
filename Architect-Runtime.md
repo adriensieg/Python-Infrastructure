@@ -295,11 +295,11 @@ if __name__ == "__main__":
 4. **Concurrency**: General umbrella term for tasks running **independently**, either asynchronously (e.g., `asyncio`) or multithreaded.
 5. **Parallelism**: A subset of concurrency where tasks run **simultaneously** (e.g., via multiprocessing or multithreading).
 
-6. Use **Threads** for lightweight, shared-memory tasks where GIL isn't a problem (e.g., web scraping).
-Use Processes for CPU-heavy tasks that benefit from real parallel execution.
-Use Tasks (asyncio) for non-blocking I/O operations without spawning new threads/processes.
-Use Runners to efficiently manage and schedule execution of tasks.
-Use Workers when you need multiple units handling separate jobs (e.g., worker pools, distributed task queues).
+6. Use **Threads** for lightweight, **shared-memory tasks** where GIL isn't a problem (e.g., web scraping).
+7. Use **Processes** for **CPU-heavy** tasks that benefit from real parallel execution.
+8. Use **Tasks** (asyncio) for **non-blocking I/O** operations **without spawning** new threads/processes.
+9. Use **Runners** to efficiently manage and schedule **execution of tasks**.
+10. Use **Workers** when you need **multiple units handling separate jobs** (e.g., **worker pools**, **distributed task queues**).
 
 # Dictionary of concepts
 
