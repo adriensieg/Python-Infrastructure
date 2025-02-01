@@ -1,4 +1,4 @@
-# Python Performance
+# Runtime Architecture: I/O, CPU, and State Management Decision Flow
 
 My high-level decision tree that incorporates the key points into stages for any of my Python implementation. 
 
@@ -294,6 +294,12 @@ if __name__ == "__main__":
 3. **Multiprocessing**: Go-to for **CPU-bound tasks** requiring heavy computation or true parallelism.
 4. **Concurrency**: General umbrella term for tasks running **independently**, either asynchronously (e.g., `asyncio`) or multithreaded.
 5. **Parallelism**: A subset of concurrency where tasks run **simultaneously** (e.g., via multiprocessing or multithreading).
+
+6. Use **Threads** for lightweight, shared-memory tasks where GIL isn't a problem (e.g., web scraping).
+Use Processes for CPU-heavy tasks that benefit from real parallel execution.
+Use Tasks (asyncio) for non-blocking I/O operations without spawning new threads/processes.
+Use Runners to efficiently manage and schedule execution of tasks.
+Use Workers when you need multiple units handling separate jobs (e.g., worker pools, distributed task queues).
 
 # Dictionary of concepts
 
