@@ -303,6 +303,24 @@ if __name__ == "__main__":
 
 # Dictionary of concepts
 
+- Threads
+- Process
+- Task
+- Runner
+- Coworker
+
+- ![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
+
+
+## Technics
+1. **Threading** is a technique that involves **creating multiple threads** within a **single process**, allowing **tasks** to run **concurrently** within the same process.
+   
+2. **Process-based concurrency** involves **running multiple processes** in **parallel**, allowing tasks to **run concurrently** across **multiple processes**.
+
+3. **Asynchronous I/O** is a technique that allows **tasks** to run **concurrently without creating multiple threads** or **processes**. Instead, it uses **a single event loop** that **coordinates the execution of multiple tasks**. 
+
+![image](https://github.com/user-attachments/assets/1cc04eef-92c8-485c-bf2f-c62ac15e4b9e)
+
 
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
