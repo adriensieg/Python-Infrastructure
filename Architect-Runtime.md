@@ -335,14 +335,7 @@ If a **task needs to wait** (e.g., waiting for I/O, sleep, API response), it **p
 - A **Task** is an **asynchronous unit of work** executed **within an event loop**. Tasks do **not create new threads** or **processes** but **rely on async I/O**.
 Used in asynchronous programming (e.g., asyncio).
 
-- Runner
-- Coworker
-- Coroutines
-
-- **GIL** is a **locking mechanism** that ensures that only **one thread** can execute Python code **at a time**, **even on multi-core processors**
-- ![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
-
-  ```python 
+```python 
 import asyncio
 
 async def greet(name, delay):
@@ -358,15 +351,45 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-```
 
-```
 ### Output
 # Hello, Bob!
 # Hello, Alice!
 # Hello, Charlie!
 ```
 
+- Runner
 
+- **Coroutines** = is a special type of function in Python that can be **paused** and **resumed**, allowing for **asynchronous execution**. Unlike **normal** functions that **run sequentially**, **coroutines** use `async` and `await` keywords to perform **non-blocking operations**, making them ideal for handling **concurrent I/O-bound tasks** (e.g., network requests, file reading).
+
+### When to Use Coroutines?
+- Network requests (e.g., fetching data from APIs).
+- File I/O operations (e.g., reading logs asynchronously).
+- Handling multiple tasks concurrently without blocking the main thread.
+
+#### Coroutines vs. Regular Functions
+
+| Feature       | Regular Function           | Coroutine               |
+|--------------|---------------------------|-------------------------|
+| Execution    | Runs immediately          | Must be awaited        |
+| Blocking?    | Yes                        | No (non-blocking)      |
+| Can be paused? | No                        | Yes (`await`)          |
+| Used for?    | Normal code execution      | Asynchronous I/O       |
+
+![image](https://github.com/user-attachments/assets/49391570-8fdc-403e-8842-859f029da67b)
+
+```python 
+async def greet():
+    print("Hello")
+    await asyncio.sleep(1)  # Non-blocking pause
+    print("World")
+
+asyncio.run(greet())  # Runs asynchronously
+```
+
+Use `asyncio.gather()` or `asyncio.create_task()` to run coroutines concurrently.
+
+- **GIL** is a **locking mechanism** that ensures that only **one thread** can execute Python code **at a time**, **even on multi-core processors**
+- ![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
