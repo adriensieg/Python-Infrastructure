@@ -390,6 +390,7 @@ asyncio.run(greet())  # Runs asynchronously
 Use `asyncio.gather()` or `asyncio.create_task()` to run coroutines concurrently.
 
 - **GIL** is a **locking mechanism** that ensures that only **one thread** can execute Python code **at a time**, **even on multi-core processors**
-- ![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
+
+![image](https://github.com/user-attachments/assets/06c56ab4-9266-4b8a-9e6c-9f86adcc2bac)
 
 https://medium.com/@adriensieg/how-many-cpu-cores-and-threads-do-i-need-to-run-a-web-app-interacting-with-gemini-2-0-90d56bc76e89
