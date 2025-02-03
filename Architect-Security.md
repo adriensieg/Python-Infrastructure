@@ -1,26 +1,28 @@
 # Goal
 
-Develop a highly secure web application using Python/Flask for the backend and HTML/JavaScript for the frontend. This application will implement CRUD (Create, Read, Update, Delete) functionality, allowing users to create new entries, update, read, and delete existing ones.
+Develop a secure web application using Python/Flask for the backend and HTML/JavaScript for the frontend. 
+This application will implement CRUD (Create, Read, Update, Delete) functionality, allowing users to create new entries, update, read, and delete existing ones.
 
 Entries will be displayed in a tabular format on the frontend. Each row will include two action buttons—one for updating and another for deleting the respective entry. Additionally, a button positioned at the top center of the webpage will allow users to add new entries.
 
-The application will use Google Cloud Firestore as its database. It will be deployed on Google Cloud Run using Docker, with a CI/CD pipeline managed via Cloud Build.
+The application will use Google Cloud Firestore as its database. 
+It will be deployed on Google Cloud Run using Docker, with a CI/CD pipeline managed via Cloud Build.
 
-User Management & Security
+# User Management & Security
 
 This system will support multiple users, each having an isolated session to ensure strict data segregation. Each user will have access only to their own personalized database to prevent unauthorized data access. Session management must be robustly secured, incorporating secure cookies for authentication and personalization.
 
-Security Objectives & Measures
+# Security Objectives & Measures
 
 The primary objective of this application is to maximize security. To achieve this, I plan to implement:
-    •    **Strong authentication mechanisms**, including *Identity-Aware Proxy (IAP)* for secure authentication.
-    •    **Comprehensive input sanitization** to mitigate security vulnerabilities such as *XSS*, *SQL/NoSQL injection*, and *CSRF attacks*.
-    •    **Strict HTTP security headers** to enhance protection against various web threats.
-    •    **Secure communication protocols**, including mandatory *HTTPS enforcement* and proper *CORS configuration*.
-    •    **Robust API security**, ensuring *JWT-based authentication* and fine-grained *role-based access control (RBAC)*.
-    •    **Rate limiting on all endpoints**
-    •    **Comprehensive error handling**
-    •    **Security event logging**
+- **Strong authentication mechanisms**, including *Identity-Aware Proxy (IAP)* for secure authentication.
+- **Comprehensive input sanitization** to mitigate security vulnerabilities such as *XSS*, *SQL/NoSQL injection*, and *CSRF attacks*.
+- **Strict HTTP security headers** to enhance protection against various web threats.
+- **Secure communication protocols**, including mandatory *HTTPS enforcement* and proper *CORS configuration*.
+- **Robust API security**, ensuring *JWT-based authentication* and fine-grained *role-based access control (RBAC)*.
+- **Rate limiting on all endpoints**
+- **Comprehensive error handling**
+- **Security event logging**
 
 Here is our best security practices to ensure the highest level of protection for this application. The guidelines should cover:
     1.    Backend Security (Flask) – Input validation, API security, authentication, and authorization.
