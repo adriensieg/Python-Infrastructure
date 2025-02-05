@@ -269,7 +269,7 @@ def set_security_headers(response):
 - 👉 Restrict Access Based on User Identity
 - 👉 Validate Data on Firestore Side
 
-```json
+```powershell
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
