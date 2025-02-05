@@ -15,14 +15,13 @@ This system will support multiple users, each having an isolated session to ensu
 # Security Objectives & Measures
 
 The primary objective of this application is to maximize security. To achieve this, I plan to implement:
-- **Strong authentication mechanisms**, including *Identity-Aware Proxy (IAP)* for secure authentication.
-- **Comprehensive input sanitization** to mitigate security vulnerabilities such as *XSS*, *SQL/NoSQL injection*, and *CSRF attacks*.
-- **Strict HTTP security headers** to enhance protection against various web threats.
-- **Secure communication protocols**, including mandatory *HTTPS enforcement* and proper *CORS configuration*.
-- **Robust API security**, ensuring *JWT-based authentication* and fine-grained *role-based access control (RBAC)*.
+- **Strong authentication mechanisms**, including <mask>Identity-Aware Proxy (IAP)</mask> for secure authentication.
+- **Comprehensive input sanitization** to mitigate security vulnerabilities such as <mask>XSS</mask>, <mask>SQL/NoSQL injection</mask>, and <mask>CSRF attacks</mask>.
+- **Strict HTTP security headers** to enhance protection against various <mask>web threats</mask>.
+- **Secure communication protocols**, including mandatory <mask>HTTPS enforcement</mask> and proper <mask>CORS configuration</mask>.
+- **Robust API security**, ensuring <mask>JWT-based authentication</mask> and </mask>fine-grained role-based access control (RBAC)</mask>.
 - **Rate limiting on all endpoints**
-- **Comprehensive error handling**
-- **Security event logging**
+- **Comprehensive error handling** and **Security event logging**
 
 Here is our best security practices to ensure the highest level of protection for this application. The guidelines should cover:
     1.    Backend Security (Flask) – Input validation, API security, authentication, and authorization.
