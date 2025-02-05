@@ -160,6 +160,174 @@ Talisman(app,
 )
 ```
 
+```python
+from flask import Flask
+from flask_talisman import Talisman
+
+def configure_security(app: Flask):
+    csp = {
+        'default-src': [
+            '\'self\''
+        ],
+        'script-src': [
+            '\'self\'',
+            '\'unsafe-inline\''  # Allow inline scripts for development
+        ],
+        'style-src': [
+            '\'self\''
+        ]
+    }
+    Talisman(app, content_security_policy=csp)
+
+    @app.after_request
+    def set_security_headers(response):
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        return response
+```
+
 ### Prevent CSRF Attacks
 - 👉 Use **Flask-WTF** with **CSRF protection** enabled.
 - 👉 Include **CSRF tokens** in all POST/PUT/DELETE requests.
+
+## Front-End
+
+### Session Management
+
+- 👉 Avoid Storing Sensitive Data in Local Storage
+    - Use ```HttpOnly``` and ```Secure cookies``` for session management.
+    - Ensure session cookies have Secure, HttpOnly, and SameSite=Strict attributes.
+    - Store sensitive data in HttpOnly cookies (not in local storage).
+
+- 👉 Implement session expiration and automatic logout after inactivity
+  
+ ### XSS Prevention 
+- 👉 Sanitize all user inputs before rendering
+- 👉 Sanitize user-generated content using DOMPurify
+- 👉 Avoid ```innerHTML``` and use ```textContent``` or ```DOMPurify``` for rendering.
+
+```javascript
+function sanitizeInput(input) {
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
+```
+
+```javascript
+var cleanHtml = DOMPurify.sanitize(dirtyHtml);
+```
+
+- 👉 Use **Content Security Policy (CSP)** headers to restrict **inline scripts**
+
+```javascript
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com;">
+```
+
+```html
+<meta http-equiv="Content-Security-Policy" 
+    content="default-src 'self'; 
+    script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
+    style-src 'self' 'unsafe-inline';">
+```
+### CSRF Protection
+
+- 👉 Implement CSRF tokens
+
+```javascript
+async function makeRequest(url, method, data) {
+    const response = await fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(data)
+    });
+    return response.json();
+}
+```
+
+- 👉 Prevent Clickjacking Attacks
+    - Set ```X-Frame-Options``` in the response headers:
+
+```python
+@app.after_request
+def set_security_headers(response):
+    response.headers["X-Frame-Options"] = "DENY"
+    return response
+```
+
+## Database Security
+
+### Security Rules
+
+- 👉 Restrict Access Based on User Identity
+- 👉 Validate Data on Firestore Side
+
+```json
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /entries/{entryId} {
+      allow read: if request.auth != null 
+                 && request.auth.uid == resource.data.user_id;
+      allow write: if request.auth != null 
+                  && request.auth.uid == request.resource.data.user_id;
+      
+      function validateEntry() {
+        let incoming = request.resource.data;
+        return incoming.size() <= 1000000
+               && incoming.title.size() <= 200
+               && incoming.content.size() <= 50000;
+      }
+    }
+  }
+}
+```
+
+### Encryption
+
+- 👉 Use Firestore’s built-in encryption at rest
+
+- 👉 Use IAM to Restrict Access to Firestore
+
+```gcloud
+gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member=user:you@example.com \
+  --role=roles/datastore.user
+```
+
+- 👉 Implement field-level encryption for sensitive data
+
+```python
+from cryptography.fernet import Fernet
+
+def encrypt_field(data: str) -> str:
+    key = Fernet.generate_key()
+    f = Fernet(key)
+    return f.encrypt(data.encode()).decode()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
