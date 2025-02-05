@@ -21,21 +21,15 @@ The primary objective of this application is to maximize security. To achieve th
 - **Secure communication protocols**, including mandatory <mask>HTTPS enforcement</mask> and proper <mask>CORS configuration</mask>.
 - **Robust API security**, ensuring <mask>JWT-based authentication</mask> and </mask>fine-grained role-based access control (RBAC)</mask>.
 - **Rate limiting on all endpoints**
-- **Comprehensive error handling** and **Security event logging**
-
-Here is our best security practices to ensure the highest level of protection for this application. The guidelines should cover:
-    1.    Backend Security (Flask) – Input validation, API security, authentication, and authorization.
-    2.    Frontend Security (HTML/JavaScript) – Secure session handling, XSS prevention, CSP enforcement, and secure cookies.
-    3.    Database Security (Firestore) – Access controls, encryption strategies, and Firestore security rules.
-    4.    Cloud Run Deployment Security – IAM policies, container security, secrets management, and network security.
-    5.    CI/CD Pipeline Security (Cloud Build) – Secure deployments, static code analysis, and artifact scanning.
-    6.    Logging & Monitoring – Implementing Cloud Logging and alerting mechanisms for anomaly detection.
+- **Comprehensive error handling** and **Security event logging**, Logging and alerting mechanisms for anomaly detection
+- Cloud Run Deployment Security – IAM policies, container security, secrets management, and network security.
+- CI/CD Pipeline Security (Cloud Build) – Secure deployments, static code analysis, and artifact scanning.
 
 ## Back-End
 ### Authentication & Authorization
 
 - 👉 Use **Google Identity-Aware Proxy (IAP)** for authentication
-- 👉 Enforce **role-based access control (RBAC)** by defining **user roles**
+- 👉 Restrict **access** using **role-based** or **attribute-based access control** (**RBAC**/**ABAC**).
 - 👉 Configure **session management**
 
 ```python 
@@ -54,10 +48,36 @@ app.config.update(
 - 👉 Use Flask’s built-in **request validation**
 - 👉 Leverage **Marshmallow** (**Pydantic**) for **schema validation**
 - 👉 Implement **server-side input sanitization** to prevent NoSQL injection
-- 👉 **Restrict allowed content** types for user inputs
+    - Validate and sanitize all incoming data to prevent SQL/NoSQL injections
+    - Set strict schema rules for Firestore entries.
+    - Avoid dynamic queries with user inputs
+    - Use Firestore’s structured queries instead of raw queries
+ 
+```python 
+from pydantic import BaseModel, validator
+from typing import Optional
 
-### API Security
-- Enforce **rate limiting** using **Flask-Limiter** to prevent **DoS attacks**.
+class EntrySchema(BaseModel):
+    title: str
+    content: str
+    user_id: str
+    
+    @validator('title')
+    def title_must_be_valid(cls, v):
+        if len(v) > 200:
+            raise ValueError('Title too long')
+        return v.strip()
+```
+- 👉 **Restrict allowed content** types for user inputs
+- 👉 Use **parameterized queries** for Firestore
+
+```python
+def get_user_entries(user_id: str):
+    return db.collection('entries').where('user_id', '==', user_id).get()
+```
+
+- 👉Enforce **rate limiting** using **Flask-Limiter** to prevent **DoS attacks**.
+
 ```python
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -68,9 +88,22 @@ limiter = Limiter(
     default_limits=["200 per day", "50 per hour"]
 )
 ```
+
+- 👉 Disable Unnecessary HTTP Methods
+    - Allow only ```GET```, ```POST```, ```PUT```, and ```DELETE``` where necessary.
+
+### API Security
+
 - 👉 Implement **secure API endpoints** using **HTTPS** with **HSTS**.
+    - Redirect all HTTP traffic to HTTPS using Cloud Load Balancer
+
 - 👉 Use **JWT-based authentication** with **short-lived tokens**.
-- 👉 Restrict **CORS** to **trusted domains** (CORS(app, origins=["https://yourdomain.com"]))
+- 👉 Restrict **CORS** to **trusted domains**
+
+```python
+from flask_cors import CORS
+CORS(app, resources={r"/*": {"origins": ["https://yourfrontend.com"]}})
+```
 - 👉 Register **blueprints**
 
 ```python
@@ -108,6 +141,23 @@ response.headers['X-Frame-Options'] = 'SAMEORIGIN'
 response.headers['X-XSS-Protection'] = '1; mode=block'
 response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
 response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+```
+
+- 👉 Add **security headers**
+
+```python
+from flask_talisman import Talisman
+
+Talisman(app,
+    force_https=True,
+    strict_transport_security=True,
+    session_cookie_secure=True,
+    content_security_policy={
+        'default-src': "'self'",
+        'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
+        'style-src': "'self' 'unsafe-inline'",
+    }
+)
 ```
 
 ### Prevent CSRF Attacks
