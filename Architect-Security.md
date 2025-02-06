@@ -69,7 +69,7 @@ class EntrySchema(BaseModel):
         return v.strip()
 ```
 - 👉 **Restrict allowed content** types for user inputs
-- 👉 Use **parameterized queries** for Firestore
+- 👉 Use **parameterized queries** for Firestore - to prevent SQL injection
 
 ```python
 def get_user_entries(user_id: str):
@@ -91,6 +91,10 @@ limiter = Limiter(
 
 - 👉 Disable Unnecessary HTTP Methods
     - Allow only ```GET```, ```POST```, ```PUT```, and ```DELETE``` where necessary.
+
+- 👉 MIME Type Validation: Verify file types before saving them.
+- 👉 Restrict Executable Files: Block .exe, .sh, .php, etc.
+- 👉 Use a CDN or Separate Storage: Store user-uploaded files in S3/GCS instead of the main server.
 
 ### API Security
 
@@ -189,11 +193,26 @@ def configure_security(app: Flask):
         return response
 ```
 
+- 👉 Session Expiry & Revocation: Implement session expiration and logout functionalities properly.
+
 ### Prevent CSRF Attacks
 - 👉 Use **Flask-WTF** with **CSRF protection** enabled.
 - 👉 Include **CSRF tokens** in all POST/PUT/DELETE requests.
 
+### Logging & Monitoring
+- 👉 Centralized Logging: Use Flask-Logging with structured logs.
+- 👉 Intrusion Detection: Monitor logs for unusual activity.
+- 👉 Real-time Alerts: Integrate monitoring tools like Prometheus, Grafana, or ELK Stack.
+
+### Code Security & Hardening
+- 👉 Automatic Dependency Updates: Use pip-audit or dependabot to check for vulnerable dependencies.
+- 👉 Limit Flask Extensions: Use only well-maintained Flask extensions.
+  
 ## Front-End
+
+- 👉 Avoid Inline JavaScript: Move scripts to external files.
+- 👉 Use Subresource Integrity (SRI): Ensure external resources (CDNs) are not tampered with.
+- 👉 Disable Client-Side Debugging: Remove debug messages from production.
 
 ### Session Management
 
@@ -290,6 +309,8 @@ service cloud.firestore {
 }
 ```
 
+- 👉 ORM-Level Security: Define permissions in ORM models to restrict unauthorized access to data.
+
 ### Encryption
 
 - 👉 Use Firestore’s built-in encryption at rest
@@ -313,8 +334,12 @@ def encrypt_field(data: str) -> str:
     return f.encrypt(data.encode()).decode()
 ```
 
+## Deployment Security
 
-
+- 👉 HTTPS with HSTS: Enforce HTTPS and use Strict-Transport-Security.
+- 👉Reverse Proxy (NGINX): Serve Flask via Gunicorn + Nginx with security headers.
+- 👉 Container Security: If using Docker, scan images for vulnerabilities.
+- 👉 Secrets Management: Use environment variables, AWS Secrets Manager, or HashiCorp Vault.
 
 
 
