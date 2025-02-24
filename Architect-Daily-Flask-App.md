@@ -1,7 +1,7 @@
 # Daily Flask Application
 
 
-- 👉 (Web Security Headers)(https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#web-security-headers)
+- 👉 [Web Security Headers](https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#web-security-headers)
 - 👉 CORS
 - 👉 BluePrint
 - 👉 Rate Limiting
