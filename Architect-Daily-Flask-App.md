@@ -1,5 +1,21 @@
 # Daily Flask Application
 
+- 👉 Web Security Headers
+- 👉 CORS
+- 👉 BluePrint
+- 👉 Rate Limiting
+- 👉 Session Security
+- 👉 Logging
+- 👉 Async - I/O
+- 👉 Pydantic
+- 👉 Try / except
+- 👉 except requests.exceptions.RequestException as e:
+
+- 👉 Role-Based Access Control (RBAC) – Restrict actions based on user roles.
+- 👉 Multi-Factor Authentication (MFA) – Enforce additional authentication layers.
+
+
+
 ## Web Security Headers
 
 | Concepts                            | Definitions                                                                 | Risk                                                   | When to Use It?                                   | Flask Code Snippet |
