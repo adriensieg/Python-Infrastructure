@@ -1,9 +1,9 @@
 # Daily Flask Application
 
 
-- 👉 [Web Security Headers](https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#web-security-headers)
-- 👉 CORS
-- 👉 BluePrint
+- 👉 [Web Security Headers](https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#web-security-headers) - to protect data during transmission by ensuring secure connections and preventing malicious attacks
+- 👉 [CORS](https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#CORS)- controls how websites share data across different origins, preventing unauthorized access during data transmission
+- 👉 Blueprints for Modularity – Clean separation of concerns
 - 👉 Rate Limiting
 - 👉 Session Security
 - 👉 Logging
@@ -30,3 +30,5 @@
 | **Authorization Headers**           | Used for passing authentication credentials, like JWTs or API tokens.        | Token leakage, unauthorized access                     | When securing APIs with authentication tokens.   | `Authorization: Bearer <token>` |
 | **Signed Headers**                  | Cryptographically signed headers to ensure integrity and authenticity of requests. | Request tampering, replay attacks                      | When verifying authenticity of requests.         | `AWS Signature v4, JWT signature validation` |
 | **Cross-Origin Resource Sharing (CORS)** | Mechanism to control which domains can access your web resources, protecting against unauthorized cross-origin requests. | Cross-site request forgery (CSRF), unauthorized access | When exposing APIs to other domains.             | `CORS(app, resources={r"/*": {"origins": "*"}})` |
+
+## CORS - Cross-Origin Resource Sharing
