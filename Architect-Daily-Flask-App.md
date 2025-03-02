@@ -104,9 +104,6 @@ csrf = CSRFProtect(app)
 ```javascript
 API Request with CSRF Token (for AJAX requests)
 
-javascript
-Copy
-Edit
 fetch('/api/submit', {
     method: 'POST',
     headers: {
