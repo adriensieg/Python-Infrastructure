@@ -12,6 +12,8 @@
 - 👉 except requests.exceptions.RequestException as e:
 - Protect Cookie Session
 
+- 👉 [Pydantic Model](https://github.com/adriensieg/Python-Infrastructure/blob/master/Architect-Daily-Flask-App.md#define-pydantic-models) - to define models you can use (and reuse) to verify that data conforms to the format you expect before you store or process it.
+  
 - 👉 Role-Based Access Control (RBAC) – Restrict actions based on user roles.✔️ Role-based access control (RBAC using JWT roles)
 - 👉 Multi-Factor Authentication (MFA) – Enforce additional authentication layers.
 
