@@ -343,6 +343,34 @@ def create_item(body: ItemCreate):
     return jsonify({"message": "Item created successfully"}), 201
 ```
 
+```python
+@items_bp.route('/api/items/<item_id>', methods=['PUT'])
+@limiter.limit("5 per minute")
+@token_required
+@validate()
+def update_item(item_id: str, body: ItemUpdate):
+    """Update an existing item in Firestore."""
+
+    item_ref = db.collection('items').document(item_id)
+    item = item_ref.get()
+
+    if not item.exists:
+        return jsonify({"error": "Item not found"}), 404
+
+    update_data = {}
+
+    if body.name:
+        update_data["name"] = body.name
+    if body.description:
+        update_data["description"] = body.description
+
+    if update_data:
+        item_ref.update(update_data)
+        return jsonify({"message": "Item updated successfully"}), 200
+    else:
+        return jsonify({"error": "No valid fields to update"}), 400
+```
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
