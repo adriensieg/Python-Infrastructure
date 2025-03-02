@@ -319,6 +319,7 @@ class ItemUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=3, max_length=100)
     description: Optional[str] = Field(None, min_length=5, max_length=500)
 
+```
 Must be place into ```blueprints/items.py```
 
 ```python
