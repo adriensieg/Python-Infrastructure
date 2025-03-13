@@ -10,10 +10,21 @@
 - Non-maximum suppression
 - Kernel vs. Filter
 
-<img src="https://github.com/user-attachments/assets/0ffa58ff-1c5c-4859-bafd-ddff86c2c69d" width=50% height=50%>
-
 - Depthwise vs. Pointwise
 
+Illustration of Depthwise Convolution (DWC)
+<img src="https://github.com/user-attachments/assets/0ffa58ff-1c5c-4859-bafd-ddff86c2c69d" width=50% height=50%>
+
+Illustration of Pointwise Convolution (PWC)
+<img src="https://github.com/user-attachments/assets/09bfd1b3-978e-41ea-aa8b-924e92c0045c" width=50% height=50%>
+
+In standard convolutions, we are analyzing an input map of height H and width W comprised of C channels. To do so, we have a squared kernel of size KxK with typical values something like 3x3, 5x5 or 7x7. Moreover, we also specify how many of such kernel features we want to compute which is the number of output channels O.
+
+<img src="https://github.com/user-attachments/assets/992f72ed-00fe-4a11-97e2-8b98002c500f" width=50% height=50%>
+
+The input feature map is of size WxH and has C channels (here C=4). A kernel of size KxK is moved horizontally and vertically over the input feature map to compute the output for each location. The KxK kernel also covers each of the C channels. There are O of such kernels for each output feature to be computed (here O=8).
+
+https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 
 ## YOLO - Architecture explanation
 
