@@ -10,6 +10,11 @@
 - Non-maximum suppression
 - Kernel vs. Filter
 
+![image](https://github.com/user-attachments/assets/0ffa58ff-1c5c-4859-bafd-ddff86c2c69d)
+
+- Depthwise vs. Pointwise
+
+
 ## YOLO - Architecture explanation
 
 YOLO makes use of only convolutional layers, making it a fully convolutional network (FCN). It has 75 convolutional layers, with skip connections and upsampling layers. 
