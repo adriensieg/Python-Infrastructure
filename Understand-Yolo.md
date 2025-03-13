@@ -10,7 +10,7 @@
 - Non-maximum suppression
 - Kernel vs. Filter
 
-<img src="[https://i.imgur.com/ZWnhY9T.png](https://github.com/user-attachments/assets/0ffa58ff-1c5c-4859-bafd-ddff86c2c69d)" width=50% height=50%>
+<img src="https://github.com/user-attachments/assets/0ffa58ff-1c5c-4859-bafd-ddff86c2c69d" width=50% height=50%>
 
 - Depthwise vs. Pointwise
 
