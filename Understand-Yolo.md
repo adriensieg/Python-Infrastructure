@@ -83,7 +83,7 @@ A regressor rather than a classifier - https://christopher5106.github.io/object/
 ```
 
 ## The Art of Possible
-
+https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
 
 ## Ressources
@@ -101,3 +101,5 @@ Detectron 2 - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7
 
 https://user-images.githubusercontent.com/11255376/71348563-272db480-25b0-11ea-8530-67fff677f551.gif
 https://github.com/imsoo/darknet_server?tab=readme-ov-file
+
+https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
