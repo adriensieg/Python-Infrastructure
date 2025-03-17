@@ -130,7 +130,9 @@ https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
 
 https://github.com/roboflow/supervision?tab=readme-ov-file
 
-https://user-images.githubusercontent.com/11255376/71348563-272db480-25b0-11ea-8530-67fff677f551.gif
+
 https://github.com/imsoo/darknet_server?tab=readme-ov-file
+
+<img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="20%" height="20%">
 
 https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
