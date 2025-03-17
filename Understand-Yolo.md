@@ -94,16 +94,41 @@ https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
 ## Ressources
 
+- **Smart-Queue-Monitoring-System**: https://github.com/ObinnaIheanachor/Smart-Queue-Monitoring-System/tree/master?ref=blog.roboflow.com
+
+- https://colab.research.google.com/drive/1eeYLjRWedIIcoHJJoAVinQt0GT-_fpzC?usp=sharing&ref=blog.roboflow.com#scrollTo=4hzCCJVcqw0r
+
+- **How to Train YOLOv12 Object Detection on a Custom Dataset**: https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov12-object-detection-model.ipynb
+  
+- **Counting People On Escalator Using Yolov8 and OpenCV**: 
+  - https://github.com/rahilmoosavi/CountingPeopleOnEscalatorUsingYolo/blob/master/PeopleCounter.py
+  - https://medium.com/@rahil.gh.moosavi/counting-people-on-escalator-using-yolov8-and-opencv-from-scratch-1da725c0df66
+ 
+- **How to Detect and Count Objects in Zone**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-detect-and-count-objects-in-polygon-zone.ipynb
+
+- **Object-Detection-and-Count-in-polygon-zone**: https://github.com/noorkhokhar99/Object-Detection-and-Count-in-polygon-zone/tree/main
+
+- **Yolov8-Counting-People-in-Queue**: https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/tree/main  
+  - https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/blob/main/yolov8_object_detection_on_custom_dataset.ipynb
+
+- **Real world applications from Ultralytics**: https://docs.ultralytics.com/guides/region-counting/#real-world-applications
+
+- **Roboflow's notebooks (~50)**: https://github.com/roboflow/notebooks/tree/main/notebooks
+  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8-and-supervison.ipynb
+  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8.ipynb
+  - **Zero-shot object detection**: https://github.com/roboflow/notebooks/blob/main/notebooks/zero-shot-object-detection-with-yolo-world.ipynb
+  - **Bounding Box to Semantic Mask**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-use-yolo8v-with-sam.ipynb
+    - **... with videos**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-segment-videos-with-sam-2.ipynb
+
+<img src="https://github.com/user-attachments/assets/df822af3-067e-46b1-8813-84a77ff2929d" width="20%" height="20%">
+
+- **Detectron 2** - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=EHr2WJXrV6Wp
+  
 https://medium.com/towards-data-science/types-of-convolution-kernels-simplified-f040cb307c37
-Counting People On Escalator Using Yolov8 and OpenCV: 
-- https://github.com/rahilmoosavi/CountingPeopleOnEscalatorUsingYolo/blob/master/PeopleCounter.py
-- https://medium.com/@rahil.gh.moosavi/counting-people-on-escalator-using-yolov8-and-opencv-from-scratch-1da725c0df66
 
 https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
 
 https://github.com/roboflow/supervision?tab=readme-ov-file
-
-Detectron 2 - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=EHr2WJXrV6Wp
 
 https://user-images.githubusercontent.com/11255376/71348563-272db480-25b0-11ea-8530-67fff677f551.gif
 https://github.com/imsoo/darknet_server?tab=readme-ov-file
