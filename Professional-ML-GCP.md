@@ -1,6 +1,7 @@
 # Professional Machine Learning Engineer - GCP
 
 https://medium.com/@furcifer/cracking-the-gcp-certified-professional-machine-learning-engineer-exam-in-a-week-966890073adf
+https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-learning-engineer-certification-exam-2110998db0f5
 
 ## Performance Metrics
 - Accuracy
