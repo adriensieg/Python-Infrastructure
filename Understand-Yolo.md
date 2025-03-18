@@ -138,6 +138,8 @@ https://github.com/roboflow/supervision?tab=readme-ov-file
 
 https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
 
+- DIY Auto Tracking Pan Tilt Camera For Raspberry Pi and SBCs : https://www.youtube.com/watch?v=1lxTk2OjOdk
+
 ## Fine-tune or Retrain
 
 <img src="https://github.com/user-attachments/assets/753b0e0f-3499-4b8c-a99e-cb52f7d144d7" width="50%" height="50%">
