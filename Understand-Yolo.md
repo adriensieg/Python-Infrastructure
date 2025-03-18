@@ -90,10 +90,8 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 ```
 
 ## The Art of Possible
-https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
-
-## Ressources
+- **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
 - **Smart-Queue-Monitoring-System**: https://github.com/ObinnaIheanachor/Smart-Queue-Monitoring-System/tree/master?ref=blog.roboflow.com
 
