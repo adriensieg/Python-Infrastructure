@@ -136,3 +136,35 @@ https://github.com/imsoo/darknet_server?tab=readme-ov-file
 <img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="20%" height="20%">
 
 https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
+
+## Fine-tune or Retrain
+
+<img src="https://github.com/user-attachments/assets/753b0e0f-3499-4b8c-a99e-cb52f7d144d7" width="50%" height="50%">
+
+#### Epoch:
+  - The current epoch out of the total number of training epochs (e.g., 1/100 means the first epoch out of 100).
+  - More epochs generally improve the model, but too many can cause overfitting.
+
+
+#### GPU_mem: 
+- The amount of GPU memory used during training (e.g., 6.74G means 6.74 GB of GPU memory usage).
+
+#### box_loss: 
+The loss associated with the bounding box regression, which measures how well the predicted bounding boxes align with ground-truth boxes.
+
+cls_loss: The classification loss, which measures how well the model is distinguishing between different object classes.
+
+dfl_loss: The distribution focal loss, which helps refine the bounding box predictions.
+
+Instances: The number of object instances processed in the current batch.
+Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
+Validation Metrics
+Class: The category of objects being evaluated (here, all refers to all classes combined).
+Images: The number of images used for validation (e.g., 44 means 44 validation images).
+Instances: The total number of object instances in the validation set.
+Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
+R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
+mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
+mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
+
+
