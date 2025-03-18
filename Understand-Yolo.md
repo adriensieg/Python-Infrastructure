@@ -70,8 +70,9 @@ A regressor rather than a classifier - https://christopher5106.github.io/object/
 - Object detection
 - Bounding box regression
 - IoU
-- Non-maximum suppression
 - Kernel vs. Filter
+- **Non-Max Suppression (NMS)** to Eliminate Double Detections
+To eliminate duplicates, we will use Non-Max Suppression (NMS). NMS evaluates the extent to which detections overlap using the Intersection over Union metric and, upon exceeding a defined threshold, treats them as duplicates. Duplicates are then discarded, starting with those of the lowest confidence. The value should be within the range [0, 1]. The smaller the value, the more restrictive the NMS.
 
 - Depthwise vs. Pointwise
 
@@ -95,7 +96,6 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 ```
 
 ## The Art of Possible
-
 - **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
 - **Smart-Queue-Monitoring-System**: https://github.com/ObinnaIheanachor/Smart-Queue-Monitoring-System/tree/master?ref=blog.roboflow.com
