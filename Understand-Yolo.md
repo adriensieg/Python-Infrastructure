@@ -77,7 +77,7 @@ A regressor rather than a classifier - https://christopher5106.github.io/object/
 
 In standard convolutions, we are analyzing an **input map** of **height H** and **width W** comprised of **C channels**. To do so, we have a **squared kernel** of size **K** x **K** with typical values something like **3x3**, **5x5** or **7x7**. Moreover, we also specify **how many of such kernel features** we want to compute which is the number of **output channels O**.
 
-<img src="https://github.com/user-attachments/assets/992f72ed-00fe-4a11-97e2-8b98002c500f" width=50% height=50%>
+<img src="https://github.com/user-attachments/assets/992f72ed-00fe-4a11-97e2-8b98002c500f" width=30% height=30%>
 
 The input **feature map** is of size **W** x **H** and has **C channels** (here C=4). A kernel of size KxK is moved horizontally and vertically over the input feature map to compute the output for each location. 
 
