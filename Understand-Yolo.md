@@ -134,9 +134,6 @@ https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
 
 https://github.com/roboflow/supervision?tab=readme-ov-file
 
-
-https://github.com/imsoo/darknet_server?tab=readme-ov-file
-
 <img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="20%" height="20%">
 
 https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
@@ -156,9 +153,11 @@ https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authus
 #### box_loss: 
 The loss associated with the bounding box regression, which measures how well the predicted bounding boxes align with ground-truth boxes.
 
-cls_loss: The classification loss, which measures how well the model is distinguishing between different object classes.
+#### cls_loss:
+The classification loss, which measures how well the model is distinguishing between different object classes.
 
-dfl_loss: The distribution focal loss, which helps refine the bounding box predictions.
+#### dfl_loss: 
+The distribution focal loss, which helps refine the bounding box predictions.
 
 Instances: The number of object instances processed in the current batch.
 Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
