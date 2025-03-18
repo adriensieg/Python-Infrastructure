@@ -49,7 +49,8 @@ Typically, (as is the case for all object detectors) the features learned by the
 In YOLO, the prediction is done by using a convolutional layer which uses 1 x 1 convolutions.
 Now, the first thing to notice is our output is a feature map. Since we have used 1 x 1 convolutions, the size of the prediction map is exactly the size of the feature map before it. In YOLO v3 (and it's descendants), the way you interpret this prediction map is that each cell can predict a fixed number of bounding boxes.
 
-![image](https://github.com/user-attachments/assets/65027fb6-0dd7-4cfd-9821-f6ca3c4a8ca4)
+<img src="https://github.com/user-attachments/assets/65027fb6-0dd7-4cfd-9821-f6ca3c4a8ca4" width="50%" height="50%">
+
 https://dkharazi.github.io/notes/ml/cnn/yolo
 
 A regressor rather than a classifier - https://christopher5106.github.io/object/detectors/2017/08/10/bounding-box-object-detectors-understanding-yolo.html
