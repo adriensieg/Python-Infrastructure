@@ -16,7 +16,7 @@
     - The final **7×7×30 output** is a compact representation of object detections.
     - Bounding box predictions and **class probabilities** are extracted from this final tensor.
 
-![image](https://github.com/user-attachments/assets/bde33277-973d-4a16-a665-863a654ceb8a)
+<img src="https://github.com/user-attachments/assets/bde33277-973d-4a16-a665-863a654ceb8a" width="50%" height="50%">
 
 | Layer Type          | Filter Size (K) | Stride (S) | Input Size (H×W×D) | Output Size (H×W×D) | Description |
 |---------------------|---------------|-----------|----------------|----------------|-------------|
