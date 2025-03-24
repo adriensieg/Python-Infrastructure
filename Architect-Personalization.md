@@ -73,3 +73,79 @@ flowchart TD
       JJ[Alternative Response Strategies]
   end
 ```
+
+
+```mermaid
+graph TD;
+
+    %% IP Cameras Streaming Data
+    subgraph "IP Cameras (RTSP Streams)"
+        C1[AXIS P3215 - Camera 1] 
+        C2[AXIS P3265-LV - Camera 2]
+        C3[AXIS P3215 - Camera 3]
+        C4[AXIS P3265-LV - Camera 4]
+        C5[AXIS P3215 - Camera 5]
+        C6[AXIS P3265-LV - Camera 6]
+        C7[AXIS P3215 - Camera 7]
+        C8[AXIS P3265-LV - Camera 8]
+        C9[AXIS P3215 - Camera 9]
+        C10[AXIS P3265-LV - Camera 10]
+    end
+
+    %% RTSP Video Capture Service
+    subgraph "RTSP Video Capture Service"
+        V1[RTSP Connector (OpenCV)] --> V2[Frame Buffer (Multi-Threaded Queue)]
+        V2 --> V3[Frame Preprocessing (Resize, Convert)]
+        V3 --> V4[Publish to Processing Queue]
+    end
+
+    %% Backend Processing
+    subgraph "Backend Processing (FastAPI + WebSockets)"
+        B1[Frame Fetcher (Async Queue)] -->|Frames| B2[YOLOv8 Inference (Coral TPU)]
+        B2 -->|Crew Detection| B3[Bounding Box Annotation]
+        B3 -->|Overlay Detection Results| B4[Processed Frames]
+        B4 -->|Send via WebSocket| B5[WebSocket Server (Real-Time Updates)]
+        B1 -->|Raw Frames| B6[Local Storage (H.264/H.265)]
+        B6 -->|Rolling Buffer Management| B7[Storage Manager (Auto Cleanup)]
+    end
+
+    %% API Services
+    subgraph "API Services"
+        A1[GET /get_frames]
+        A2[WebSocket /ws_stream]
+        A3[GET /crew_count]
+        A4[GET /system_status]
+    end
+
+    %% Frontend System
+    subgraph "Frontend (JavaScript + WebSockets)"
+        F1[WebSocket Client (Receive Frames)] --> F2[Real-Time Video Display]
+        F2 -->|Overlay Data| F3[Bounding Box Rendering]
+        F1 -->|Crew Count Updates| F4[Dashboard Display]
+        F1 -->|Video Controls| F5[Start/Stop Streaming]
+    end
+
+    %% Storage & Management
+    subgraph "Storage & Management"
+        S1[HDD Storage (3x12TB RAID)]
+        S2[Recording Manager]
+        S3[Old Video Cleanup (FIFO Buffer)]
+        S1 --> S2
+        S2 --> S3
+    end
+
+    %% Performance Scaling
+    subgraph "Scaling & Performance Optimization"
+        P1[Thread Pooling (Async RTSP Fetch)]
+        P2[Frame Skipping (Dynamic FPS Adjustment)]
+        P3[Load Balancer (Multi-TPU Scaling)]
+    end
+
+    %% Connections
+    C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9 & C10 -->|RTSP Streams| V1
+    V4 -->|Frames| B1
+    B5 -->|WebSocket Stream| F1
+    B6 -->|Video Storage| S1
+    S3 -->|Auto Cleanup| S1
+    B2 -->|Efficient Model Execution| P3
+```
