@@ -83,7 +83,7 @@ To eliminate duplicates, we will use Non-Max Suppression (NMS). NMS evaluates th
 
 In standard convolutions, we are analyzing an **input map** of **height H** and **width W** comprised of **C channels**. To do so, we have a **squared kernel** of size **K** x **K** with typical values something like **3x3**, **5x5** or **7x7**. Moreover, we also specify **how many of such kernel features** we want to compute which is the number of **output channels O**.
 
-<img src="https://github.com/user-attachments/assets/992f72ed-00fe-4a11-97e2-8b98002c500f" width=30% height=30%>
+<img src="https://github.com/user-attachments/assets/992f72ed-00fe-4a11-97e2-8b98002c500f" width=50% height=50%>
 
 The input **feature map** is of size **W** x **H** and has **C channels** (here C=4). A kernel of size KxK is moved horizontally and vertically over the input feature map to compute the output for each location. 
 
@@ -123,7 +123,7 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
   - **Bounding Box to Semantic Mask**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-use-yolo8v-with-sam.ipynb
     - **... with videos**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-segment-videos-with-sam-2.ipynb
 
-<img src="https://github.com/user-attachments/assets/df822af3-067e-46b1-8813-84a77ff2929d" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/df822af3-067e-46b1-8813-84a77ff2929d" width="50%" height="50%">
 
 - **Detectron 2** - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=EHr2WJXrV6Wp
   
@@ -133,7 +133,7 @@ https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
 
 https://github.com/roboflow/supervision?tab=readme-ov-file
 
-<img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="50%" height="50%">
 
 https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
 
