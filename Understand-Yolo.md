@@ -60,7 +60,6 @@ https://dkharazi.github.io/notes/ml/cnn/yolo
 
 A regressor rather than a classifier - https://christopher5106.github.io/object/detectors/2017/08/10/bounding-box-object-detectors-understanding-yolo.html
 
-
 ## Concepts to master
 
 - Convolutional neural networks
@@ -169,13 +168,13 @@ Object detection models, metrics like **Precision (P)**, **Recall (R)**, **mAP50
 
 These metrics help measure **accuracy**, **coverage**, and **robustness** across different scenarios.
 
-Breaking Down the Metrics:
 - **P (Precision)**: Measures the proportion of correct positive predictions out of all predicted positives. A high precision means fewer false positives, which is crucial when false detections can have significant consequences (e.g., medical imaging or security applications).
 
-Formula: P = \frac{TP}{TP + FP}, where TP = true positives and FP = false positives.
+Formula: $P = \frac{TP}{TP + FP}$
 
 - **R (Recall)**: Measures how well the model captures actual positive instances. A high recall indicates that the model is detecting most relevant objects but might also include some incorrect ones.
-Formula: R = \frac{TP}{TP + FN}, where FN = false negatives.
+
+Formula: $R = \frac{TP}{TP + FN}$
 
 - **mAP50 (Mean Average Precision at 50% IoU)**: This metric calculates the average precision at a single IoU threshold of 50%, meaning a predicted box must overlap at least 50% with the ground truth to be considered correct. It’s a commonly used benchmark for object detection performance.
 
