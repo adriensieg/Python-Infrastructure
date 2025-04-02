@@ -139,8 +139,6 @@ https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authus
 
 - DIY Auto Tracking Pan Tilt Camera For Raspberry Pi and SBCs : https://www.youtube.com/watch?v=1lxTk2OjOdk
 
-- https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
-
 ## Intersection over Union
 
 https://viso.ai/computer-vision/intersection-over-union-iou/
@@ -211,5 +209,9 @@ Box(P): Precision for bounding box detection, measuring how many detected object
 R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
 mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
 mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
+
+https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
+
+<img src="https://github.com/user-attachments/assets/14f44ba2-5cb8-443e-941d-5fc17352b053" width="50%" height="50%">
 
 
