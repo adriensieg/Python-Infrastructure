@@ -180,12 +180,11 @@ Formula: $R = \frac{TP}{TP + FN}$
 
 ## Fine-tune or Retrain
 
-<img src="https://github.com/user-attachments/assets/753b0e0f-3499-4b8c-a99e-cb52f7d144d7" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/753b0e0f-3499-4b8c-a99e-cb52f7d144d7" width="75%" height="75%">
 
 #### Epoch:
   - The current epoch out of the total number of training epochs (e.g., 1/100 means the first epoch out of 100).
   - More epochs generally improve the model, but too many can cause overfitting.
-
 
 #### GPU_mem: 
 - The amount of GPU memory used during training (e.g., 6.74G means 6.74 GB of GPU memory usage).
