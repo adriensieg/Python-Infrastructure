@@ -142,7 +142,44 @@ https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authus
 
 - https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
 
-- https://viso.ai/computer-vision/intersection-over-union-iou/
+## Intersection over Union
+
+https://viso.ai/computer-vision/intersection-over-union-iou/
+
+Is the ratio of the **‘area of intersection’** to the **‘area of the union’** between the **predicted** and **ground truth bounding boxes**. 
+Thus, the IoU meaning consists of the quantitative measurement of **how well a predicted bounding box** aligns with **the ground truth bounding box**.
+
+<img src="https://github.com/user-attachments/assets/e0a15606-f9ae-4398-8c02-4bada592eb17" width="50%" height="50%">
+
+- **Area of Intersection** = Common area shared by the two bounding boxes (Overlap)
+- **Area of Union** = Total area covered by the two bounding boxes
+- **Ground Truth Bounding Box** = Defines the exact location and size of an object in an image and serves as the reference point for evaluating the model’s predictions
+- **Predicted Bounding Box**
+- **Overlap**
+
+<img src="https://github.com/user-attachments/assets/1511b81c-222c-429f-a0dd-9cf463ed8f48" width="50%" height="50%">
+
+#### How is IoU Calculated?
+
+<img src="https://github.com/user-attachments/assets/dc3b4ba3-d695-4cac-aa01-8b8342a7cbb1" width="50%" height="50%">
+
+#### Understanding Box (P, R, mAP50, mAP50-95) Metrics in Object Detection
+
+Object detection models, metrics like **Precision (P)**, **Recall (R)**, **mAP50**, and **mAP50-95** play a crucial role in assessing **how well the model identifies and classifies objects in images**. 
+
+These metrics help measure **accuracy**, **coverage**, and **robustness** across different scenarios.
+
+Breaking Down the Metrics:
+- **P (Precision)**: Measures the proportion of correct positive predictions out of all predicted positives. A high precision means fewer false positives, which is crucial when false detections can have significant consequences (e.g., medical imaging or security applications).
+
+Formula: P = \frac{TP}{TP + FP}, where TP = true positives and FP = false positives.
+
+- **R (Recall)**: Measures how well the model captures actual positive instances. A high recall indicates that the model is detecting most relevant objects but might also include some incorrect ones.
+Formula: R = \frac{TP}{TP + FN}, where FN = false negatives.
+
+- **mAP50 (Mean Average Precision at 50% IoU)**: This metric calculates the average precision at a single IoU threshold of 50%, meaning a predicted box must overlap at least 50% with the ground truth to be considered correct. It’s a commonly used benchmark for object detection performance.
+
+- **mAP50-95 (Mean Average Precision across multiple IoU thresholds)**: This metric averages precision over IoU thresholds ranging from 50% to 95% in 5% increments (i.e., 50%, 55%, …, 95%). It provides a more comprehensive assessment of model performance, considering how well the model detects objects at varying levels of strictness.
 
 ## Fine-tune or Retrain
 
