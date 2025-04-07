@@ -2,7 +2,7 @@
 
 ## High level steps
 
-![image](https://github.com/user-attachments/assets/fa6f53e4-34cf-4c29-8887-b292d963bd1c)
+<img src="https://github.com/user-attachments/assets/fa6f53e4-34cf-4c29-8887-b292d963bd1c" width="50%" height="50%">
 
 1. First, the image is divided into **grid cells (SxS)** responsible for **localizing** and **predicting** the object's class and confidence values.
   - **Grid division**: The input image is divided into an SxS grid. In this case, it is a **7x7 grid — 7 rows and 7 columns**.
@@ -12,20 +12,20 @@
   - The (x, y, w, h) coordinates define the location and size of each bounding box within a grid.
   - The bounding box also predicts confidence scores indicating the model’s confidence that the box contains an object.
 
-![image](https://github.com/user-attachments/assets/66ac9e61-2422-461f-a09b-2a235605827a)
+<img src="https://github.com/user-attachments/assets/66ac9e61-2422-461f-a09b-2a235605827a" width="50%" height="50%">
 
-What Does “2 Boxes per Cell” Mean?
-Each grid cell is responsible for detecting objects whose center falls inside it.
-But one box isn’t enough. Why?
+**What Does “2 Boxes per Cell” Mean?** Each square guesses 2 possible objects.
 
-Example:
+Yolo makes 2 different guesses about where objects might be in this square.
+2 boxes with sizes and positions.
+
 A cell may have to predict:
 - A small cat on the left
 - A car on the right
 
 ➡ So YOLO gives each cell B=2 guesses (bounding boxes).
 
-![image](https://github.com/user-attachments/assets/fadd85e3-5d6c-492b-94bf-1be423bd7587)
+<img src="https://github.com/user-attachments/assets/fadd85e3-5d6c-492b-94bf-1be423bd7587" width="50%" height="50%">
 
 5. **Intersection Over Unions (IoU)** is then employed to **select relevant grid cells** based on a **user-defined threshold**.
 ‍
@@ -35,30 +35,23 @@ A cell may have to predict:
 
 <img src="https://github.com/user-attachments/assets/cca2c636-259d-4782-9c8f-0ee21cc43026" width="50%" height="50%">
 
-7. Loss Function
+7. **Loss Function**
 
 https://medium.com/@kattarajesh2001/object-detection-part-3-one-stage-detectors-yolo-a4a6b4dd2d33
-![image](https://github.com/user-attachments/assets/142d0ca3-6a15-4034-96a1-c3fbe876bc8c)
+
+<img src="https://github.com/user-attachments/assets/142d0ca3-6a15-4034-96a1-c3fbe876bc8c" width="50%" height="50%">
 
 The loss function in YOLO is designed to optimize both the **bounding box predictions** and the **class probabilities**. 
 It consists of two main components: 
-- Localization loss: This part of the loss measures the error between the predicted bounding box coordinates and the ground truth coordinates.
-- classification loss: This part measures the error in the confidence score, which indicates whether a bounding box contains an object.
+- **Localization loss**: This part of the loss measures the error between the predicted bounding box coordinates and the ground truth coordinates.
+- **classification loss**: This part measures the error in the confidence score, which indicates whether a bounding box contains an object.
 
 Both components are computed as the sum of squared errors. 
 
-- Instances: The number of object instances processed in the current batch.
-- Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
-- Validation Metrics
-  - Class: The category of objects being evaluated (here, all refers to all classes combined).
-  - Images: The number of images used for validation (e.g., 44 means 44 validation images).
-  - Instances: The total number of object instances in the validation set.
-  - Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
-  - R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
-  - mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
-  - mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
 
-https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
+Each cell in the feature map represents a part of the original image, and by analyzing these cells, we can predict where objects are likely to be. Here’s where it gets interesting. Each cell in the feature map grid doesn’t just give us a yes or no answer about the presence of an object; it provides detailed information that helps us pinpoint the exact location of objects within the original image. This is done by assigning each cell a responsibility for detecting objects whose center falls within that cell’s region.
+
+![image](https://github.com/user-attachments/assets/570cb880-1412-4de4-a8e9-1c93b27db7ff)
 
 ## Understand the Architecture
 
@@ -161,6 +154,20 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 
 ```
 ```
+
+## Fine tune a YOLO model
+- Instances: The number of object instances processed in the current batch.
+- Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
+- Validation Metrics
+  - Class: The category of objects being evaluated (here, all refers to all classes combined).
+  - Images: The number of images used for validation (e.g., 44 means 44 validation images).
+  - Instances: The total number of object instances in the validation set.
+  - Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
+  - R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
+  - mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
+  - mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
+
+https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
 
 ## The Art of Possible
 - **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
