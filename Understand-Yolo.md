@@ -31,11 +31,26 @@ A cell may have to predict:
 ‍
 6. Finally, **Non-Max Suppression (NMS)** is applied to retain **only the boxes** with **the highest probability scores**, filtering out potential noise.
 
+7. **Object Location**
+
+If the center of an object falls into a grid cell, that grid cell is responsible for detecting that object
 <img src="https://github.com/user-attachments/assets/14f44ba2-5cb8-443e-941d-5fc17352b053" width="50%" height="50%">
+
+- There are **3 objects** in total (**2 persons** and **one tie**).
+- Each line represents one of these objects / **One row per object**
+- Each row is class **x_center** | **y_center** | **width** | **height** format.
+- Box coordinates must be normalized by the dimensions of the image (i.e. have values between 0 and 1)
+- Class numbers are zero-indexed (start from 0).
 
 <img src="https://github.com/user-attachments/assets/cca2c636-259d-4782-9c8f-0ee21cc43026" width="50%" height="50%">
 
-7. **Loss Function**
+- Each cell in the feature map represents a part of the original image, and by analyzing these cells, we can predict where objects are likely to be.
+- Each cell in the feature map grid doesn’t just give us a yes or no answer about the presence of an object; it provides detailed information that helps us pinpoint the exact location of objects within the original image.
+- This is done by assigning each cell a responsibility for detecting objects whose center falls within that cell’s region.
+
+![image](https://github.com/user-attachments/assets/570cb880-1412-4de4-a8e9-1c93b27db7ff)
+
+8. **Loss Function**
 
 https://medium.com/@kattarajesh2001/object-detection-part-3-one-stage-detectors-yolo-a4a6b4dd2d33
 
@@ -47,11 +62,6 @@ It consists of two main components:
 - **classification loss**: This part measures the error in the confidence score, which indicates whether a bounding box contains an object.
 
 Both components are computed as the sum of squared errors. 
-
-
-Each cell in the feature map represents a part of the original image, and by analyzing these cells, we can predict where objects are likely to be. Here’s where it gets interesting. Each cell in the feature map grid doesn’t just give us a yes or no answer about the presence of an object; it provides detailed information that helps us pinpoint the exact location of objects within the original image. This is done by assigning each cell a responsibility for detecting objects whose center falls within that cell’s region.
-
-![image](https://github.com/user-attachments/assets/570cb880-1412-4de4-a8e9-1c93b27db7ff)
 
 ## Understand the Architecture
 
