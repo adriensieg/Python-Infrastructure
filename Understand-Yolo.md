@@ -1,5 +1,65 @@
 # Yolo, my big takeways
 
+## High level steps
+
+![image](https://github.com/user-attachments/assets/fa6f53e4-34cf-4c29-8887-b292d963bd1c)
+
+1. First, the image is divided into **grid cells (SxS)** responsible for **localizing** and **predicting** the object's class and confidence values.
+  - **Grid division**: The input image is divided into an SxS grid. In this case, it is a **7x7 grid — 7 rows and 7 columns**.
+
+2. Next, **bounding box regression** is used to **determine the rectangles highlighting the objects in the image**. The attributes of these bounding boxes are represented by **a vector containing probability scores**, **coordinates**, and **dimensions**.
+  - These bounding boxes are parameterized by their center coordinates (x, y), and each bounding box’s width and height (w, h) are determined with respect to the entire image.
+  - The (x, y, w, h) coordinates define the location and size of each bounding box within a grid.
+  - The bounding box also predicts confidence scores indicating the model’s confidence that the box contains an object.
+
+![image](https://github.com/user-attachments/assets/66ac9e61-2422-461f-a09b-2a235605827a)
+
+What Does “2 Boxes per Cell” Mean?
+Each grid cell is responsible for detecting objects whose center falls inside it.
+But one box isn’t enough. Why?
+
+Example:
+A cell may have to predict:
+- A small cat on the left
+- A car on the right
+
+➡ So YOLO gives each cell B=2 guesses (bounding boxes).
+
+![image](https://github.com/user-attachments/assets/fadd85e3-5d6c-492b-94bf-1be423bd7587)
+
+5. **Intersection Over Unions (IoU)** is then employed to **select relevant grid cells** based on a **user-defined threshold**.
+‍
+6. Finally, **Non-Max Suppression (NMS)** is applied to retain **only the boxes** with **the highest probability scores**, filtering out potential noise.
+
+<img src="https://github.com/user-attachments/assets/14f44ba2-5cb8-443e-941d-5fc17352b053" width="50%" height="50%">
+
+<img src="https://github.com/user-attachments/assets/cca2c636-259d-4782-9c8f-0ee21cc43026" width="50%" height="50%">
+
+7. Loss Function
+
+https://medium.com/@kattarajesh2001/object-detection-part-3-one-stage-detectors-yolo-a4a6b4dd2d33
+![image](https://github.com/user-attachments/assets/142d0ca3-6a15-4034-96a1-c3fbe876bc8c)
+
+The loss function in YOLO is designed to optimize both the **bounding box predictions** and the **class probabilities**. 
+It consists of two main components: 
+- Localization loss: This part of the loss measures the error between the predicted bounding box coordinates and the ground truth coordinates.
+- classification loss: This part measures the error in the confidence score, which indicates whether a bounding box contains an object.
+
+Both components are computed as the sum of squared errors. 
+
+- Instances: The number of object instances processed in the current batch.
+- Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
+- Validation Metrics
+  - Class: The category of objects being evaluated (here, all refers to all classes combined).
+  - Images: The number of images used for validation (e.g., 44 means 44 validation images).
+  - Instances: The total number of object instances in the validation set.
+  - Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
+  - R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
+  - mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
+  - mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
+
+https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
+
 ## Understand the Architecture
 
 - The input image has dimensions **(448×448×3)**, meaning it has **height = 448**, **width = 448**, and **3 color channels** (RGB).
@@ -15,6 +75,14 @@
     - The image is progressively **downsampled** in **height** & **width** while **increasing in depth**.
     - The final **7×7×30 output** is a compact representation of object detections.
     - Bounding box predictions and **class probabilities** are extracted from this final tensor.
+   
+- The final prediction tensor has dimensions **SxSx(B*5+C)**.
+- From the above, let’s say **S=7**, **B=2**, and (for the PASCAL VOC dataset) **C=20**.
+- Therefore, the final dimension is **7x7x30**.
+- The **30 values** per grid cell consist of:
+  1. Bounding box coordinates (x, y, w, h) and confidence scores, totaling **5 values per bounding box**, B, (2 * 5= 10 values).
+  2. Class probabilities: If there are 20 classes, then there will be 20 probabilities per grid cell.
+    - In total: 10 (bounding box predictions) + 20 (class probabilities) = 30 values per cell.
 
 <img src="https://github.com/user-attachments/assets/bde33277-973d-4a16-a665-863a654ceb8a" width="50%" height="50%">
 
@@ -198,19 +266,5 @@ The classification loss, which measures how well the model is distinguishing bet
 #### dfl_loss: 
 The distribution focal loss, which helps refine the bounding box predictions.
 
-Instances: The number of object instances processed in the current batch.
-Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
-Validation Metrics
-Class: The category of objects being evaluated (here, all refers to all classes combined).
-Images: The number of images used for validation (e.g., 44 means 44 validation images).
-Instances: The total number of object instances in the validation set.
-Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
-R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
-mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
-mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
-
-https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
-
-<img src="https://github.com/user-attachments/assets/14f44ba2-5cb8-443e-941d-5fc17352b053" width="50%" height="50%">
 
 
