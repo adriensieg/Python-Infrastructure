@@ -76,7 +76,7 @@ flowchart TD
 
 
 ```mermaid
-graph LR
+flowchart LR
     A[Start] --> B{Crew Member Staffed at Present Window 2?};
     B -- Yes --> C{Order Ready?};
     B -- No --> X[Initial Decision: Direct car to Window 1 for Cash];
