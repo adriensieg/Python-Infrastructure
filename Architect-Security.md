@@ -341,15 +341,55 @@ def encrypt_field(data: str) -> str:
 - 👉 Container Security: If using Docker, scan images for vulnerabilities.
 - 👉 Secrets Management: Use environment variables, AWS Secrets Manager, or HashiCorp Vault.
 
+# M2M Authentication
+
+Machine-to-Machine (M2M) Authentication - 2 approaches:
+- **An API key**
+- **Client credentials flow** - This is the most secure and recommended approach
+    - Fine-grained authorization
+    - Able to revoke application access easily
+
+## Client Credentials Flow (OAuth 2.0)
+
+1. **Client ID** and **Secret**:
+Generate a **unique client ID** and a **client secret** for **each trusted application** that needs to access your API.
+Think of these as the application's **"username"** and **"password"**
+Store the client secret securely on the client application (using environment variables or secure configuration).
+
+2. **Token Endpoint**:
+Your authentication service exposes a token endpoint (e.g., `/oauth/token`).
+
+3. **Authentication Request**
+The client application makes an HTTP POST request to the token endpoint, including the client ID and client secret in the Authorization header (using Basic authentication) or in the request body.
+
+5. Authentication Service: You need a dedicated authentication service that issues the JWTs. This service verifies user credentials and, upon successful verification, generates a JWT containing claims (user ID, roles, permissions, etc.). This service could be:
+
+6. Google Identity Platform (Formerly Firebase Authentication): A fully managed authentication solution provided by Google. It supports various authentication methods (email/password, social providers, etc.) and integrates well with other Google Cloud services. This is a good option if you prefer a managed service.
+
+3. Refresh Token Flow (Optional but Recommended):
+
+When the access_token expires, the client application uses the refresh_token to request a new access_token from the authentication service. This avoids requiring the user to re-enter their credentials every time the access_token expires.
+
+The client sends a POST request to a refresh token endpoint (e.g., /auth/refresh) with the refresh_token in the request body.
+
+The authentication service validates the refresh_token (e.g., by checking it against a database of valid refresh tokens).
+
+If the refresh_token is valid, the authentication service issues a new access_token and, optionally, a new refresh_token.
+
+Refresh Token Rotation: After issuing a new access token based on the refresh token, invalidate the old refresh token. This helps prevent an attacker who compromises a refresh token from continuously obtaining new access tokens.
 
 
 
 
-
-
-
-
-
+HTTPS is Mandatory: Always use HTTPS to protect credentials in transit.
+Strong Passwords: Enforce strong password policies.
+Hashing and Salting: Store passwords securely in the authentication service using strong hashing algorithms (e.g., bcrypt, Argon2) and unique salts.
+Rate Limiting: Implement rate limiting on the authentication endpoint to prevent brute-force attacks.
+Account Lockout: Implement account lockout policies to prevent attackers from repeatedly trying to guess passwords.
+Multi-Factor Authentication (MFA): Strongly consider implementing MFA for enhanced security.
+XSS Prevention: Protect against XSS attacks in browser-based applications to prevent attackers from stealing tokens.
+Secure Storage: Use secure storage mechanisms for tokens on the client-side.
+Regular Security Audits: Regularly audit your authentication service and client applications for security vulnerabilities.
 
 
 
