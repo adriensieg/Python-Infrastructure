@@ -410,19 +410,19 @@ Authorization: Bearer <access_token>
         - **Returns** a response to the client application.
 
 8. **Refresh Token Flow** (Optional but Recommended):
-    - When the access_token expires, the client application uses the refresh_token to request a new access_token from the authentication service. This avoids requiring the user to re-enter their credentials every time the access_token expires.
-    - The client sends a POST request to a refresh token endpoint (e.g., /auth/refresh) with the refresh_token in the request body.
-    - The authentication service validates the refresh_token (e.g., by checking it against a database of valid refresh tokens).
-    - If the refresh_token is valid, the authentication service issues a new access_token and, optionally, a new refresh_token.
-    - Refresh Token Rotation: After issuing a new access token based on the refresh token, invalidate the old refresh token. This helps prevent an attacker who compromises a refresh token from continuously obtaining new access tokens.
+    - When the **access_token expires**, the client application uses the **refresh_token** to **request a new access_token** from the **authentication service**. This avoids requiring the user to re-enter their credentials every time the access_token expires.
+    - The client sends a **POST request** to **a refresh token endpoint** (e.g., **/auth/refresh**) with the **refresh_token** in the **request body**.
+    - The authentication service validates the **refresh_token** (e.g., by checking it against a database of valid refresh tokens).
+    - If the **refresh_token is valid**, the **authentication service issues a new access_token** and, optionally, a new refresh_token.
+    - **Refresh Token Rotation**: After issuing a **new access token** based on the refresh token, invalidate the old refresh token. This helps prevent an attacker who compromises a refresh token from continuously obtaining new access tokens.
 
-## API Key (Simpler but Less Secure): This is a less secure alternative, suitable only for specific scenarios with limited risk.
+## API Key (Simpler but Less Secure)
 
-1. Generate API Key: You generate a unique API key for each trusted application.
-2. Store Securely: The API key must be stored securely on the client application (e.g., environment variables, secure configuration).
-3. Include in Request: The client application includes the API key in every request to your API, either in a header (e.g., X-API-Key: your_api_key) or as a query parameter (e.g., ?api_key=your_api_key).
-4. Verification: Your Cloud Function verifies the API key against a list of authorized keys.
-5. Limitations: API keys are static and cannot be easily revoked or rotated. They are also more susceptible to being compromised. They don't easily allow for fine-grained authorization (roles, permissions). Treat an API Key as "all or nothing" access.
+1. **Generate API Key**: You generate a unique API key for each trusted application.
+2. **Store Securely**: The API key must be stored securely on the client application (e.g., environment variables, secure configuration).
+3. **Include in Request**: The client application includes the API key in every request to your API, either in a header (e.g., X-API-Key: your_api_key) or as a query parameter (e.g., ?api_key=your_api_key).
+4. **Verification**: Your Cloud Function verifies the API key against a list of authorized keys.
+5. **Limitations**: API keys are static and cannot be easily revoked or rotated. They are also more susceptible to being compromised. They don't easily allow for fine-grained authorization (roles, permissions). Treat an API Key as "all or nothing" access.
 
 ## Security Principles:
 
@@ -451,4 +451,27 @@ Hashing: Never store client secrets in plaintext. Always hash them using bcrypt 
 
 Service Account: Make sure the Cloud Function runs under a dedicated service account, with ONLY the required permissions to Cloud Firestore (read/write as needed).
 Network Configuration: If possible, restrict network access to your Cloud Function by configuring ingress settings or VPC Service Controls.
+
+# External workload authentication using Workload Identity Federation (WIF)
+
+## The Problem WIF solves:
+
+Traditionally, to grant an application running on-premises or in another cloud provider access to Google Cloud resources, you would create a **Google Cloud service account** and then **download a service account key file (JSON)**. 
+This key file contains the credentials needed to authenticate to Google Cloud as that service account.
+
+![image](https://github.com/user-attachments/assets/ae28a4af-52ee-4fa8-8a17-1256f00210d1)
+
+## What is Workload Identity Federation?
+
+Workload Identity Federation (WIF) is a Google Cloud IAM (Identity and Access Management) feature that allows you to grant workloads (applications, services, etc.) running outside of Google Cloud secure access to Google Cloud resources **without needing to use service account keys**.
+
+Google Cloud’s Workload Identity Federation allows you to use your ambient credentials from AWS, Azure or in any arbitrary OIDC providers to access Google Cloud Resources.
+https://blog.salrashid.dev/articles/2021/understanding_workload_identity_federation/
+
+![image](https://github.com/user-attachments/assets/0ae816b7-8b2c-426d-9c43-2a54f3207181)
+
+# Authentication methods at Google
+
+![image](https://github.com/user-attachments/assets/2a724f4b-ae00-4c3a-9988-cc6562c9729d)
+
 
