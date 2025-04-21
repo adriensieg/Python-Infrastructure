@@ -344,55 +344,111 @@ def encrypt_field(data: str) -> str:
 # M2M Authentication
 
 Machine-to-Machine (M2M) Authentication - 2 approaches:
-- **An API key**
 - **Client credentials flow** - This is the most secure and recommended approach
     - Fine-grained authorization
     - Able to revoke application access easily
+      
+- **An API key**
 
 ## Client Credentials Flow (OAuth 2.0)
 
 1. **Client ID** and **Secret**:
-Generate a **unique client ID** and a **client secret** for **each trusted application** that needs to access your API.
-Think of these as the application's **"username"** and **"password"**
-Store the client secret securely on the client application (using environment variables or secure configuration).
+    - Generate a **unique client ID** and a **client secret** for **each trusted application** that needs to access your API.
+    - Think of these as the application's **"username"** and **"password"**
+    - Store the client secret securely on the client application (using **environment variables** or **secure configuration**).
+    - The client application possesses a **client ID** and **client secret** (configured securely).
 
 2. **Token Endpoint**:
-Your authentication service exposes a token endpoint (e.g., `/oauth/token`).
+    - Your authentication service exposes a **token endpoint** (e.g., `/oauth/token`).
 
 3. **Authentication Request**
-The client application makes an HTTP POST request to the token endpoint, including the client ID and client secret in the Authorization header (using Basic authentication) or in the request body.
+    - The **client application** makes an **HTTP POST request to the token endpoint**, including the **client ID** and **client secret** in
+        - the **Authorization header** (using Basic authentication) or
+        - the **request body**
+    - The client application makes a request to the **/oauth/token endpoint** of the authentication service, providing its **client ID** and **client secret**.
 
-5. Authentication Service: You need a dedicated authentication service that issues the JWTs. This service verifies user credentials and, upon successful verification, generates a JWT containing claims (user ID, roles, permissions, etc.). This service could be:
-
-6. Google Identity Platform (Formerly Firebase Authentication): A fully managed authentication solution provided by Google. It supports various authentication methods (email/password, social providers, etc.) and integrates well with other Google Cloud services. This is a good option if you prefer a managed service.
-
-3. Refresh Token Flow (Optional but Recommended):
-
-When the access_token expires, the client application uses the refresh_token to request a new access_token from the authentication service. This avoids requiring the user to re-enter their credentials every time the access_token expires.
-
-The client sends a POST request to a refresh token endpoint (e.g., /auth/refresh) with the refresh_token in the request body.
-
-The authentication service validates the refresh_token (e.g., by checking it against a database of valid refresh tokens).
-
-If the refresh_token is valid, the authentication service issues a new access_token and, optionally, a new refresh_token.
-
-Refresh Token Rotation: After issuing a new access token based on the refresh token, invalidate the old refresh token. This helps prevent an attacker who compromises a refresh token from continuously obtaining new access tokens.
+```
+# Option A - Authorization Header (Basic Auth):
+- Authorization: Basic <base64 encoded client_id:client_secret>
+- Content-Type: application/x-www-form-urlencoded
 
 
+# Option B - Request Body (form data):
+client_id=your_client_id&client_secret=your_client_secret&grant_type=client_credentials
+```
+
+4. **Token Response**
+    - The **Authentication service** validates the **client ID** and **client secret**. If valid, it issues an **access token** (**JWT**) and, optionally, **a refresh token**.
+    - The **Authentication service** issues the **JWTs**. This service verifies **user credentials** and, upon successful verification, generates **a JWT containing claims** (**user ID**, **roles**, **permissions**, etc.). This service could be:
+
+```
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "token_type": "Bearer",
+    "expires_in": 3600,  // Seconds
+    "refresh_token": "..."  // Optional
+}
+```
+
+5. **Subsequent API Requests**
+    - The client application includes the access token in the Authorization header of subsequent requests to your CRUD API:
+
+```
+Authorization: Bearer <access_token>
+```
+
+6. **JWT Verification**
+    - Our Cloud Function (CRUD API) verifies the **JWT** as described before (**signature**, **expiration**, **audience**, **issuer**).
+
+7. **Authorization**
+    - The claims within the **JWT** (issued in the **Authentication Service**) will contain **information** about the software application's authorized **roles** and **permissions**.
+    - Our Cloud Function logic uses this to authorize specific actions on data.
+        - **Verifies the JWT** (signature, expiration, audience, issuer).
+        - **Extracts the claims** from the JWT to determine the application's authorized permissions.
+        - **Authorizes** the request based on the application's permissions.
+        - **Performs** the requested CRUD operation on Cloud Firestore.
+        - **Returns** a response to the client application.
+
+8. **Refresh Token Flow** (Optional but Recommended):
+    - When the access_token expires, the client application uses the refresh_token to request a new access_token from the authentication service. This avoids requiring the user to re-enter their credentials every time the access_token expires.
+    - The client sends a POST request to a refresh token endpoint (e.g., /auth/refresh) with the refresh_token in the request body.
+    - The authentication service validates the refresh_token (e.g., by checking it against a database of valid refresh tokens).
+    - If the refresh_token is valid, the authentication service issues a new access_token and, optionally, a new refresh_token.
+    - Refresh Token Rotation: After issuing a new access token based on the refresh token, invalidate the old refresh token. This helps prevent an attacker who compromises a refresh token from continuously obtaining new access tokens.
+
+## API Key (Simpler but Less Secure): This is a less secure alternative, suitable only for specific scenarios with limited risk.
+
+1. Generate API Key: You generate a unique API key for each trusted application.
+2. Store Securely: The API key must be stored securely on the client application (e.g., environment variables, secure configuration).
+3. Include in Request: The client application includes the API key in every request to your API, either in a header (e.g., X-API-Key: your_api_key) or as a query parameter (e.g., ?api_key=your_api_key).
+4. Verification: Your Cloud Function verifies the API key against a list of authorized keys.
+5. Limitations: API keys are static and cannot be easily revoked or rotated. They are also more susceptible to being compromised. They don't easily allow for fine-grained authorization (roles, permissions). Treat an API Key as "all or nothing" access.
+
+## Security Principles:
+
+- HTTPS is Mandatory: Always use HTTPS to protect credentials in transit.
+- Hashing and Salting: Store passwords securely in the authentication service using strong hashing algorithms (e.g., bcrypt, Argon2) and unique salts.
+- Rate Limiting: Implement rate limiting on the authentication endpoint to prevent brute-force attacks.
+- Account Lockout: Implement account lockout policies to prevent attackers from repeatedly trying to guess passwords.
+- Multi-Factor Authentication (MFA): Strongly consider implementing MFA for enhanced security.
+- XSS Prevention: Protect against XSS attacks in browser-based applications to prevent attackers from stealing tokens.
+- Secure Storage: Use secure storage mechanisms for tokens on the client-side.
+- Regular Security Audits: Regularly audit your authentication service and client applications for security vulnerabilities.
 
 
-HTTPS is Mandatory: Always use HTTPS to protect credentials in transit.
-Strong Passwords: Enforce strong password policies.
-Hashing and Salting: Store passwords securely in the authentication service using strong hashing algorithms (e.g., bcrypt, Argon2) and unique salts.
-Rate Limiting: Implement rate limiting on the authentication endpoint to prevent brute-force attacks.
-Account Lockout: Implement account lockout policies to prevent attackers from repeatedly trying to guess passwords.
-Multi-Factor Authentication (MFA): Strongly consider implementing MFA for enhanced security.
-XSS Prevention: Protect against XSS attacks in browser-based applications to prevent attackers from stealing tokens.
-Secure Storage: Use secure storage mechanisms for tokens on the client-side.
-Regular Security Audits: Regularly audit your authentication service and client applications for security vulnerabilities.
+7.1: Input Validation: Thoroughly validate all input to prevent injection attacks.
+7.2: Output Encoding: Encode all output to prevent XSS attacks.
+7.3: Rate Limiting: Implement rate limiting on all API endpoints.
+7.4: Regular Security Audits: Perform regular security audits to identify and fix vulnerabilities.
+7.5: Dependency Management: Keep your dependencies up to date.
+7.6: Secure Logging: Log all security-related events.
+7.7: Key Rotation: Regularly rotate your cryptographic keys (both the private key used to sign JWTs and the client secrets).
+7.8: Principle of Least Privilege: Grant your service accounts only the minimum necessary permissions.
+7.9: Monitor GCP Resources: Use GCP's monitoring tools to alert on unexpected behaviours.
 
+Short-Lived JWTs: Use short-lived JWTs to minimize the impact of compromised tokens.
+Hashing: Never store client secrets in plaintext. Always hash them using bcrypt or Argon2.
 
-
-
-
+Service Account: Make sure the Cloud Function runs under a dedicated service account, with ONLY the required permissions to Cloud Firestore (read/write as needed).
+Network Configuration: If possible, restrict network access to your Cloud Function by configuring ingress settings or VPC Service Controls.
 
