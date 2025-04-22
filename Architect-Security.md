@@ -116,7 +116,7 @@ from app.routes import main_bp, auth_bp, api_bp
 # Initialize blueprints
 main_bp = Blueprint('main', __name__)
 auth_bp = Blueprint('auth', __name__)
-api_bp = Blueprint('api', __name__)
+api_bp = Blueprint('api', __name__)https://mcd-tools.atlassian.net/wiki/spaces/DAAI/overview
 
 @auth_bp.route('/logout')
 def logout():
