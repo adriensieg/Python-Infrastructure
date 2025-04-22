@@ -470,6 +470,27 @@ https://blog.salrashid.dev/articles/2021/understanding_workload_identity_federat
 
 ![image](https://github.com/user-attachments/assets/0ae816b7-8b2c-426d-9c43-2a54f3207181)
 
+## Main Concepts: 
+
+### What is a managed identity?
+A **managed identity** in Azure (or Google / AWS) is a type of **service principal** that allows an application or service to **authenticate** with other Azure services (or Google / Azure) securely, **without the need for storing credentials**. Credentials are **not accessible** and a managed identity gets an access token from Azure AD instead. Services use these tokens to access Azure services that support Azure AD authentication.
+
+If you deploy a Cloud Run service, Google gives it a managed identity. You can give that identity permission to access a Cloud Storage bucket, and then your service can read/write to the bucket without needing API keys or service account files.
+
+A **managed identity** in Google (like in Google Cloud Platform, or GCP) is a special kind of **Google-managed service account** that allows Google services (like Cloud Run, Compute Engine, or Cloud Functions) to **automatically get credentials** so they can securely access other Google Cloud resources.
+
+### Workload identity federation
+We have just seen that, for workloads hosted in Azure, we can use a managed identity to authenticate against Azure AD protected resources (such as a KeyVault or a database) without the need to manage credentials. It is a great way to improve security (no credentials leakage) and operability (no credentials expiration that could compromise your application availability) but it was not available, by default, to workloads hosted outside of Azure.
+
+Workload identity federation minds the gap by using standard federation mechanisms where we can establish trusted connectivity between an external identity provider (IdP) and Azure AD which acts as the service provider. Workloads use tokens issued by their IdP to exchange it with a valid Azure AD access token (through a managed identity) and then use this token to access Azure services.
+
+### Federated credentials
+Now that we have explained the concept of workload identity federation, federated credentials in Azure is the way to establish this trust relationship between the external IdP and an Azure AD managed application (a managed identity). It is part of the configuration within a user-assigned managed identity. It contains several fields but the most important ones are
+
+issuer: this is the URL which corresponds to the IdP. It is used by Azure AD to get keys and control that tokens it receives have been provided by this IdP.
+subject: this is the identifier of the workload coming from the external system
+When a request token is received from a workload, issuer and subject contained in the token are checked against the ones provided in the federated credentials configuration. Then, Azure AD will be able to move forward in the workflow of delivering an access token.
+
 # Authentication methods at Google
 
 ![image](https://github.com/user-attachments/assets/2a724f4b-ae00-4c3a-9988-cc6562c9729d)
