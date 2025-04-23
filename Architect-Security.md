@@ -485,7 +485,10 @@ A **managed identity** in Google (like in Google Cloud Platform, or GCP) is a sp
 ### Workload identity federation
 For workloads hosted in Azure/Google/AWS, we can use a **managed identity** to **authenticate against Azure/Google/AWS iDP** protected resources (such as a database) **without the need to manage credentials**. It is a great way to improve security (**no credentials leakage**) and operability (**no credentials expiration** that could compromise your application availability) but it was not available, by default, to workloads hosted outside of Azure.
 
-<p style="background-color:Tomato;">Lorem ipsum...</p>
+<b style="color:red;">Bold Red Text</b>
+
+<span style="color:red; font-weight:bold;">Bold Red Text</span>
+
 Workload identity federation minds the gap by using standard federation mechanisms where we can establish trusted connectivity between an external identity provider (IdP) and Azure AD which acts as the service provider. Workloads use tokens issued by their IdP to exchange it with a valid Azure AD access token (through a managed identity) and then use this token to access Azure services.
 
 ### Federated credentials
