@@ -466,6 +466,7 @@ This key file contains the credentials needed to authenticate to Google Cloud as
 Workload Identity Federation (WIF) is a Google Cloud IAM (Identity and Access Management) feature that allows you to grant workloads (applications, services, etc.) running outside of Google Cloud secure access to Google Cloud resources **without needing to use service account keys**.
 
 Google Cloud’s Workload Identity Federation allows you to use your ambient credentials from AWS, Azure or in any arbitrary OIDC providers to access Google Cloud Resources.
+
 https://blog.salrashid.dev/articles/2021/understanding_workload_identity_federation/
 
 ![image](https://github.com/user-attachments/assets/0ae816b7-8b2c-426d-9c43-2a54f3207181)
@@ -486,6 +487,8 @@ A **managed identity** in Google (like in Google Cloud Platform, or GCP) is a sp
 For workloads hosted in Azure/Google/AWS, we can use a **managed identity** to **authenticate against Azure/Google/AWS iDP** protected resources (such as a database) **without the need to manage credentials**. It is a great way to improve security (**no credentials leakage**) and operability (**no credentials expiration** that could compromise your application availability) but it was not available, by default, to workloads hosted outside of Azure.
 
 🚨 **Workload identity federation** minds the gap by using standard federation mechanisms where we **can establish trusted connectivity between an external identity provider (IdP) and Azure AD** which acts as the **service provider**. Workloads use tokens issued by their IdP to exchange it with a valid Azure AD access token (through a managed identity) and then use this token to access Azure services.
+
+Workload identity federation **enables applications running outside of Google Cloud** to replace **long-lived service account keys** with **short-lived access tokens**. This is achieved by configuring Google Cloud to **trust an external identity provider**, so applications can **use the credentials issued by the external identity provider** to **impersonate a service account**.
 
 ### Federated credentials
 Now that we have explained the concept of workload identity federation, federated credentials in Azure is the way to establish this trust relationship between the external IdP and an Azure AD managed application (a managed identity). It is part of the configuration within a user-assigned managed identity. It contains several fields but the most important ones are
