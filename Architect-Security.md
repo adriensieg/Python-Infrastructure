@@ -472,6 +472,9 @@ https://blog.salrashid.dev/articles/2021/understanding_workload_identity_federat
 
 ## Main Concepts: 
 
+### Service Principal
+A **Service Principal** is a non-human identity (NHI) used by applications, services, or automated workflows to **authenticate** and **access** resources in cloud environments
+
 ### What is a managed identity?
 A **managed identity** in Azure (or Google / AWS) is a type of **service principal** that allows an application or service to **authenticate** with other Azure services (or Google / Azure) securely, **without the need for storing credentials**. Credentials are **not accessible** and a managed identity gets an access token from Azure AD instead. Services use these tokens to access Azure services that support Azure AD authentication.
 
@@ -480,8 +483,9 @@ If you deploy a Cloud Run service, Google gives it a managed identity. You can g
 A **managed identity** in Google (like in Google Cloud Platform, or GCP) is a special kind of **Google-managed service account** that allows Google services (like Cloud Run, Compute Engine, or Cloud Functions) to **automatically get credentials** so they can securely access other Google Cloud resources.
 
 ### Workload identity federation
-We have just seen that, for workloads hosted in Azure, we can use a managed identity to authenticate against Azure AD protected resources (such as a KeyVault or a database) without the need to manage credentials. It is a great way to improve security (no credentials leakage) and operability (no credentials expiration that could compromise your application availability) but it was not available, by default, to workloads hosted outside of Azure.
+For workloads hosted in Azure/Google/AWS, we can use a **managed identity** to **authenticate against Azure/Google/AWS iDP** protected resources (such as a database) **without the need to manage credentials**. It is a great way to improve security (**no credentials leakage**) and operability (**no credentials expiration** that could compromise your application availability) but it was not available, by default, to workloads hosted outside of Azure.
 
+<p style="background-color:Tomato;">Lorem ipsum...</p>
 Workload identity federation minds the gap by using standard federation mechanisms where we can establish trusted connectivity between an external identity provider (IdP) and Azure AD which acts as the service provider. Workloads use tokens issued by their IdP to exchange it with a valid Azure AD access token (through a managed identity) and then use this token to access Azure services.
 
 ### Federated credentials
