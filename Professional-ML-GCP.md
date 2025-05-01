@@ -31,20 +31,19 @@ For example, a model that strives to be **highly precise** might be less likely 
 🔁 **Precision** = "Don’t cry wolf unless you’re sure it’s a wolf."
 🔁 **Recall** = "Try to catch every wolf, even if you make some mistakes."
 
-Email Spam Filter
-Imagine you're building an email spam filter:
+```
+Email Spam Filter - Imagine you're building an email spam filter:
 
-Precision focus: You want to make sure that if an email is marked as spam, it really is spam.
+### Precision
+- Precision focus: You want to make sure that if an email is marked as spam, it really is spam.
+- Why? Because marking a legit email (say from your boss) as spam would be bad.
+- High precision avoids this, but might let some spam sneak into your inbox (lower recall).
 
-Why? Because marking a legit email (say from your boss) as spam would be bad.
-
-High precision avoids this, but might let some spam sneak into your inbox (lower recall).
-
-Recall focus: You want to catch all spam emails, even if that means some good emails are wrongly marked as spam.
-
-Why? Because spam is annoying or dangerous (phishing).
-
-High recall helps here, but you might mark some good emails as spam (lower precision).
+### Recall
+- Recall focus: You want to catch all spam emails, even if that means some good emails are wrongly marked as spam.
+- Why? Because spam is annoying or dangerous (phishing).
+- High recall helps here, but you might mark some good emails as spam (lower precision).
+```
 
 ## Loss Functions
 - Cross-entropy
