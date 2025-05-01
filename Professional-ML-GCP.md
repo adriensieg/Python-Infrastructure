@@ -4,6 +4,8 @@ https://medium.com/@furcifer/cracking-the-gcp-certified-professional-machine-lea
 https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-learning-engineer-certification-exam-2110998db0f5
 
 # Performance Metrics
+https://medium.com/analytics-vidhya/machine-learning-metrics-in-simple-terms-d58a9c85f9f6
+
 ![image](https://github.com/user-attachments/assets/15a54af6-a024-472e-a85c-c07585a68563)
 
 - Accuracy
