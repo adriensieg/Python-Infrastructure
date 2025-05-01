@@ -4,6 +4,8 @@ https://medium.com/@furcifer/cracking-the-gcp-certified-professional-machine-lea
 https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-learning-engineer-certification-exam-2110998db0f5
 
 # Performance Metrics
+![image](https://github.com/user-attachments/assets/15a54af6-a024-472e-a85c-c07585a68563)
+
 - Accuracy
 - F-score
 - Recall
@@ -13,6 +15,7 @@ https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-lea
 - AUC
 - Confusion Matrix
 - Micro-Averaging vs. Macro-Averaging - https://www.evidentlyai.com/classification-metrics/multi-class-metrics
+- Cross fold Validation
 
 ## Precision 
 - Out of all the times the model said "yes" (positive), how many times was it actually right?
