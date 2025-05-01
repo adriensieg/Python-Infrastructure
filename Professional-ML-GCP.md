@@ -14,6 +14,38 @@ https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-lea
 - Confusion Matrix
 - Micro-Averaging vs. Macro-Averaging - https://www.evidentlyai.com/classification-metrics/multi-class-metrics
 
+## Precision 
+- Out of all the times the model said "yes" (positive), how many times was it actually right?
+- High precision means **fewer false alarms**. It's useful when **being wrong is costly or dangerous**.
+
+## Recall 
+- Out of all the actual "yes" cases, how many did your model catch?
+- High recall means you miss fewer real cases. It's important when missing something is risky.
+
+### Trade-off between precision and recall:
+There's a trade-off between **precision** and **recall**. **Increasing one might lead to a decrease in the other**. 
+For example, a model that strives to be **highly precise** might be less likely to **find all the relevant instances**, potentially **leading to a lower recall score**. Conversely, a model that strives to **be highly recall** might make **more false positive predictions**, leading to **a lower precision score**. 
+
+**Precision** focuses on the **accuracy of positive predictions**, while **recall** focuses on the model's ability to **identify all relevant instances**. Essentially, **precision** tells you **how many of the predictions you made were actually positive**, while **recall** tells you **how many of the actual positive instances your model detected**. 
+
+🔁 **Precision** = "Don’t cry wolf unless you’re sure it’s a wolf."
+🔁 **Recall** = "Try to catch every wolf, even if you make some mistakes."
+
+Email Spam Filter
+Imagine you're building an email spam filter:
+
+Precision focus: You want to make sure that if an email is marked as spam, it really is spam.
+
+Why? Because marking a legit email (say from your boss) as spam would be bad.
+
+High precision avoids this, but might let some spam sneak into your inbox (lower recall).
+
+Recall focus: You want to catch all spam emails, even if that means some good emails are wrongly marked as spam.
+
+Why? Because spam is annoying or dangerous (phishing).
+
+High recall helps here, but you might mark some good emails as spam (lower precision).
+
 ## Loss Functions
 - Cross-entropy
 - Mean squared error
