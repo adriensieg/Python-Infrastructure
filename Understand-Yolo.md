@@ -166,7 +166,7 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 ```
 
 ## Fine tune a YOLO model
-- Instances: The number of object instances processed in the current batch.
+- **Instances**: The number of object instances processed in the current batch.
 - Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
 - Validation Metrics
   - Class: The category of objects being evaluated (here, all refers to all classes combined).
@@ -178,6 +178,35 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
   - mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
 
 https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
+
+## Feature Vector
+Every detected object in an object detection network has an associated **feature** used for the final prediction. These **object-level features** or **embeddings** from networks like YOLO are also valuable for various downstream tasks, such as **similarity calculations** used in **re-identification**. 
+
+So we want to **extract the features** (intermediate outputs) of **specific layers** of a model instead of **just getting the final output** (e.g., bounding boxes, segmentation masks).
+
+### What is the embed Argument?
+- The `embed` argument in Ultralytics' framework is typically used to **retrieve the features of a particular layer**.
+- However, the **features extracted** through this method are usually **pooled** and **flattened**.
+  - **Pooling**: Reduces the **spatial dimensions of the features** (e.g., using average pooling or max pooling).
+  - **Flattening**: Converts the **multi-dimensional feature map** into a **1D vector**, making it ready for dense layers.
+ 
+### Reminder - Pooling vs. Flattened
+
+The goal of the **pooling layer** is to **pull the most significant features from the convoluted matrix**. This is done by  applying **some aggregation operation**s, which **reduces the dimension of the feature map (convoluted matrix)**, hence **reducing the memory** used while **training the network**.  Pooling is also relevant for **mitigating overfitting**.
+
+Also, the dimension of the **feature map** becomes **smaller** as the **polling function is applied**. 
+
+The most common aggregation functions that can be applied are: 
+- **Max pooling** which is the maximum value of the feature map
+- **Sum pooling** corresponds to the sum of all the values of the feature map
+- **Average pooling** is the average of all the values. 
+
+![image](https://github.com/user-attachments/assets/a49e907b-1aef-498f-abce-706dd7b85092)
+
+![image](https://github.com/user-attachments/assets/0e66add1-9163-4d1b-9283-f4dab9e69f40)
+
+![image](https://github.com/user-attachments/assets/b7ea75b3-eaec-4663-8a37-b8fd15fcd258)
+
 
 ## The Art of Possible
 - **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
