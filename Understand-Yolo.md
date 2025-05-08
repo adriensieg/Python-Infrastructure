@@ -180,17 +180,20 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
 
 ## Feature Vector
-Every detected object in an object detection network has an associated **feature** used for the final prediction. These **object-level features** or **embeddings** from networks like YOLO are also valuable for various downstream tasks, such as **similarity calculations** used in **re-identification**. 
+https://y-t-g.github.io/tutorials/yolo-object-features/
+
+Every detected object in an object detection network has an associated **feature** used for the final prediction. 
+These **object-level features** or **embeddings** from networks like YOLO are also valuable for various downstream tasks, such as **similarity calculations** used in **re-identification**. 
 
 So we want to **extract the features** (intermediate outputs) of **specific layers** of a model instead of **just getting the final output** (e.g., bounding boxes, segmentation masks).
 
-### What is the embed Argument?
+### What is the `embed` Argument?
 - The `embed` argument in Ultralytics' framework is typically used to **retrieve the features of a particular layer**.
 - However, the **features extracted** through this method are usually **pooled** and **flattened**.
-  - **Pooling**: Reduces the **spatial dimensions of the features** (e.g., using average pooling or max pooling).
+  - **Pooling**: Reduces the **spatial dimensions of the features** (e.g., using **average pooling** or **max pooling**).
   - **Flattening**: Converts the **multi-dimensional feature map** into a **1D vector**, making it ready for dense layers.
  
-### Reminder - Pooling vs. Flattened
+### Reminder - Pooling
 
 The goal of the **pooling layer** is to **pull the most significant features from the convoluted matrix**. This is done by  applying **some aggregation operation**s, which **reduces the dimension of the feature map (convoluted matrix)**, hence **reducing the memory** used while **training the network**.  Pooling is also relevant for **mitigating overfitting**.
 
@@ -203,10 +206,44 @@ The most common aggregation functions that can be applied are:
 
 ![image](https://github.com/user-attachments/assets/a49e907b-1aef-498f-abce-706dd7b85092)
 
+### Reminder - Flatening
+
+- Suppose a CNN processes an image and produces a 3D output: `(8, 8, 16) — 8x8` grid with `16 feature maps`.
+- Flattening converts this to a vector of length `8 * 8 * 16 = 1024`.
+- This **1024-element vector** now contains **all extracted features** in **a single list**, ready to be **processed by a dense layer to learn the overall pattern** (e.g., is it a cat or a dog?).
+- If we didn’t flatten, the dense layer would not understand how to connect features across different locations in the grid.
+
 ![image](https://github.com/user-attachments/assets/0e66add1-9163-4d1b-9283-f4dab9e69f40)
 
-![image](https://github.com/user-attachments/assets/b7ea75b3-eaec-4663-8a37-b8fd15fcd258)
+#### What Does Flattening Achieve?
+1. **Aggregates Information**:
+  - It takes all the **extracted features** (e.g., edges, corners, textures) and puts them into **a single list**.
+  - This allows the **dense layer** to learn **global patterns** across the **entire input**, **not just localized regions**.
+    
+2. **Transforms Spatial to Abstract**:
+  - Convolutions capture **spatial features** (e.g., pixels near each other).
+  - Dense layers aggregate these features to **make final decisions**, like classifying the entire image.
 
+#### Why Not Keep the Multi-Dimensional Structure?
+- Dense Layers Need a **Single Vector**:
+  - Dense (fully connected) layers work with **vectors**, **not multi-dimensional arrays**.
+  - They perform **matrix-vector multiplication**, meaning they expect **a single vector input**.
+
+- Combining All Features:
+  - A convolutional layer **extracts localized features** (edges, patterns) in **a grid format**.
+  - Flattening converts this **grid into a single vector**, allowing the **dense layer** to consider **all features simultaneously**, rather than treating them as separate grids.
+
+### What is monkey-patching?
+**Monkey-patching** refers to the practice of **modifying or extending a module or class at runtime** without altering its original source code.
+It allows us to **change** or **augment** the **behavior of a function** or **method** temporarily.
+
+### Why Monkey-Patch the _predict_once Method?
+The `_predict_once` method in Ultralytics is a core function that executes **a single forward pass** through the model.
+By default, this method will **pool** and **flatten** the extracted features when the embed argument is used.
+
+If we want to **retrieve the raw**, **unprocessed features (without pooling and flattening)**, we need to modify this method.
+
+![image](https://github.com/user-attachments/assets/644cccfd-666b-4df7-a139-855481dc69dc)
 
 ## The Art of Possible
 - **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
