@@ -167,15 +167,15 @@ https://www.paepper.com/blog/posts/depthwise-separable-convolutions-in-pytorch/
 
 ## Fine tune a YOLO model
 - **Instances**: The number of object instances processed in the current batch.
-- Size: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
+- **Size**: The input image size used during training (e.g., 800 means images are resized to 800 pixels).
 - Validation Metrics
-  - Class: The category of objects being evaluated (here, all refers to all classes combined).
-  - Images: The number of images used for validation (e.g., 44 means 44 validation images).
-  - Instances: The total number of object instances in the validation set.
-  - Box(P): Precision for bounding box detection, measuring how many detected objects are correct.
-  - R (Recall): The recall for bounding box detection, measuring how many actual objects were detected.
-  - mAP50: Mean Average Precision at IoU=0.50, a standard object detection metric.
-  - mAP50-95: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
+  - **Class**: The category of objects being evaluated (here, all refers to all classes combined).
+  - **Images**: The number of images used for validation (e.g., 44 means 44 validation images).
+  - **Instances**: The total number of object instances in the validation set.
+  - **Box(P)**: Precision for bounding box detection, measuring how many detected objects are correct.
+  - **R (Recall)**: The recall for bounding box detection, measuring how many actual objects were detected.
+  - **mAP50**: Mean Average Precision at IoU=0.50, a standard object detection metric.
+  - **mAP50-95**: Mean Average Precision across multiple IoU thresholds (0.50 to 0.95), a stricter and more comprehensive evaluation metric.
 
 https://www.digitalocean.com/community/tutorials/train-yolov5-custom-data
 
@@ -245,57 +245,12 @@ If we want to **retrieve the raw**, **unprocessed features (without pooling and 
 
 ![image](https://github.com/user-attachments/assets/644cccfd-666b-4df7-a139-855481dc69dc)
 
-## The Art of Possible
-- **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
-
-- **Smart-Queue-Monitoring-System**: https://github.com/ObinnaIheanachor/Smart-Queue-Monitoring-System/tree/master?ref=blog.roboflow.com
-
-- https://colab.research.google.com/drive/1eeYLjRWedIIcoHJJoAVinQt0GT-_fpzC?usp=sharing&ref=blog.roboflow.com#scrollTo=4hzCCJVcqw0r
-
-- **How to Train YOLOv12 Object Detection on a Custom Dataset**: https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov12-object-detection-model.ipynb
-  
-- **Counting People On Escalator Using Yolov8 and OpenCV**: 
-  - https://github.com/rahilmoosavi/CountingPeopleOnEscalatorUsingYolo/blob/master/PeopleCounter.py
-  - https://medium.com/@rahil.gh.moosavi/counting-people-on-escalator-using-yolov8-and-opencv-from-scratch-1da725c0df66
- 
-- **How to Detect and Count Objects in Zone**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-detect-and-count-objects-in-polygon-zone.ipynb
-
-- **Object-Detection-and-Count-in-polygon-zone**: https://github.com/noorkhokhar99/Object-Detection-and-Count-in-polygon-zone/tree/main
-
-- **Yolov8-Counting-People-in-Queue**: https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/tree/main  
-  - https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/blob/main/yolov8_object_detection_on_custom_dataset.ipynb
-
-- **Real world applications from Ultralytics**: https://docs.ultralytics.com/guides/region-counting/#real-world-applications
-
-- **Roboflow's notebooks (~50)**: https://github.com/roboflow/notebooks/tree/main/notebooks
-  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8-and-supervison.ipynb
-  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8.ipynb
-  - **Zero-shot object detection**: https://github.com/roboflow/notebooks/blob/main/notebooks/zero-shot-object-detection-with-yolo-world.ipynb
-  - **Bounding Box to Semantic Mask**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-use-yolo8v-with-sam.ipynb
-    - **... with videos**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-segment-videos-with-sam-2.ipynb
-
-<img src="https://github.com/user-attachments/assets/df822af3-067e-46b1-8813-84a77ff2929d" width="50%" height="50%">
-
-- **Detectron 2** - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=EHr2WJXrV6Wp
-  
-https://medium.com/towards-data-science/types-of-convolution-kernels-simplified-f040cb307c37
-
-https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
-
-https://github.com/roboflow/supervision?tab=readme-ov-file
-
-<img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="50%" height="50%">
-
-https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
-
-- DIY Auto Tracking Pan Tilt Camera For Raspberry Pi and SBCs : https://www.youtube.com/watch?v=1lxTk2OjOdk
-
 ## Intersection over Union
 
 https://viso.ai/computer-vision/intersection-over-union-iou/
 
 Is the ratio of the **‘area of intersection’** to the **‘area of the union’** between the **predicted** and **ground truth bounding boxes**. 
-Thus, the IoU meaning consists of the quantitative measurement of **how well a predicted bounding box** aligns with **the ground truth bounding box**.
+Thus, the **IoU** meaning consists of the quantitative measurement of **how well a predicted bounding box** aligns with **the ground truth bounding box**.
 
 <img src="https://github.com/user-attachments/assets/e0a15606-f9ae-4398-8c02-4bada592eb17" width="50%" height="50%">
 
@@ -349,5 +304,48 @@ The classification loss, which measures how well the model is distinguishing bet
 #### dfl_loss: 
 The distribution focal loss, which helps refine the bounding box predictions.
 
+## The Art of Possible
+- **Time in Zone**: https://github.com/roboflow/supervision/tree/develop/examples/time_in_zone
 
+- **Smart-Queue-Monitoring-System**: https://github.com/ObinnaIheanachor/Smart-Queue-Monitoring-System/tree/master?ref=blog.roboflow.com
+
+- https://colab.research.google.com/drive/1eeYLjRWedIIcoHJJoAVinQt0GT-_fpzC?usp=sharing&ref=blog.roboflow.com#scrollTo=4hzCCJVcqw0r
+
+- **How to Train YOLOv12 Object Detection on a Custom Dataset**: https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov12-object-detection-model.ipynb
+  
+- **Counting People On Escalator Using Yolov8 and OpenCV**: 
+  - https://github.com/rahilmoosavi/CountingPeopleOnEscalatorUsingYolo/blob/master/PeopleCounter.py
+  - https://medium.com/@rahil.gh.moosavi/counting-people-on-escalator-using-yolov8-and-opencv-from-scratch-1da725c0df66
+ 
+- **How to Detect and Count Objects in Zone**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-detect-and-count-objects-in-polygon-zone.ipynb
+
+- **Object-Detection-and-Count-in-polygon-zone**: https://github.com/noorkhokhar99/Object-Detection-and-Count-in-polygon-zone/tree/main
+
+- **Yolov8-Counting-People-in-Queue**: https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/tree/main  
+  - https://github.com/freedomwebtech/Yolov8-Counting-People-in-Queue/blob/main/yolov8_object_detection_on_custom_dataset.ipynb
+
+- **Real world applications from Ultralytics**: https://docs.ultralytics.com/guides/region-counting/#real-world-applications
+
+- **Roboflow's notebooks (~50)**: https://github.com/roboflow/notebooks/tree/main/notebooks
+  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8-and-supervison.ipynb
+  - https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-track-and-count-vehicles-with-yolov8.ipynb
+  - **Zero-shot object detection**: https://github.com/roboflow/notebooks/blob/main/notebooks/zero-shot-object-detection-with-yolo-world.ipynb
+  - **Bounding Box to Semantic Mask**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-use-yolo8v-with-sam.ipynb
+    - **... with videos**: https://github.com/roboflow/notebooks/blob/main/notebooks/how-to-segment-videos-with-sam-2.ipynb
+
+<img src="https://github.com/user-attachments/assets/df822af3-067e-46b1-8813-84a77ff2929d" width="50%" height="50%">
+
+- **Detectron 2** - https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=EHr2WJXrV6Wp
+  
+https://medium.com/towards-data-science/types-of-convolution-kernels-simplified-f040cb307c37
+
+https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
+
+https://github.com/roboflow/supervision?tab=readme-ov-file
+
+<img src="https://github.com/user-attachments/assets/2402a9ca-13ba-4bb3-b939-9e7a761664ec" width="50%" height="50%">
+
+https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5?authuser=1#scrollTo=h9tECBQCvMv3
+
+- DIY Auto Tracking Pan Tilt Camera For Raspberry Pi and SBCs : https://www.youtube.com/watch?v=1lxTk2OjOdk
 
