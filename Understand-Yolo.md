@@ -116,12 +116,12 @@ Both components are computed as the sum of squared errors.
 - No form of pooling is used, and a convolutional layer with stride 2 is used to downsample the feature maps. This helps in preventing loss of low-level features often attributed to pooling.
 - Being a FCN, YOLO is invariant to the size of the input image.
 - A big one amongst these problems is that if we want to process our images in batches (images in batches can be processed in parallel by the GPU, leading to speed boosts), we need to have all images of fixed height and width. This is needed to concatenate multiple images into a large batch (concatenating many PyTorch tensors into one)
-- The network downsamples the image by a factor called the stride of the network.
-  - For example, if the stride of the network is 32, then an input image of size 416 x 416 will yield an output of size 13 x 13. Generally, stride of any layer in the network is equal to the factor by which the output of the layer is smaller than the input image to the network.
+- The network **downsamples** the image by a factor called the **stride of the network**.
+  - For example, if the stride of the network is 32, then an input image of size 416 x 416 will yield an output of size (416/32 x 416/32) 13 x 13. Generally, stride of any layer in the network is equal to the factor by which the output of the layer is smaller than the input image to the network.
 
 - Typically, (as is the case for all object detectors) the features learned by the convolutional layers are passed onto a classifier/regressor which makes the detection prediction (coordinates of the bounding boxes, the class label.. etc).
 
-- In YOLO, the prediction is done by using a convolutional layer which uses 1 x 1 convolutions.
+- In YOLO, the prediction is done by using a convolutional layer which uses **1 x 1 convolutions**.
 
 - Now, the first thing to notice is our output is a feature map. Since we have used 1 x 1 convolutions, the size of the prediction map is exactly the size of the feature map before it. In YOLO v3 (and it's descendants), the way you interpret this prediction map is that each cell can predict a fixed number of bounding boxes.
 
