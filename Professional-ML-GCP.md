@@ -50,9 +50,6 @@ Email Spam Filter - Imagine you're building an email spam filter:
 ```
 
 ## Loss Functions
-- Cross-entropy
-- Mean squared error
-- Loss or log loss
 
 | Loss Function                | Type                   | Formula / Definition                                           | When to Use | Key Characteristics | Comparison |
 |------------------------------|------------------------|----------------------------------------------------------------|-------------|---------------------|------------|
