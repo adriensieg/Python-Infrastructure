@@ -56,7 +56,7 @@ Email Spam Filter - Imagine you're building an email spam filter:
 
 | Loss Function                | Type                   | Formula / Definition                                           | When to Use | Key Characteristics | Comparison |
 |------------------------------|------------------------|----------------------------------------------------------------|-------------|---------------------|------------|
-| **Mean Squared Error (MSE)** | Regression            | \( MSE = \frac{1}{n} \sum (y_i - \hat{y}_i)^2 \)               | When large errors should be penalized more | Sensitive to outliers, amplifies large errors | Unlike MAE, squares errors, making it more sensitive to outliers |
+| **Mean Squared Error (MSE)** | Regression            | $\`( MSE = \frac{1}{n} \sum (y_i - \hat{y}_i)^2 \)\`$                | When large errors should be penalized more | Sensitive to outliers, amplifies large errors | Unlike MAE, squares errors, making it more sensitive to outliers |
 | **Mean Absolute Error (MAE)** | Regression           | \( MAE = \frac{1}{n} \sum |y_i - \hat{y}_i| \)                | When all errors should be treated equally | Less sensitive to outliers, linear error weighting | Unlike MSE, does not emphasize larger errors |
 | **Mean Squared Log Error (MSLE)** | Regression      | \( MSLE = \frac{1}{n} \sum (\log(1 + y_i) - \log(1 + \hat{y}_i))^2 \) | When predicting positive values and want relative errors | Penalizes under-predictions more | Unlike MSE, does not penalize large errors as much |
 | **Huber Loss**               | Regression            | Quadratic for small errors, linear for large ones              | When robustness to outliers is needed | Hybrid of MSE and MAE | Unlike MSE, reduces sensitivity to large errors |
