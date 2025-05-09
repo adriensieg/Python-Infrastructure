@@ -96,6 +96,23 @@ This structure is common in deep learning, particularly for image processing whe
 - **Width** (columns of pixels)
 - **Channels** (RGB color channels, feature maps, etc.)
 
+#### Understanding 3D, 4D, 5D, and 6D Tensors:
+- **3D Tensor** (e.g., `(3, 4, 5)`):
+  - It can be visualized as a stack of matrices (or images).
+  - **Example**: A batch of 3 images, each of size 4 × 5 4×5.
+
+- **4D Tensor** (e.g., `(2, 3, 4, 5)`):
+  - Adds an additional dimension, often representing batches of data.
+  - **Example**: 2 batches of 3 images, each of size 4×5.
+
+- **5D Tensor** (e.g., (2, 3, 4, 5, 6)):
+  - Adds another dimension, often representing features or channels.
+  - Example: 2 batches of 3 images, each with 4 channels (like RGB + Alpha), each of size 5×6.
+
+- **6D Tensor** (e.g., (2, 3, 4, 5, 6, 7)):
+  - Adds yet another dimension, which can represent additional contextual data or another level of hierarchy.
+  - Example: 2 sets of 3 sequences of 4 images, each with 5 channels, each of size 6×7.
+
 ![image](https://github.com/user-attachments/assets/42eee3d8-0445-48b0-affd-8e3833984a5b)
 
 ## 3D Tensor
@@ -103,6 +120,12 @@ A 3-axis tensor, shape: [3, 2, 5]:
 ![image](https://github.com/user-attachments/assets/662e9b57-daf6-4fb5-bd87-d627c0326cc1)
 
 ![image](https://github.com/user-attachments/assets/7ee783c0-6e77-4e6a-9d93-206e1661a152)
+
+## 4D Tensor
+![image](https://github.com/user-attachments/assets/b1bf3a0c-dd9d-402d-966c-d697b123f1d8)
+
+## 5D Tensor
+![image](https://github.com/user-attachments/assets/edc4df3e-8007-4fa7-a11f-9e84cee08ec1)
 
 
 ## Model Evaluation: 
