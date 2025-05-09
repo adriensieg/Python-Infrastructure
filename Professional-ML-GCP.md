@@ -7,7 +7,6 @@ https://sathishvj.medium.com/notes-from-my-google-cloud-professional-machine-lea
 https://medium.com/analytics-vidhya/machine-learning-metrics-in-simple-terms-d58a9c85f9f6
 
 ![image](https://github.com/user-attachments/assets/15a54af6-a024-472e-a85c-c07585a68563)
-
 - Accuracy
 - F-score
 - Recall
@@ -82,7 +81,13 @@ How to diagnose and address underfitting and overfitting in your models.
 - Feature crossing
 - Binning vs Scrubing
 - One-hot encoding, one-hot encoding hashed
--
+
+# Tensorflow - tensors
+
+![image](https://github.com/user-attachments/assets/42eee3d8-0445-48b0-affd-8e3833984a5b)
+
+A 3-axis tensor, shape: [3, 2, 5]: 
+![image](https://github.com/user-attachments/assets/662e9b57-daf6-4fb5-bd87-d627c0326cc1)
 
 
 
