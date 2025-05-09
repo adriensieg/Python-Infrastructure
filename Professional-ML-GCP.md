@@ -84,14 +84,29 @@ How to diagnose and address underfitting and overfitting in your models.
 
 # Tensorflow - tensors
 
+Tensors have **shapes**:
+- **Shape**: The length (number of elements) of each of the axes of a tensor.
+- **Rank**: Number of tensor axes. A scalar has rank 0, a vector has rank 1, a matrix is rank 2.
+- **Axis** or **Dimension**: A particular dimension of a tensor.
+- **Size**: The total number of items in the tensor, the product of the shape vector's elements.
+
+This structure is common in deep learning, particularly for image processing where you might have:
+- **Batch size** (number of images)
+- **Height** (rows of pixels)
+- **Width** (columns of pixels)
+- **Channels** (RGB color channels, feature maps, etc.)
+
 ![image](https://github.com/user-attachments/assets/42eee3d8-0445-48b0-affd-8e3833984a5b)
 
+## 3D Tensor
 A 3-axis tensor, shape: [3, 2, 5]: 
 ![image](https://github.com/user-attachments/assets/662e9b57-daf6-4fb5-bd87-d627c0326cc1)
 
+![image](https://github.com/user-attachments/assets/7ee783c0-6e77-4e6a-9d93-206e1661a152)
 
 
-## Model Evaluation: Besides performance metrics, familiarize yourself with different model evaluation techniques like K-fold cross-validation, train/test split, and bootstrapping.
+## Model Evaluation: 
+Besides performance metrics, familiarize yourself with different model evaluation techniques like K-fold cross-validation, train/test split, and bootstrapping.
 
 ## Ensemble Methods: 
 - Bagging
