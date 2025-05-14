@@ -35,6 +35,9 @@ For example, a model that strives to be **highly precise** might be less likely 
 🔁 **Precision** = "Don’t cry wolf unless you’re sure it’s a wolf."
 🔁 **Recall** = "Try to catch every wolf, even if you make some mistakes."
 
+![image](https://github.com/user-attachments/assets/0eeb8f34-447f-4c92-bf29-7d9b4830cacd)
+
+
 ```
 Email Spam Filter - Imagine you're building an email spam filter:
 
