@@ -1,5 +1,9 @@
 # Yolo, my big takeways
 
+https://imerit.net/blog/real-time-object-detection-using-yolo/
+
+https://dkharazi.github.io/notes/ml/cnn/yolo
+
 ## High level steps
 
 <img src="https://github.com/user-attachments/assets/fa6f53e4-34cf-4c29-8887-b292d963bd1c" width="50%" height="50%">
@@ -144,6 +148,8 @@ A regressor rather than a classifier - https://christopher5106.github.io/object/
 - **Non-Max Suppression (NMS)** to Eliminate Double Detections
 To eliminate duplicates, we will use Non-Max Suppression (NMS). NMS evaluates the extent to which detections overlap using the Intersection over Union metric and, upon exceeding a defined threshold, treats them as duplicates. Duplicates are then discarded, starting with those of the lowest confidence. The value should be within the range [0, 1]. The smaller the value, the more restrictive the NMS.
 
+![image](https://github.com/user-attachments/assets/ccc51a31-2a2f-4f34-b6e4-40534755ce98)
+
 - Depthwise vs. Pointwise
 
 - Illustration of **Depthwise Convolution** (DWC)
@@ -245,6 +251,72 @@ If we want to **retrieve the raw**, **unprocessed features (without pooling and 
 
 ![image](https://github.com/user-attachments/assets/644cccfd-666b-4df7-a139-855481dc69dc)
 
+## YOLO - Monkey Patching
+
+```python
+imgs = [cv2.imread("ultralytics/assets/bus.jpg")]
+prepped = model.predictor.preprocess(imgs)
+result = model.predictor.inference(prepped)
+```
+
+The result variable contains the outputs from **layers 15, 18, 21, and 22** without any postprocessing applied. Before applying postprocessing, we need to **modify the non_maximum_suppression()** function to return the indices of the retained objects. This is necessary because the output from **the last layer of YOLOv8n has the shape [1, 84, 8400].** 
+
+This output is a concatenation of results from each FPN level: 
+- **layer 15** produces 80x80 grid = **6400 anchors**,
+- **layer 18** produces 40x40 grid= **1600 anchors**,
+- and **layer 21** produces 20x20 = **400 anchors** for an input of shape **640x640**.
+
+The total number of anchors is 6400 + 1600 + 400 = **8400**. Each anchor tries to detect an object.
+
+Each anchor has an associated feature used by the final layer to predict the location and class of objects. However, only a few anchors actually contain objects, which is why a confidence threshold and NMS are applied. To identify which anchors contributed to the final prediction, we need to modify the NMS function to return the indices of the 8400 outputs retained in the final postprocessed output.
+
+YOLOv8n's last layer output shape is `[1, 84, 8400]`
+- `1` = batch size (1 image)
+- `84` = each anchor predicts `84` values
+  - `4` for box position (x, y, width, height)
+  - `1` for confidence score (how sure it is)
+  - `80` for each possible object class (like "bus", "car", "person", etc.)
+- `8400` = number of anchors (little parts of the image it analyzes)
+
+![image](https://github.com/user-attachments/assets/7d23e301-346f-4230-b7bb-28199e17c643)
+
+### Anchors
+
+- **Anchor boxes** are **predefined boxes** of specific **sizes** and **aspect ratios** used in object detection models like YOLO, Faster R-CNN, and SSD to predict bounding boxes.
+- **An Anchor Box is not a Bounding Box!** You want to **predict a bounding box**, and for this, you'll use **an anchor box as a helper**.
+- Anchor boxes act as **starting templates** or **reference boxes** that provide the model with **a set of predefined sizes** and **aspect ratios**. The model uses these anchor boxes to **make initial predictions** and then adjusts them to better fit the actual objects in the image.
+
+- So, instead of predicting bounding boxes from scratch, **the model predicts offsets and scales relative to these anchor boxes**. This makes training more stable and efficient, especially when dealing with objects of different sizes and shapes.
+
+#### Why Anchor Boxes?
+- In object detection, the model needs to **predict multiple objects** of **varying sizes** and **aspect ratios** in an image.
+- Instead of predicting bounding boxes from scratch, the model uses **anchor boxes as reference boxes**.
+- Each anchor box is associated with **a grid cell in the image** and **serves as a template for detecting objects**.
+
+#### How It Works:
+- **Predefined Sizes** and **Ratios**: Anchor boxes have **fixed widths**, **heights**, and **aspect ratios** (e.g., 1:1, 2:1, 1:2).
+- **Assigned to Grid Cells**: During training, **each grid cell is assigned anchor boxes**, and the model adjusts these anchor boxes to predict the object’s bounding box.
+- **Prediction Adjustments**: The model learns to **predict adjustments** to the **predefined anchor boxes** in terms of **width**, **height**, and **position** to better fit the ground truth boxes.
+
+#### Example:
+- Suppose a grid cell has three anchor boxes of sizes (100x100), (150x200), and (200x150).
+- If the model detects an object with a bounding box of (105x110), it will adjust the (100x100) anchor box to match the object’s box.
+
+![image](https://github.com/user-attachments/assets/9137a4c7-0135-486a-9971-1e3a51dd7bfb)
+
+Models generally use bounding boxes in the following order:
+- Form thousands of candidate anchor boxes around the image
+- For each anchor box predict some offset from that box as a candidate box
+- Calculate a loss function based on the ground truth example
+- Calculate a probability that a given offset box overlaps with a real object
+- If that probability is greater than 0.5, factor the prediction into the loss function
+- By rewarding and penalizing predicted boxes slowly pull the model towards only localizing true objects
+- This is why when you have only lightly trained a model, you will see predicted boxes showing up all over the place.
+
+![image](https://github.com/user-attachments/assets/3dec97da-9962-42b2-b4cb-b083f0259ef8)
+
+After training has completed, your model will only make high probability bets based on the anchor box offsets that it finds most likely to be real.
+
 ## Intersection over Union
 
 https://viso.ai/computer-vision/intersection-over-union-iou/
@@ -265,6 +337,8 @@ Thus, the **IoU** meaning consists of the quantitative measurement of **how well
 #### How is IoU Calculated?
 
 <img src="https://github.com/user-attachments/assets/dc3b4ba3-d695-4cac-aa01-8b8342a7cbb1" width="50%" height="50%">
+
+![image](https://github.com/user-attachments/assets/57db0d4a-1aee-4ff0-b2bc-bf2e07e1a016)
 
 #### Understanding Box (P, R, mAP50, mAP50-95) Metrics in Object Detection
 
