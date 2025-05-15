@@ -293,6 +293,13 @@ YOLOv8n's last layer output shape is `[1, 84, 8400]`
 - Instead of predicting bounding boxes from scratch, the model uses **anchor boxes as reference boxes**.
 - Each anchor box is associated with **a grid cell in the image** and **serves as a template for detecting objects**.
 
+- https://dkharazi.github.io/notes/ml/cnn/yolo
+  - There is still a limitation with our yolo algorithm
+  - Let's say we have multiple objects in the same grid cell
+  - For example, suppose we have a pedestrain and a car in a cell
+  - Then, do we classify the object as a pedestrian or car?
+  - To solve this problem, we'll introduce the concept of anchor box
+
 #### How It Works:
 - **Predefined Sizes** and **Ratios**: Anchor boxes have **fixed widths**, **heights**, and **aspect ratios** (e.g., 1:1, 2:1, 1:2).
 - **Assigned to Grid Cells**: During training, **each grid cell is assigned anchor boxes**, and the model adjusts these anchor boxes to predict the object’s bounding box.
