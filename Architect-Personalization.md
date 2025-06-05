@@ -146,7 +146,7 @@ graph TD
     L --> L1{Direct or Proxy?}
     
     %% Direct API Call
-    L1 -->|Direct| L2[Add Authorization Header<br/>Bearer {token}]
+    L1 -->|Direct| L2[Add Authorization Header Bearer token]
     L2 --> L3[HTTP Request to API]
     L3 --> L4{Response Status}
     L4 -->|401 Unauthorized| M[Token Expired]
