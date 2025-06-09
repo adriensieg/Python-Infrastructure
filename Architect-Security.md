@@ -424,6 +424,42 @@ Authorization: Bearer <access_token>
 4. **Verification**: Your Cloud Function verifies the API key against a list of authorized keys.
 5. **Limitations**: API keys are static and cannot be easily revoked or rotated. They are also more susceptible to being compromised. They don't easily allow for fine-grained authorization (roles, permissions). Treat an API Key as "all or nothing" access.
 
+## 6/9/2025
+
+```mermaid
+sequenceDiagram
+    participant User as 👤 User
+    participant FE as 💻 React Front-End (AWS EC2)
+    participant Azure as 🔐 Azure Entra ID (IdP)
+    participant BE as 🛠️ Flask API (Cloud Run - GCP)
+    participant FS as 🗄️ Firestore DB (GCP)
+
+    Note over FE,Azure: 1. User tries to log in via Azure
+    User->>FE: Clicks Login
+    FE->>Azure: Redirects with client_id, redirect_uri, scope (openid email profile), response_type=code
+    Azure-->>User: Auth UI (Login Screen)
+    User->>Azure: Enters credentials
+    Azure-->>FE: Redirect with auth code (e.g., code=abc123)
+
+    Note over FE,Azure: 2. FE exchanges auth code for tokens
+    FE->>Azure: POST /token (with code, client_id, client_secret)
+    Azure-->>FE: ID Token (id.abc.xyz), Access Token (acc.123.456), Refresh Token (ref.999.000)
+
+    Note over FE,BE: 3. FE calls API with Access Token
+    FE->>BE: HTTPS GET /api/data with Authorization: Bearer acc.123.456
+    BE->>Azure: Validate Access Token (introspection or JWKS)
+    Azure-->>BE: Token is valid (with scopes, user info)
+
+    Note over BE,FS: 4. Back-end accesses Firestore if authorized
+    BE->>FS: Read/Write via Firestore SDK using service account
+    FS-->>BE: Data
+    BE-->>FE: API response (e.g., JSON)
+
+    Note over FE,Azure: 5. FE uses refresh token when needed
+    FE->>Azure: POST /token with refresh_token
+    Azure-->>FE: New Access + ID tokens
+```
+
 ## Security Principles:
 
 - HTTPS is Mandatory: Always use HTTPS to protect credentials in transit.
