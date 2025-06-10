@@ -460,6 +460,82 @@ sequenceDiagram
     Azure-->>FE: New Access + ID tokens
 ```
 
+```mermaid
+sequenceDiagram
+    participant User as User Browser
+    participant Frontend as Frontend (AWS EC2)<br/>JavaScript SPA
+    participant EntraID as Azure Entra ID<br/>Identity Provider
+    participant Backend as Backend (GCP Cloud Run)<br/>Python Flask API
+    participant Firestore as Firestore Database
+
+    Note over User, Firestore: 1. Initial Authentication Flow
+    User->>Frontend: 1.1 Access application
+    Frontend->>User: 1.2 Display login page
+    User->>Frontend: 1.3 Click "Login with Microsoft"
+    
+    Note over Frontend, EntraID: 1.4 Authorization Code Flow (PKCE)
+    Frontend->>Frontend: 1.5 Generate code_verifier & code_challenge
+    Frontend->>EntraID: 1.6 Redirect to authorization endpoint<br/>GET /oauth2/v2.0/authorize<br/>?client_id=12345678-1234-1234-1234-123456789abc<br/>&response_type=code<br/>&redirect_uri=https://your-app.aws.com/callback<br/>&scope=openid profile email api://your-api/read<br/>&state=xyz123<br/>&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM<br/>&code_challenge_method=S256
+
+    User->>EntraID: 1.7 Enter Microsoft credentials
+    EntraID->>User: 1.8 User authentication & consent
+    EntraID->>Frontend: 1.9 Redirect with authorization code<br/>https://your-app.aws.com/callback<br/>?code=OAQABAAIAAABeAFzDwllzTYGDLh_qYbH8j...<br/>&state=xyz123
+
+    Note over Frontend, EntraID: 1.10 Token Exchange
+    Frontend->>EntraID: 1.11 POST /oauth2/v2.0/token<br/>Content-Type: application/x-www-form-urlencoded<br/>client_id=12345678-1234-1234-1234-123456789abc<br/>&code=OAQABAAIAAABeAFzDwllzTYGDLh_qYbH8j...<br/>&redirect_uri=https://your-app.aws.com/callback<br/>&grant_type=authorization_code<br/>&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+
+    EntraID->>Frontend: 1.12 Return tokens<br/>{<br/>"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIs...",<br/>"id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIs...",<br/>"refresh_token": "OAQABAAIAAABeAFzDwllzTYGDLh_qYbH8...",<br/>"expires_in": 3600,<br/>"token_type": "Bearer"<br/>}
+
+    Frontend->>Frontend: 1.13 Store tokens securely<br/>Parse ID token for user info<br/>Set up token refresh mechanism
+
+    Note over User, Firestore: 2. Data Operations Flow
+    User->>Frontend: 2.1 Navigate to Data Viewer
+    Frontend->>Backend: 2.2 GET /api/sandwiches<br/>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIs...
+
+    Note over Backend, EntraID: 2.3 Token Validation
+    Backend->>Backend: 2.4 Extract Bearer token from header
+    Backend->>EntraID: 2.5 GET /.well-known/openid-configuration<br/>Retrieve JWKS endpoint
+    Backend->>EntraID: 2.6 GET /common/discovery/v2.0/keys<br/>Get public keys for verification
+    Backend->>Backend: 2.7 Validate JWT signature<br/>Verify issuer, audience, expiration<br/>Extract user claims
+
+    alt Token Valid
+        Backend->>Firestore: 2.8 Query sandwich data<br/>db.collection('sandwiches').get()
+        Firestore->>Backend: 2.9 Return data
+        Backend->>Frontend: 2.10 HTTP 200 + JSON data<br/>[{"id": "1", "sandwich": "BLT", "quantity": 2, "rating": 4.5}]
+        Frontend->>User: 2.11 Display data in table
+    else Token Invalid/Expired
+        Backend->>Frontend: 2.12 HTTP 401 Unauthorized<br/>{"error": "invalid_token"}
+        Frontend->>Frontend: 2.13 Attempt token refresh
+        Frontend->>EntraID: 2.14 POST /oauth2/v2.0/token<br/>grant_type=refresh_token<br/>&refresh_token=OAQABAAIAAABeAFzDwllzTYGDLh_qYbH8...
+        EntraID->>Frontend: 2.15 New access token or error
+    end
+
+    Note over User, Firestore: 3. CRUD Operations
+    User->>Frontend: 3.1 Click "Create New Sandwich"
+    Frontend->>Backend: 3.2 POST /api/sandwiches<br/>Authorization: Bearer [new_token]<br/>{"sandwich": "Club", "quantity": 1, "rating": 5.0}
+    Backend->>Backend: 3.3 Validate token & authorize
+    Backend->>Firestore: 3.4 Create document
+    Firestore->>Backend: 3.5 Confirm creation
+    Backend->>Frontend: 3.6 HTTP 201 Created
+    Frontend->>User: 3.7 Update UI with new entry
+
+    User->>Frontend: 3.8 Click "Update" on row
+    Frontend->>Backend: 3.9 PUT /api/sandwiches/{id}<br/>Authorization: Bearer [token]<br/>{"sandwich": "Club Deluxe", "quantity": 1, "rating": 5.0}
+    Backend->>Firestore: 3.10 Update document
+    Backend->>Frontend: 3.11 HTTP 200 OK
+    
+    User->>Frontend: 3.12 Click "Delete" on row
+    Frontend->>Backend: 3.13 DELETE /api/sandwiches/{id}<br/>Authorization: Bearer [token]
+    Backend->>Firestore: 3.14 Delete document
+    Backend->>Frontend: 3.15 HTTP 204 No Content
+
+    Note over User, Firestore: 4. Token Lifecycle Management
+    Frontend->>Frontend: 4.1 Monitor token expiration<br/>Set timer for refresh
+    Frontend->>EntraID: 4.2 Refresh token before expiry
+    EntraID->>Frontend: 4.3 New access token
+    Frontend->>Frontend: 4.4 Update stored tokens
+```
+
 ## Security Principles:
 
 - HTTPS is Mandatory: Always use HTTPS to protect credentials in transit.
