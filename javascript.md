@@ -223,7 +223,7 @@ Object.assign({}, obj); // Clone
 - How object inheritance works with `prototype`
 - How to deeply clone or merge objects
 
-## What is this in JavaScript?
+## What is `this` in JavaScript?
 
 | Context                           | `this` refers to                              |
 | --------------------------------- | --------------------------------------------- |
