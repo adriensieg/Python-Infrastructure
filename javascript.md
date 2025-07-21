@@ -101,3 +101,116 @@
 - Working with files & HTTP
 - Middleware basics
 - Environment variables
+
+## Arrays
+
+**Arrays**: A collection of elements, accessible by index.
+
+``` javascript
+const arr = [1, 2, 3, 4];
+
+// Access
+console.log(arr[0]);
+
+// Iterate
+arr.forEach(item => console.log(item));
+
+// Add / Remove
+arr.push(5);
+arr.pop();
+```
+
+## Objects
+
+``` javascript
+const person = {
+  name: "Alice",
+  age: 30,
+  greet: function() {
+    console.log("Hello!");
+  }
+};
+```
+
+- `name` and `age` are <mark>properties</mark>
+- `greet` is a <mark>method</mark> (a function attached to an object)
+
+#### Creating Objects
+
+``` javascript
+// Object literal
+const obj1 = { a: 1, b: 2 };
+
+// Constructor
+const obj2 = new Object();
+obj2.a = 1;
+
+// From class (ES6+)
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+const obj3 = new Person("Bob");
+```
+- Arrays are objects: 'typeof [1,2,3] === 'object''
+- Functions are objects: 'typeof function(){} === 'function'' (but still an object)
+- Almost everything in JS is built on objects
+
+#### Accessing & Modifying Properties
+
+``` javascript
+const car = {
+  make: "Toyota",
+  year: 2020
+};
+
+console.log(car.make);       // Dot notation
+console.log(car["year"]);    // Bracket notation
+
+car.model = "Camry";         // Add property
+delete car.year;             // Remove property
+```
+
+### Looping Through an Object
+
+``` javascript
+const user = { name: "Eve", age: 22 };
+
+for (let key in user) {
+  console.log(`${key}: ${user[key]}`);
+}
+
+// Or:
+Object.keys(user).forEach(key => {
+  console.log(key, user[key]);
+});
+```
+
+#### Properties
+
+##### Objects Can Be Nested
+
+``` javascript
+const user = {
+  name: "Tom",
+  address: {
+    city: "New York",
+    zip: 10001
+  }
+};
+
+console.log(user.address.city); // "New York"
+```
+
+##### Built-in Object Utilities
+
+``` javascript
+Object.keys(obj);     // Get keys
+Object.values(obj);   // Get values
+Object.entries(obj);  // Get [key, value] pairs
+Object.assign({}, obj); // Clone
+``` 
+
+- How object inheritance works with `prototype`
+- How to deeply clone or merge objects
