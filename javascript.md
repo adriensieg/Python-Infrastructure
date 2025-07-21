@@ -1,4 +1,4 @@
-# 
+# Basic of Javascript
 
 ## Syntax
 - **Variables**:`let`, `const`, `var` (scoping differences)
@@ -66,6 +66,12 @@
 - `async` / `await`
 - Fetch API (for HTTP requests)
 - Error handling in async code
+- **Event Loop**
+  - JavaScript engine > single-threaded
+  - Task queue / Callback queue
+  - Events, timers, user interactions
+  - Call stack
+
 
 ## DOM Manipulation (Minimal - for Node focus)
 - `document.querySelector`, `getElementById`, etc.
@@ -101,6 +107,8 @@
 - Working with files & HTTP
 - Middleware basics
 - Environment variables
+
+---
 
 ## Arrays
 
@@ -214,3 +222,120 @@ Object.assign({}, obj); // Clone
 
 - How object inheritance works with `prototype`
 - How to deeply clone or merge objects
+
+## What is this in JavaScript?
+
+| Context                           | `this` refers to                              |
+| --------------------------------- | --------------------------------------------- |
+| In global scope (non-strict mode) | `window` (in browser) or `global` (Node.js)   |
+| In a method (called on an object) | That object                                   |
+| In a function (strict mode)       | `undefined`                                   |
+| In a function (non-strict mode)   | `window` or `global`                          |
+| In an arrow function              | Lexical `this` (i.e., from surrounding scope) |
+| In a class                        | The class instance                            |
+| With `bind`, `call`, or `apply`   | The explicitly set value                      |
+
+
+#### 1. Global Scope (non-strict)
+
+``` javascript
+console.log(this); // In browser: window
+```
+
+#### 2. In a Method
+``` javascript
+const user = {
+  name: "Alice",
+  greet() {
+    console.log(this.name); // "Alice"
+  }
+};
+
+user.greet();
+```
+
+#### 3. In a Regular Function
+
+``` javascript
+function show() {
+  console.log(this);
+}
+
+show(); // global object (non-strict) or undefined (strict mode)
+``` 
+
+#### 4. In an Arrow Function
+
+``` javascript
+const obj = {
+  name: "Bob",
+  greet: () => {
+    console.log(this.name); // undefined (not bound to `obj`)
+  }
+};
+
+obj.greet();
+```
+➡️ Arrow functions do not have their own this; they inherit it from the outer lexical context.
+
+#### 5. Using bind, call, apply
+
+``` javascript
+function greet() {
+  console.log(this.name);
+}
+
+const person = { name: "Charlie" };
+
+greet.call(person); // Charlie
+greet.apply(person); // Charlie
+
+const boundGreet = greet.bind(person);
+boundGreet(); // Charlie
+```
+
+#### 6. In a Class
+``` javascript
+class Dog {
+  constructor(name) {
+    this.name = name;
+  }
+
+  bark() {
+    console.log(`${this.name} says woof`);
+  }
+}
+
+const d = new Dog("Rex");
+d.bark(); // Rex says woof
+```
+### Callbacks
+
+A **callback** is a **function passed as an argument to another function** to be executed later. 
+It's how JavaScript handles **async work**, like **timers**, **I/O**, or **user input**.
+
+- Imagine you're ordering food at a restaurant. You give the waiter your order and say: “Call me when the food is ready.”
+- That’s a callback — you're giving them a function to call later, when the task is done.
+
+“Do this... and when you’re done, call this function I gave you.”
+
+#### Why Use Callbacks?
+1. Handle **asynchronous actions** (like waiting for a file, or a network request)
+2. **Customize** what happens after something completes
+3. **Avoid blocking the main thread**
+
+| Feature        | Callback                         | Promise                | async/await            |
+| -------------- | -------------------------------- | ---------------------- | ---------------------- |
+| Syntax         | Function argument                | `.then()` / `.catch()` | `await` inside `async` |
+| Readability    | Can get messy (nested)           | Better chaining        | Clean, readable        |
+| Error Handling | Manual (`try/catch` in callback) | Built-in `.catch()`    | `try/catch` block      |
+
+
+
+
+
+
+
+
+
+
