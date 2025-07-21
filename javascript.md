@@ -153,8 +153,8 @@ class Person {
 }
 const obj3 = new Person("Bob");
 ```
-- Arrays are objects: 'typeof [1,2,3] === 'object''
-- Functions are objects: 'typeof function(){} === 'function'' (but still an object)
+- Arrays are objects: 'typeof [1,2,3] === object'
+- Functions are objects: 'typeof function(){} === function' (but still an object)
 - Almost everything in JS is built on objects
 
 #### Accessing & Modifying Properties
