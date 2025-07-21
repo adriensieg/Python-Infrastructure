@@ -9,13 +9,18 @@
 - **Comments**: `//`, `/* */`
 
 ## Control Structures
-- `if`, `else`,`else if`
-- `switch` statement
+- **Conditionals**
+  - `if`, `else`,`else if`
+  - `switch` statement
 - **Loops**:
   - `for, while, do...while
   - `for...of`, `for...in`
   - `.forEach()`, `.map()`, `.filter()`, `.reduce()`
-
+- **Jumps**
+  - `break`,
+  - `return`,
+  - and `throw`
+    
 ## Functions
 - Function declarations
 - Function expressions
@@ -69,6 +74,23 @@
 
 ## Working with JSON
 - `JSON.parse()`, `JSON.stringify()`
+
+## Server-side
+- **Networking**
+  - `fetch()`
+  - Server-Sent Events
+  - WebSockets
+- **Storage**
+  - `localStorage` and `sessionStorage`
+  - `Cookies`
+  - `IndexedDB`
+- **Worker Threads** and **Messaging**
+  - Worker Objects
+  - The Global Object in Workers
+  - Importing Code into a Worker
+  - Worker Execution Model
+  - `postMessage()`, `MessagePorts` and MessageChannels
+  - Cross-Origin Messaging with `postMessage()`
 
 ## Node.js
 - CommonJS modules (require, module.exports)
