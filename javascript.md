@@ -304,7 +304,31 @@ document.getElementById("myButton").addEventListener("click", function () {
 });
 ```
 
+<mark>4. Callbacks in API Calls (Fetching Data)</mark>
 
+``` javascript
+function fetch(callback) {
+    fetch("https://jsonplaceholder.typicode.com/todos/1")
+        .then(response => response.json())
+        .then(data => callback(data))
+        .catch(error => console.error("Error:", error));
+}
+
+function handle(data) {
+    console.log("Fetched Data:", data);
+}
+
+fetch(handle);
+```
+
+```
+Features of JavaScript Callbacks
+- **Asynchronous Execution**: Handle async tasks like API calls, timers, and events without blocking execution.
+- **Code Reusability**: Write modular code by passing different callbacks for different behaviors.
+- **Event-Driven Programming**: Enable event-based execution (e.g., handling clicks, keypresses).
+- **Error Handling**: Pass errors to callbacks for better control in async operations.
+- **Non-Blocking Execution**: Keep the main thread free by running long tasks asynchronously.
+```
 
 ## Scope and Closures
 Use **closures** to create **private state** or **partial functions**.
