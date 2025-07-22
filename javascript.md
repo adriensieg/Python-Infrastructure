@@ -110,6 +110,75 @@
 
 ---
 
+# Syntax
+
+**Primitive Types**: These are **atomic** and **immutable values**.
+
+| Type        | Description                               | Example                           |
+| ----------- | ----------------------------------------- | --------------------------------- |
+| `Number`    | Numeric data (integers & floats)          | `42`, `3.14`, `-0.5`              |
+| `BigInt`    | For arbitrarily large integers            | `123456789012345678901234567890n` |
+| `String`    | Textual data                              | `"Hello"`, `'World'`              |
+| `Boolean`   | Logical true/false                        | `true`, `false`                   |
+| `undefined` | A variable declared but not assigned      | `let x; // x is undefined`        |
+| `null`      | Explicit absence of value                 | `let user = null;`                |
+| `Symbol`    | Unique identifier (often for object keys) | `let sym = Symbol('id')`          |
+| `bigint`    | Same as `BigInt` (used with `n` suffix)   | `100n`                            |
+
+**Non-Primitive (Object) Types**: These are **mutable** and can hold **collections of values**.
+
+| Type       | Description                          | Example                     |
+| ---------- | ------------------------------------ | --------------------------- |
+| `Object`   | Key-value pairs                      | `{ name: "John", age: 30 }` |
+| `Array`    | Ordered list                         | `[1, 2, 3]`                 |
+| `Function` | Reusable code block                  | `function greet() { ... }`  |
+| `Date`     | Date & time handling                 | `new Date()`                |
+| `RegExp`   | Pattern matching                     | `/\d+/`                     |
+| `Map`      | Key-value with any type keys         | `new Map()`                 |
+| `Set`      | Unique values                        | `new Set([1,2,3])`          |
+| `WeakMap`  | Like `Map` but with weakly held keys | `new WeakMap()`             |
+| `WeakSet`  | Like `Set` but weak references       | `new WeakSet()`             |
+| `Error`    | Error object for exceptions          | `new Error("Oops!")`        |
+
+# Control Structures
+
+# Functions
+
+## Function Declarations
+Named functions declared using the `function` keyword. They are **hoisted** — **usable before their definition**.
+
+``` javascript
+function greet(name) {
+  return `Hello, ${name}`;
+}
+
+greet("Alice"); // "Hello, Alice"
+```
+
+**Hoisted** means you can call a function **before you actually write it in the code**, and it will still work. They are moved to the top of their scope before the code is run.
+
+``` javascript
+sayHello(); // This works!
+
+function sayHello() {
+  console.log("Hello!");
+}
+```
+
+## Function Expressions
+Functions stored in a variable. Not hoisted — can’t be used before declaration.
+
+``` javascript
+const greet = function(name) {
+  return `Hi, ${name}`;
+};
+
+greet("Bob"); // "Hi, Bob"
+```
+
+## Arrow Functions (=>)
+A concise function syntax with no own this binding.
+
 ## Arrays
 
 **Arrays**: A collection of elements, accessible by index.
@@ -127,6 +196,8 @@ arr.forEach(item => console.log(item));
 arr.push(5);
 arr.pop();
 ```
+
+# Data Structures
 
 ## Objects
 
@@ -223,6 +294,17 @@ Object.assign({}, obj); // Clone
 - How object inheritance works with `prototype`
 - How to deeply clone or merge objects
 
+- Difference between `WeakSet`, `WeakMap`, and `Object` is key to mastering **memory management** and **reference** handling in JavaScript
+
+| Feature               | `Object`                | `WeakMap`                    | `WeakSet`                              |
+| --------------------- | ----------------------- | ---------------------------- | -------------------------------------- |
+| Key/value storage     | ✅ Yes                   | ✅ Yes                        | ❌ No (only values, no keys)            |
+| Keys must be objects? | ❌ No (string or symbol) | ✅ Yes (only objects)         | ✅ Yes (only objects)                   |
+| Garbage collection    | ❌ No                    | ✅ Keys are weakly held       | ✅ Values are weakly held               |
+| Iterable?             | ✅ Yes                   | ❌ No                         | ❌ No                                   |
+| Use case              | General key-value store | Private data tied to objects | Track object presence (no duplication) |
+| Prevents memory leaks | ❌ No                    | ✅ Yes                        | ✅ Yes                                  |
+
 ## What is `this` in JavaScript?
 
 | Context                           | `this` refers to                              |
@@ -309,7 +391,7 @@ class Dog {
 const d = new Dog("Rex");
 d.bark(); // Rex says woof
 ```
-### Callbacks
+## Callbacks
 
 A **callback** is a **function passed as an argument to another function** to be executed later. 
 It's how JavaScript handles **async work**, like **timers**, **I/O**, or **user input**.
@@ -330,7 +412,16 @@ It's how JavaScript handles **async work**, like **timers**, **I/O**, or **user 
 | Readability    | Can get messy (nested)           | Better chaining        | Clean, readable        |
 | Error Handling | Manual (`try/catch` in callback) | Built-in `.catch()`    | `try/catch` block      |
 
+---
 
+https://www.w3schools.com/nodejs/default.asp
+
+- Web servers and websites
+- REST APIs
+- Real-time apps (like chat)
+- Command-line tools
+- Working with files and databases
+- IoT and hardware control
 
 
 
