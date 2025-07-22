@@ -321,7 +321,7 @@ function handle(data) {
 fetch(handle);
 ```
 
-```
+``` markdown
 Features of JavaScript Callbacks
 - **Asynchronous Execution**: Handle async tasks like API calls, timers, and events without blocking execution.
 - **Code Reusability**: Write modular code by passing different callbacks for different behaviors.
