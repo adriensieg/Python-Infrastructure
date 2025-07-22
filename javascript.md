@@ -166,7 +166,7 @@ function sayHello() {
 ```
 
 ## Function Expressions
-Functions stored in a variable. Not hoisted — can’t be used before declaration.
+Functions stored in a variable. Not hoisted — **can’t be used before declaration**.
 
 ``` javascript
 const greet = function(name) {
@@ -178,6 +178,154 @@ greet("Bob"); // "Hi, Bob"
 
 ## Arrow Functions (=>)
 A concise function syntax with no own this binding.
+Great for **short**, **anonymous** functions or callbacks. **Avoid for object methods**.
+**Fast**, **lightweight**, but not ideal for **heavy tasks** (like handling `this`)
+
+``` javascript
+const greet = (name) => `Hey, ${name}`;
+greet("Charlie"); // "Hey, Charlie"
+```
+
+**Arrow functions** behave differently from **regular functions** when it comes to the `this` keyword:
+- **Arrow functions** do **not** have their own `this`.
+- Instead, they **inherit** `this` from their **lexical (outer) scope**.
+
+This makes arrow functions **simpler** and **shorter**, but also **less flexible in certain cases** — especially when working with objects, classes, or event handlers where you need a proper this.
+
+❌ Arrow Function (not ideal here):
+
+``` javascript
+const person = {
+  name: "Alice",
+  greet: () => {
+    console.log(`Hi, I'm ${this.name}`);
+  }
+};
+
+person.greet(); // "Hi, I'm undefined"
+```
+
+Arrow function inherits `this` from the **outer scope** (likely **window** or **global**), **not** `person`.
+- So `this.name` is **undefined**.
+
+Regular Function (better here):
+
+``` javascript
+const person = {
+  name: "Alice",
+  greet: function () {
+    console.log(`Hi, I'm ${this.name}`);
+  }
+};
+
+person.greet(); // "Hi, I'm Alice"
+```
+
+- **Best Use Cases for Arrow Functions**
+``` javascript
+const numbers = [1, 2, 3];
+const doubled = numbers.map(n => n * 2); // ✅ Arrow = concise
+```
+## Default Parameters
+Allow setting fallback values for function parameters.
+When you want to avoid undefined or provide optional parameters.
+
+``` javascript
+function greet(name = "Guest") {
+  return `Welcome, ${name}`;
+}
+
+greet(); // "Welcome, Guest"
+```
+
+## Rest (...args) and Spread Syntax
+
+``` javascript
+// Rest
+function sum(...numbers) {
+  return numbers.reduce((a, b) => a + b, 0);
+}
+
+// Spread
+const nums = [1, 2, 3];
+const all = [...nums, 4]; // [1, 2, 3, 4]
+```
+
+## Callback Functions
+https://www.geeksforgeeks.org/javascript/javascript-callbacks/
+
+A callback function is a function that is passed as an argument to another function and executed later.
+- A function can accept **another function as a parameter**.
+- Callbacks allow **one function** to **call another at a later time**.
+- A callback function can **execute after another function has finished**.
+
+``` javascript
+function processUser(name, callback) {
+  callback(`Processed: ${name}`);
+}
+
+processUser("Dana", console.log); // "Processed: Dana"
+```
+
+### Where Are Callbacks Used?
+
+<mark>1. Handling **Asynchronous Operations**</mark>
+  - **API requests** (fetching data)
+  - **Reading files** (Node.js file system)
+  - **Event listeners** (clicks, keyboard inputs)
+  - **Database queries** (retrieving data)
+
+<mark>2. Callbacks in Functions Handling Operations</mark>
+
+``` javascript
+function calc(a, b, callback) {
+    return callback(a, b);
+}
+
+function add(x, y) {
+    return x + y;
+}
+
+function mul(x, y) {
+    return x * y;
+}
+
+console.log(calc(5, 3, add)); // 8
+console.log(calc(5, 3, mul)); // 15
+```
+<mark>3. Callbacks in Event Listeners</mark>
+
+- JavaScript is **event-driven**, and callbacks handle user interactions like clicks and key presses.
+- the anonymous function is a callback that runs when the button is clicked
+
+``` javascript
+document.getElementById("myButton").addEventListener("click", function () {
+    console.log("Button clicked!");
+});
+```
+
+
+
+## Scope and Closures
+Use **closures** to create **private state** or **partial functions**.
+
+- **Scope**: determines where variables are accessible.
+- **Closure**: an inner function “remembers” variables from outer function.
+
+``` javascript
+function outer() {
+  let count = 0;
+  return function inner() {
+    return ++count;
+  };
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+```
+
+## Immediately Invoked Function Expressions (IIFE)
 
 ## Arrays
 
@@ -411,6 +559,17 @@ It's how JavaScript handles **async work**, like **timers**, **I/O**, or **user 
 | Syntax         | Function argument                | `.then()` / `.catch()` | `await` inside `async` |
 | Readability    | Can get messy (nested)           | Better chaining        | Clean, readable        |
 | Error Handling | Manual (`try/catch` in callback) | Built-in `.catch()`    | `try/catch` block      |
+
+# Promises
+Imagine that you’re a top singer, and fans ask day and night for your upcoming song.
+
+To get some relief, you promise to send it to them when it’s published. You give your fans a list. They can fill in their email addresses, so that when the song becomes available, all subscribed parties instantly receive it. And even if something goes very wrong, say, a fire in the studio, so that you can’t publish the song, they will still be notified.
+
+Everyone is happy: you, because the people don’t crowd you anymore, and fans, because they won’t miss the song.
+https://javascript.info/promise-basics
+
+
+
 
 ---
 
