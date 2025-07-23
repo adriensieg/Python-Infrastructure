@@ -442,6 +442,31 @@ Use **closures** to create **private state** or **partial functions**.
 
 - **Scope**: determines where variables are accessible.
 - **Closure**: an inner function “remembers” variables from outer function.
+  
+- **Scope** is the area in a program **where a variable can be seen and used**.
+- In JavaScript, **scopes** can be **nested**, like boxes inside boxes. This means that a function (or block) inside another can access variables from the outer one.
+- There are different types of scopes:
+  - **Global scope** (available everywhere),
+  - **Module scope** (limited to a file or module), and
+  - **Block scope** (limited to {} blocks like inside functions, loops, or if statements).
+ 
+- A **closure** happens when a function is **created inside another function**, and it remembers the variables from the **outer function**, **even after the outer function has finished running**.
+- **Closures** let **inner functions keep using variables** that would **otherwise be gone** — like the function took a memory snapshot of those variables when it was created.
+
+#### Analogy: 
+- Think of **scope** like **rooms in a building** — you can only use tools (variables) that are in your room or in any room you're nested inside.
+- A closure is like someone who **walked out of the room** but brought a walkie-talkie that **still talks to the tools inside** — even if the room no longer exists for anyone else.
+
+#### Why Should we Care?
+- `Scope`
+  - Prevents **name clashes** (like two variables named `count` interfering).
+  - Makes your code **modular**, **safe**, and easier to debug.
+  - Helps enforce information hiding — **only exposing what’s necessary**.
+
+- `Closures`
+  - Enables **data privacy** and **encapsulation** (think of private variables).
+  - Lets functions **remember data without global variables**.
+  - Powers **callbacks**, **event handlers**, **factory functions**, and **currying**.
 
 ``` javascript
 function outer() {
@@ -456,12 +481,87 @@ counter(); // 1
 counter(); // 2
 ```
 
+#### 1. Private Variables in a Module (Encapsulation)
+- **Closures** allow you to **hide sensitive data inside a function**. Business-wise: this means **safer**, **more secure**, and **less buggy code**.
+- You protect **internal data** like balance from being **accessed** or **tampered** with directly.
+
+``` javascript
+function createBankAccount() {
+  let balance = 1000;
+
+  return {
+
+    deposit(amount) {
+      balance += amount;
+      return balance;
+    },
+
+    withdraw(amount) {
+      if (amount <= balance) {
+        balance -= amount;
+        return balance;
+      }
+      return "Insufficient funds";
+    },
+
+    getBalance() {
+      return balance;
+    }
+
+  };
+}
+
+const account = createBankAccount();
+account.deposit(500);       // 1500
+account.withdraw(200);      // 1300
+console.log(account.balance); // ❌ undefined (private!)
+```
+#### 2. Factory Functions for Custom Logic
+You can use closures to generate specialized tools or handlers based on input — very useful in e-commerce, dashboards, or UIs.
+
+``` javascript
+function createDiscount(rate) {
+  return function(price) {
+    return price - (price * rate);
+  };
+}
+
+const summerSale = createDiscount(0.2); // 20% off
+summerSale(100); // $80
+```
+#### 3. Event Handlers and Asynchronous Behavior
+In web apps, **closures** are essential for **handling events** or **delayed tasks correctly**.
+
+``` javascript
+function setupButton() {
+  let clicks = 0;
+
+  document.getElementById("myBtn").addEventListener("click", function () {
+    clicks++;
+    console.log(`Clicked ${clicks} times`);
+  });
+}
+```
+#### 4. Currying / Partial Application (Functional Programming)
+This is about building more **flexible**, **composable** functions.
+
+``` javascript
+function multiply(a) {
+  return function(b) {
+    return a * b;
+  };
+}
+
+const double = multiply(2);
+double(5); // 10
+```
+
 ## Immediately Invoked Function Expressions (IIFE)
 
 ## Higher Order functions
 https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained/
 
-A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.
+A **higher order function** is a function that takes **one** or **more functions as arguments**, or **returns a function as its result**.
 
 ## Arrays
 
@@ -704,6 +804,29 @@ To get some relief, you promise to send it to them when it’s published. You gi
 Everyone is happy: you, because the people don’t crowd you anymore, and fans, because they won’t miss the song.
 https://javascript.info/promise-basics
 
+#### Syntax: 
+``` javascript
+let promise = new Promise(function(resolve, reject) {
+  // executor (the producing code, "singer")
+});
+```
+
+- Its arguments `resolve` and `reject` are **callbacks**
+- When the executor obtains the result, be it soon or late, doesn’t matter, it should call one of these callbacks:
+  - resolve(value) — if the job is finished successfully, with result value.
+  - reject(error) — if an error has occurred, error is the error object.
+
+he executor runs automatically and attempts to perform a job. When it is finished with the attempt, it calls resolve if it was successful or reject if there was an error.
+
+The promise object returned by the new Promise constructor has these internal properties:
+
+- state — initially "pending", then changes to either "fulfilled" when resolve is called or "rejected" when reject is called.
+- result — initially undefined, then changes to value when resolve(value) is called or error when reject(error) is called.
+
+So the executor eventually moves promise to one of these states:
+
+<img width="641" height="267" alt="image" src="https://github.com/user-attachments/assets/270b4d4d-25bb-41b3-826f-47264dcff533" />
+
 ## Classes & OOP Basics
 
 | Concept       | Purpose                           | Keyword/Usage         |
@@ -717,8 +840,6 @@ https://javascript.info/promise-basics
 | Get/Set       | Controlled property access        | `get`, `set`          |
 | Private Field | Hidden internal data              | `#field`              |
 
-
-
 ---
 
 https://www.w3schools.com/nodejs/default.asp
@@ -731,7 +852,7 @@ https://www.w3schools.com/nodejs/default.asp
 - IoT and hardware control
 
 
-
+https://medium.com/free-code-camp/bet-you-cant-solve-this-google-interview-question-4a6e5a4dc8ee
 
 
 
