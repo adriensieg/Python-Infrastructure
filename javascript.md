@@ -30,6 +30,7 @@
 - Callback functions
 - Scope and closures
 - Immediately Invoked Function Expressions (IIFE)
+- Higher-Order Functions
 
 ## [Data Structures](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#data-structures-1)
 - **Arrays**: CRUD operations, iterating, sorting, destructuring
@@ -96,6 +97,16 @@
   - Worker Execution Model
   - `postMessage()`, `MessagePorts` and MessageChannels
   - Cross-Origin Messaging with `postMessage()`
+
+## Class & OOP Basics
+- Class Basics
+- Constructor
+- Methods
+- `this` Keyword
+- Inheritance (`extends` and `super`)
+- Static Methods
+- Getters and Setters
+- Private Fields (`#field`)
 
 ## Node.js
 - CommonJS modules (require, module.exports)
@@ -447,6 +458,11 @@ counter(); // 2
 
 ## Immediately Invoked Function Expressions (IIFE)
 
+## Higher Order functions
+https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained/
+
+A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.
+
 ## Arrays
 
 **Arrays**: A collection of elements, accessible by index.
@@ -688,6 +704,18 @@ To get some relief, you promise to send it to them when it’s published. You gi
 Everyone is happy: you, because the people don’t crowd you anymore, and fans, because they won’t miss the song.
 https://javascript.info/promise-basics
 
+## Classes & OOP Basics
+
+| Concept       | Purpose                           | Keyword/Usage         |
+| ------------- | --------------------------------- | --------------------- |
+| Class         | Object blueprint                  | `class`               |
+| Constructor   | Initialization logic              | `constructor()`       |
+| Method        | Behavior of objects               | Function inside class |
+| `this`        | Reference to current object       | `this.prop`           |
+| Inheritance   | Extend other classes              | `extends`, `super()`  |
+| Static Method | Utility functions on class itself | `static method()`     |
+| Get/Set       | Controlled property access        | `get`, `set`          |
+| Private Field | Hidden internal data              | `#field`              |
 
 
 
