@@ -1,6 +1,6 @@
 # Basic of Javascript
 
-## [Syntax](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#functions-1)
+## [Syntax](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#syntax-1)
 - **Variables**:`let`, `const`, `var` (scoping differences)
 - **Data types**: Number, String, Boolean, Null, Undefined, Symbol, BigInt
 - **Type coercion** and **equality**: `==` vs `===`
