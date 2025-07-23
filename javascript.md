@@ -563,6 +563,74 @@ https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained
 
 A **higher order function** is a function that takes **one** or **more functions as arguments**, or **returns a function as its result**.
 
+## Currying
+https://www.geeksforgeeks.org/python/currying-function-in-python/
+
+
+**Currying** is a functional programming technique where **a function with multiple arguments** is **transformed into a sequence of functions**, each taking **a single argument**.
+
+#### Mathematical Illustration
+- In **currying**, a function that **takes multiple inputs** is broken down into **a series of single-argument functions**, each **processing one input at a time** and ultimately returning the final result. For example:
+
+$f(x, y) = x^3 + y^3$  
+$h(x) = x^3$  
+$h(y) = y^3$  
+$f(x, y) = h(x) + h(y)$
+
+Let’s create a composite function where $a(x) = b(c(d(x)))$, meaning that 
+- function $d(x)$ is executed first,
+- its output is passed to $c(x)$ and
+- finally, $b(x)$ processes the result.
+
+``` python
+def change(b, c, d):
+    def a(x):
+        return b(c(d(x)))
+    return a
+
+def km_to_m(dist):
+    """ Function that converts km to m. """
+    return dist * 1000
+
+def m_to_cm(dist):
+    """ Function that converts m to cm. """
+    return dist * 100
+
+def cm_to_f(dist):
+    """ Function that converts cm to ft. """
+    return dist / 30.48
+
+transform = change(cm_to_f, m_to_cm, km_to_m)
+print(transform(565))
+```
+
+A Coffee Order Function
+- Imagine you're ordering coffee. The process goes like this:
+- You choose the **size** of the coffee.
+- Then you pick the **type** (like latte or espresso).
+- Finally, you decide if you want **sugar** or not.
+
+``` javascript
+// Curried function
+function orderCoffee(size) {
+  return function(type) {
+    return function(sugar) {
+      return `You ordered a ${size} ${type} with ${sugar ? 'sugar' : 'no sugar'}.`;
+    };
+  };
+}
+
+// Usage:
+const order = orderCoffee('Large')('Latte')(true);
+console.log(order);  // Output: You ordered a Large Latte with sugar.
+```
+### ES6 new norms
+``` javascript
+const sendReq = greet => name => message =>
+`${greet} ${name}, ${message}`
+sendReq('Hello')('Harry')('Can you please add me as your connection on LinkedinIn?')
+```
+
 ## Arrays
 
 **Arrays**: A collection of elements, accessible by index.
