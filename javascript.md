@@ -31,6 +31,7 @@
 - Scope and closures
 - Immediately Invoked Function Expressions (IIFE)
 - Higher-Order Functions
+- Currying
 
 ## [Data Structures](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#data-structures-1)
 - **Arrays**: CRUD operations, iterating, sorting, destructuring
@@ -557,6 +558,14 @@ double(5); // 10
 ```
 
 ## Immediately Invoked Function Expressions (IIFE)
+
+📌 A function that runs as soon as it’s defined - Like a firework — you light it (define) and it explodes (runs) instantly.
+
+``` javascript
+(function () {
+  console.log("I run immediately!");
+})();
+```
 
 ## Higher Order functions
 https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained/
