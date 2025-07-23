@@ -21,7 +21,7 @@
   - `return`,
   - and `throw`
     
-## [Functions](https://github.com/adriensieg/Python-Infrastructure/edit/master/javascript.md#functions-1)
+## [Functions](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#functions-1)
 - Function declarations
 - Function expressions
 - Arrow functions (=>)
