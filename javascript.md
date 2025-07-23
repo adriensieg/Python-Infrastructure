@@ -98,7 +98,7 @@
   - `postMessage()`, `MessagePorts` and MessageChannels
   - Cross-Origin Messaging with `postMessage()`
 
-## Class & OOP Basics
+## [Class & OOP Basics](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#classes--oop-basics)
 - Class Basics
 - Constructor
 - Methods
