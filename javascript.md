@@ -31,7 +31,7 @@
 - Scope and closures
 - Immediately Invoked Function Expressions (IIFE)
 
-## Data Structures
+## [Data Structures](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#data-structures-1)
 - **Arrays**: CRUD operations, iterating, sorting, destructuring
 - **Objects**: Key-value pairs, accessing, updating, deleting
 - **Shorthand notation**
@@ -71,7 +71,6 @@
   - Task queue / Callback queue
   - Events, timers, user interactions
   - Call stack
-
 
 ## DOM Manipulation (Minimal - for Node focus)
 - `document.querySelector`, `getElementById`, etc.
