@@ -8,7 +8,7 @@
 - **String operations**: Template literals `(${})`, string methods
 - **Comments**: `//`, `/* */`
 
-## Control Structures
+## [Control Structures](https://github.com/adriensieg/Python-Infrastructure/blob/master/javascript.md#control-structures-1)
 - **Conditionals**
   - `if`, `else`,`else if`
   - `switch` statement
@@ -152,6 +152,47 @@
 | `Error`    | Error object for exceptions          | `new Error("Oops!")`        |
 
 # Control Structures
+
+## Looping Arrays
+
+### Classic for loop
+
+``` javascript
+const arr = [1, 2, 3];
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i]);
+}
+```
+
+### `for`...`of` – Modern & clean
+
+``` javascript
+for (const item of arr) {
+  console.log(item);
+}
+```
+
+### `.forEach()` – Functional
+
+``` javascript
+arr.forEach(item => console.log(item));
+```
+
+### `.map()` – Returns transformed array
+
+const doubled = arr.map(item => item * 2);
+
+### `.filter()` – Filters values
+
+const even = arr.filter(item => item % 2 === 0);
+
+### `.reduce()` – Aggregates to single value
+
+const sum = arr.reduce((acc, val) => acc + val, 0);
+
+## Looping Objects
+
+
 
 # Functions
 
