@@ -210,9 +210,11 @@ Object.keys(obj).forEach(key => {
 ```
 
 ### `Object.entries()` + `for...of`
+``` javascript
 for (const [key, val] of Object.entries(obj)) {
   console.log(`${key}: ${val}`);
 }
+```
 
 ### Looping Maps
 ``` javascript
@@ -411,118 +413,103 @@ if (arr.length > 0) {
 ## Conditionals on Data Structures
 
 ### Array
-✅ Check if empty
-js
-Copy
-Edit
+
+```javascript
+// ✅ Check if empty
 if (arr.length === 0) { ... }
-✅ Check if includes item
-js
-Copy
-Edit
+
+// ✅ Check if includes item
 if (arr.includes('admin')) { ... }
-✅ Some / Every
-js
-Copy
-Edit
+
+// ✅ Some / Every
 if (arr.some(user => user.active)) { ... }
 if (arr.every(score => score >= 50)) { ... }
-✅ Conditional map/filter
-js
-Copy
-Edit
+
+// ✅ Conditional map/filter
 const result = isAdmin ? users.map(...) : users.filter(...);
-🔷 Object
-✅ Check property exists
-js
-Copy
-Edit
+```
+
+### Object
+``` javascript
+// ✅ Check property exists
 if ('name' in obj) { ... }
 if (obj.hasOwnProperty('name')) { ... }
-✅ Check value
-js
-Copy
-Edit
+
+// ✅ Check value
+
 if (obj.role === 'admin') { ... }
-✅ Optional chaining
-js
-Copy
-Edit
+
+// ✅ Optional chaining
+
 if (obj?.settings?.darkMode) { ... }
-✅ Check if object is empty
-js
-Copy
-Edit
+
+// ✅ Check if object is empty
 if (Object.keys(obj).length === 0) { ... }
-🔷 Map
-js
-Copy
-Edit
+```
+
+### Map
+``` javascript
 const map = new Map();
 map.set('a', 1);
 
 if (map.has('a')) {
   console.log(map.get('a'));
 }
-🔷 Set
-js
-Copy
-Edit
+```
+### Set
+``` javascript
 const set = new Set(['a', 'b']);
 
 if (set.has('a')) {
   console.log("Set contains 'a'");
 }
-🔷 String
-js
-Copy
-Edit
+```
+
+### String
+``` javascript
 if (str.includes('error')) { ... }
 if (str.startsWith('http')) { ... }
 if (str.trim() === '') { ... } // empty check
-🔷 Function Guard Clauses (Best Practice)
-Instead of:
+```
 
-js
-Copy
-Edit
+### Function Guard Clauses (Best Practice)
+Instead of:
+``` javascript
 if (user) {
   if (user.isActive) {
     doSomething();
   }
 }
+```
 ✅ Use guard clause:
-
-js
-Copy
-Edit
+``` javascript
 if (!user?.isActive) return;
 doSomething();
-🧠 BONUS: Elegant Patterns
+```
+
+### 🧠 Elegant Patterns
+
 ✅ Early Return (Avoid nesting)
-js
-Copy
-Edit
+``` javascript
 function handle(user) {
   if (!user) return;
   if (!user.active) return;
   // clean, readable
 }
+```
+
 ✅ Use ternary only for short expressions
-js
-Copy
-Edit
+``` javascript
 const status = age >= 18 ? "Adult" : "Minor"; // ✅
+``` 
 Not this:
 
-js
-Copy
-Edit
+``` javascript
 age >= 18 ? doAdultStuff() : doMinorStuff(); // ❌ too complex
+```
+
 ✅ Use switch for fixed known values
-js
-Copy
-Edit
+``` javascript
 switch (status) {
   case 'pending':
   case 'approved':
@@ -530,6 +517,7 @@ switch (status) {
     // clean branching
     break;
 }
+```
 
 
 
