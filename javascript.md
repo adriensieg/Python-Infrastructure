@@ -308,7 +308,6 @@ do {
 - ❓ Now check the condition:
 - i < 5 → is 7 < 5? ❌ False
 - Since the condition is false, the loop stops after just one run.
-  
     
 | Feature              | `while`                  | `do...while`                 |
 | -------------------- | ------------------------ | ---------------------------- |
@@ -316,6 +315,7 @@ do {
 | Guaranteed 1 run?    | ❌ No                     | ✅ Yes                        |
 | Use when...          | You only run *if needed* | You must run *at least once* |
 
+#### Summary
 
 | Structure | Preferred Loop                  | Notes                                             |
 | --------- | ------------------------------- | ------------------------------------------------- |
