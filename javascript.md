@@ -179,18 +179,368 @@ arr.forEach(item => console.log(item));
 ```
 
 ### `.map()` – Returns transformed array
-
+``` javascript
 const doubled = arr.map(item => item * 2);
-
+``` 
 ### `.filter()` – Filters values
-
+``` javascript
 const even = arr.filter(item => item % 2 === 0);
-
+``` 
 ### `.reduce()` – Aggregates to single value
-
+``` javascript
 const sum = arr.reduce((acc, val) => acc + val, 0);
+```
 
 ## Looping Objects
+
+### `for...in` – Old but works
+``` javascript
+const obj = { a: 1, b: 2 };
+for (const key in obj) {
+  if (obj.hasOwnProperty(key)) {
+    console.log(key, obj[key]);
+  }
+}
+```
+### `Object.keys()` + `forEach`
+``` javascript
+Object.keys(obj).forEach(key => {
+  console.log(key, obj[key]);
+});
+```
+
+### `Object.entries()` + `for...of`
+for (const [key, val] of Object.entries(obj)) {
+  console.log(`${key}: ${val}`);
+}
+
+### Looping Maps
+``` javascript
+const map = new Map([
+  ['a', 1],
+  ['b', 2]
+]);
+
+// Using for...of
+for (const [key, value] of map) {
+  console.log(key, value);
+}
+
+// Using forEach
+map.forEach((value, key) => {
+  console.log(key, value);
+});
+```
+
+### Looping Sets
+``` javascript
+const set = new Set([1, 2, 3]);
+
+for (const item of set) {
+  console.log(item);
+}
+
+// or
+set.forEach(item => console.log(item));
+```
+
+### Looping Strings - Strings are iterable.
+
+``` javascript
+const str = "hello";
+
+for (const char of str) {
+  console.log(char);
+}
+```
+
+### Looping NodeLists (e.g., from document.querySelectorAll)
+
+``` javascript
+const elements = document.querySelectorAll('div');
+
+// Using for...of
+for (const el of elements) {
+  console.log(el);
+}
+
+// Using forEach
+elements.forEach(el => console.log(el));
+```
+
+### Using `while` and `do...while`
+``` javascript
+let i = 0;
+
+while (i < 3) {
+  console.log(i);
+  i++;
+}
+
+do {
+  console.log(i);
+  i++;
+} while (i < 5);
+```
+
+- Use **while** when:
+  - You may want to skip the loop entirely if the condition is false.
+  - Example: Polling until a condition is met.
+    
+- Use **do...while** when:
+  - You want to run the code at least once, regardless of the condition.
+  - Example: Prompting the user until valid input is given.
+
+``` javascript
+let i = 6;
+
+do {
+  console.log(i);
+  i++;
+} while (i < 5);
+```
+ 
+- First Run (before checking condition): i = 6
+- It prints 6
+- Then i++ → i = 7
+- ❓ Now check the condition:
+- i < 5 → is 7 < 5? ❌ False
+- Since the condition is false, the loop stops after just one run.
+  
+    
+| Feature              | `while`                  | `do...while`                 |
+| -------------------- | ------------------------ | ---------------------------- |
+| Condition checked... | **before** each loop run | **after** the first run      |
+| Guaranteed 1 run?    | ❌ No                     | ✅ Yes                        |
+| Use when...          | You only run *if needed* | You must run *at least once* |
+
+
+| Structure | Preferred Loop                  | Notes                                             |
+| --------- | ------------------------------- | ------------------------------------------------- |
+| Arrays    | `for...of`, `.forEach()`        | `for...of` if using `break`, `continue`           |
+| Objects   | `Object.entries()` + `for...of` | Avoid `for...in` unless checking `hasOwnProperty` |
+| Maps      | `for...of` or `.forEach()`      | Both are clean                                    |
+| Sets      | `for...of` or `.forEach()`      | Easy and idiomatic                                |
+| Strings   | `for...of`                      | Strings are iterable                              |
+| NodeLists | `for...of` or `.forEach()`      | Modern browsers support both                      |
+
+
+### When to Avoid Certain Loops
+- ❌ Avoid `for...in` on arrays: Iterates inherited properties, not ideal.
+- ❌ Avoid `.forEach()` if you need break/continue/return.
+- ✅ Use `for...of` for most iterable-safe, readable code.
+- ✅ Use `.map()`, `.filter()`, `.reduce()` for functional, declarative patterns.
+
+
+## Conditions
+
+### if, else if, else
+
+if (x > 10) {
+  // do something
+} else if (x > 5) {
+  // do something else
+} else {
+  // fallback
+}
+
+### Ternary Operator ? : – For simple expressions
+
+``` javascript
+const result = score > 50 ? "Pass" : "Fail";
+```
+
+### switch – For multiple fixed cases (especially strings/numbers)
+
+``` javascript
+switch (day) {
+  case 'Mon':
+    console.log("Start of week");
+    break;
+  case 'Fri':
+    console.log("Weekend coming");
+    break;
+  default:
+    console.log("Midweek");
+}
+```
+
+### Short-circuiting with && or ||
+
+``` javascript
+isLoggedIn && showDashboard(); // if true, executes
+isAdmin || showLogin();        // if false, executes
+```
+
+### Nullish Coalescing ??
+``` javascript
+const name = inputName ?? "Guest"; // if inputName is null or undefined
+```
+
+### Optional Chaining ?. with Condition
+
+if (user?.profile?.email) {
+  console.log("Email found");
+}
+
+## Common Conditional Patterns
+🔸 Check for truthy/falsy
+js
+Copy
+Edit
+if (value) { ... } // truthy values
+if (!value) { ... } // falsy: false, 0, "", null, undefined, NaN
+🔸 Check for existence
+js
+Copy
+Edit
+if (typeof obj !== 'undefined') { ... }
+🔸 Type-safe comparisons
+js
+Copy
+Edit
+if (x === 10) { ... }  // ✅ strict equality
+🔸 Check array length
+js
+Copy
+Edit
+if (arr.length > 0) {
+  console.log("Array is not empty");
+}
+
+## Conditionals on Data Structures
+
+### Array
+✅ Check if empty
+js
+Copy
+Edit
+if (arr.length === 0) { ... }
+✅ Check if includes item
+js
+Copy
+Edit
+if (arr.includes('admin')) { ... }
+✅ Some / Every
+js
+Copy
+Edit
+if (arr.some(user => user.active)) { ... }
+if (arr.every(score => score >= 50)) { ... }
+✅ Conditional map/filter
+js
+Copy
+Edit
+const result = isAdmin ? users.map(...) : users.filter(...);
+🔷 Object
+✅ Check property exists
+js
+Copy
+Edit
+if ('name' in obj) { ... }
+if (obj.hasOwnProperty('name')) { ... }
+✅ Check value
+js
+Copy
+Edit
+if (obj.role === 'admin') { ... }
+✅ Optional chaining
+js
+Copy
+Edit
+if (obj?.settings?.darkMode) { ... }
+✅ Check if object is empty
+js
+Copy
+Edit
+if (Object.keys(obj).length === 0) { ... }
+🔷 Map
+js
+Copy
+Edit
+const map = new Map();
+map.set('a', 1);
+
+if (map.has('a')) {
+  console.log(map.get('a'));
+}
+🔷 Set
+js
+Copy
+Edit
+const set = new Set(['a', 'b']);
+
+if (set.has('a')) {
+  console.log("Set contains 'a'");
+}
+🔷 String
+js
+Copy
+Edit
+if (str.includes('error')) { ... }
+if (str.startsWith('http')) { ... }
+if (str.trim() === '') { ... } // empty check
+🔷 Function Guard Clauses (Best Practice)
+Instead of:
+
+js
+Copy
+Edit
+if (user) {
+  if (user.isActive) {
+    doSomething();
+  }
+}
+✅ Use guard clause:
+
+js
+Copy
+Edit
+if (!user?.isActive) return;
+doSomething();
+🧠 BONUS: Elegant Patterns
+✅ Early Return (Avoid nesting)
+js
+Copy
+Edit
+function handle(user) {
+  if (!user) return;
+  if (!user.active) return;
+  // clean, readable
+}
+✅ Use ternary only for short expressions
+js
+Copy
+Edit
+const status = age >= 18 ? "Adult" : "Minor"; // ✅
+Not this:
+
+js
+Copy
+Edit
+age >= 18 ? doAdultStuff() : doMinorStuff(); // ❌ too complex
+✅ Use switch for fixed known values
+js
+Copy
+Edit
+switch (status) {
+  case 'pending':
+  case 'approved':
+  case 'denied':
+    // clean branching
+    break;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
