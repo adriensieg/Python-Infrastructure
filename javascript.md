@@ -931,6 +931,40 @@ https://www.w3schools.com/nodejs/default.asp
 
 https://medium.com/free-code-camp/bet-you-cant-solve-this-google-interview-question-4a6e5a4dc8ee
 
+## Asynchronous
+https://www.youtube.com/watch?v=eiC58R16hb8
+- Javascript Engine: Heap, Call Stack
+- Web API: fetch, setTimeout, URL, localstorage, sessionstorage, HTMLDivElement, document, IndexDB, XMLhttpRequest
+- Event Loop
+- Task Queue
+- Microtask queue
+
+<img width="2058" height="1852" alt="image" src="https://github.com/user-attachments/assets/8c0a9049-922d-44b7-930a-0bf7fe4c772a" />
+
+
+- Class Fields
+- Class Inheritance Deep Dive
+- Method Overriding
+- Instance vs Static
+- Mixins (composition alternative)
+- Encapsulation via Closures
+- Best Practices for OOP in JS
+- Common Patterns (Factory, Singleton)
+
+```
+Class
+├── constructor()
+├── methods()
+├── static methods()
+├── private fields (#)
+├── get/set accessors
+├── inheritance (extends)
+│   └── super()
+├── mixins (function-based)
+├── closure-based encapsulation
+└── patterns (factory, singleton)
+```
+
 
 
 
