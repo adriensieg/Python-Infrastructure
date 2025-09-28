@@ -1,3 +1,11 @@
+- OAuth using OIDC Authentication with PKCE for a Public and Private Client in 
+- SAML flow
+- CIBA flow for headless Agents
+- WIF cross-cloud resources
+- WIF with Raspberry Pi Edge Devices and Google Cloud Platform
+- Kubernetes - IAMRSA; secure Kubernetes cluster
+- Payment flow
+
 # Workload Identity Federation
 
 - https://mjendza.net/post/workload-identity-federation/
