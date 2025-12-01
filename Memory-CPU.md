@@ -1,8 +1,14 @@
 # Make Your Python Use Less Memory and More CPU — Practical Rules, Decision Tree, and Ready-to-run Snippets
 
-- **Process**: a running program with its own private address space (heap, code, page tables).
-- **Thread**: a unit of execution inside a process. Threads share the process heap but have their own stack and registers.
 - **Core / CPU core**: a hardware unit that executes instructions. Multiple cores = true physical parallelism.
+
+- **Process**: a running program with its **own private address space (heap, code, page tables)**.
+A process is an **independent program in execution**. It has its **own memory space**, **file descriptors**, and **system resources**, *isolated from other processes*. For instance, when you open a browser or a terminal, you’re launching **a new process**. The operating system manages processes and does **not share memory space** unless explicitly configured to do so.
+
+- **Thread**: the smallest **unit of execution inside a process**. Threads **share the process heap** but have their **own stack** and **registers**.
+**Multiple threads** can exist within the **same process**, **running concurrently** and **sharing the same memory space**. This shared environment allows for **faster communication between threads** but also opens the door to **race conditions** and **synchronization issues** if not managed properly.
+Conceptually, you can think of a thread as a **lightweight process** — an **independent stream of execution** with its own program counter, registers, and stack, but sharing heap and global memory with other threads in the same process.
+
 - **Stack**: per-thread memory for local variables and function calls. Auto-cleared on return. Fast.
 - **Heap**: shared memory area for dynamically allocated objects (lists, dicts, objects). Longer-lived.
 - **Heap** vs **Stack** summary: stack = small, fast, per-thread; heap = shared, larger, dynamic; use locks when changing heap from multiple threads.
