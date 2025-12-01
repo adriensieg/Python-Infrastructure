@@ -9,6 +9,8 @@ A process is an **independent program in execution**. It has its **own memory sp
 **Multiple threads** can exist within the **same process**, **running concurrently** and **sharing the same memory space**. This shared environment allows for **faster communication between threads** but also opens the door to **race conditions** and **synchronization issues** if not managed properly.
 Conceptually, you can think of a thread as a **lightweight process** — an **independent stream of execution** with its own program counter, registers, and stack, but sharing heap and global memory with other threads in the same process.
 
+<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/359663bc-7b41-4d90-9217-5b2743bc2c04" />
+
 - **Stack**: per-thread memory for local variables and function calls. Auto-cleared on return. Fast.
 - **Heap**: shared memory area for dynamically allocated objects (lists, dicts, objects). Longer-lived.
 - **Heap** vs **Stack** summary: stack = small, fast, per-thread; heap = shared, larger, dynamic; use locks when changing heap from multiple threads.
