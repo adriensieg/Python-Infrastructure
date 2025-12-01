@@ -20,20 +20,20 @@ Conceptually, you can think of a thread as a **lightweight process** — an **in
 
 # When to use what (decision tree)?
 1. **Is your task CPU-bound (heavy calculation) or I/O-bound (network, disk, DB)?**
-    - <mask>**CPU-bound**</mask> → use **multiprocessing** (`ProcessPoolExecutor`) or move heavy work to `C/NumPy`.
-    - <mask>**I/O-bound**</mask> → use **threads** (`ThreadPoolExecutor`) or `asyncio`.
+        - <mask>**CPU-bound**</mask> → use **multiprocessing** (`ProcessPoolExecutor`) or move heavy work to `C/NumPy`.
+        - <mask>**I/O-bound**</mask> → use **threads** (`ThreadPoolExecutor`) or `asyncio`.
 
 2. **Do you need many concurrent connections but little CPU per task?**
-    - Yes → prefer `asyncio` (low memory, many connections) or a small thread pool if code is synchronous.
+        - Yes → prefer `asyncio` (low memory, many connections) or a small thread pool if code is synchronous.
 
 3. **Do threads need to share complex Python objects and mutate them?**
-    - **Yes** → use `Queue` for safe data passing or protect with Lock / RLock. Avoid manual shared state when possible.
+        - **Yes** → use `Queue` for safe data passing or protect with Lock / RLock. Avoid manual shared state when possible.
 
 4. Do you need true parallelism on many cores and can accept higher memory use?
-    - **Yes** → use **multiprocessing** or run **multiple worker processes** (e.g., microservices, uWSGI/ Gunicorn workers).
+        - **Yes** → use **multiprocessing** or run **multiple worker processes** (e.g., microservices, uWSGI/ Gunicorn workers).
 
 5. **Are you memory constrained?**
-    - Use **generators**, avoid large in-memory lists, use compact containers (array, numpy, deque), and profile (tracemalloc).
+        - Use **generators**, avoid large in-memory lists, use compact containers (array, numpy, deque), and profile (tracemalloc).
 
 # Quick pragmatic rules (takeaways)
 
